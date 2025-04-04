@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %{
 /* Declarations section */
 #include <stdio.h>
@@ -26,3 +27,8 @@ void showToken(char * name) {
     printf("The lexeme is %s\n", yytext);
     printf("Its length is %d\n", yyleng);
 }
+=======
+%(
+    HELLO WORLD
+)%
+>>>>>>> upstream/main
