@@ -1,4 +1,3 @@
 # Compilation01
 
-
-bbbb
+bbb
