@@ -21,25 +21,25 @@ whitespace              [\t\n ]
 
 %%
 
-void                    return tokentype::VOID;
-int                     return tokentype::INT;
-byte                    return tokentype::BYTE;
-bool                    return tokentype::BOOL;
-and                     return tokentype::AND;
-or                      return tokentype::OR;
-not                     return tokentype::NOT;
-true                    return tokentype::TRUE;
-false                   return tokentype::FALSE;
-return                  return tokentype::RETURN;
-if                      return tokentype::IF;
-else                    return tokentype::ELSE;
-while                   return tokentype::WHILE;
-break                   return tokentype::BREAK;
-continue                return tokentype::CONTINUE;
-;                       return tokentype::SC;
-,                       return tokentype::COMMA;
-\(                      return tokentype::LPAREN;
-\)                      return tokentype::RPAREN;
+void                                return tokentype::VOID;
+int                                 return tokentype::INT;
+byte                                return tokentype::BYTE;
+bool                                return tokentype::BOOL;
+and                                 return tokentype::AND;
+or                                  return tokentype::OR;
+not                                 return tokentype::NOT;
+true                                return tokentype::TRUE;
+false                               return tokentype::FALSE;
+return                              return tokentype::RETURN;
+if                                  return tokentype::IF;
+else                                return tokentype::ELSE;
+while                               return tokentype::WHILE;
+break                               return tokentype::BREAK;
+continue                            return tokentype::CONTINUE;
+;                                   return tokentype::SC;
+,                                   return tokentype::COMMA;
+\(                                  return tokentype::LPAREN;
+\)                                  return tokentype::RPAREN;
 \{                                  return tokentype::LBRACE;
 \}                                  return tokentype::RBRACE;
 \[                                  return tokentype::LBRACK;
