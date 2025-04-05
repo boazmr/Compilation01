@@ -8,16 +8,16 @@
 %option noyywrap
 
 digit                   [0-9]
+char                    [a-zA-Z]
 
 non_zero_digit          [1-9]
 relations               ==|!=|<=|>=|<|>
 binary                  \+|\-|\*|\/
-comment                 1
-id                    1
 num                 1
 string              1
 
-%x COMMENT
+%x COMMENT_MODE
+%x STRING_MODE
 
 %%
 
@@ -47,10 +47,11 @@ continue                return tokentype::CONTINUE;
 =                       return tokentype::ASSIGN;
 {relations}             return tokentype::RELOP;
 {binary}                return tokentype::BINOP;
-\/\/                    BEGIN(COMMENT);
-<COMMENT>               ;
-{id}                    return tokentype::ID;
-{num}                   return tokentype::NUM;
+\/\/                    BEGIN(COMMENT_MODE);
+<COMMENT_MODE>[\n|\r|\r\n]*  BEGIN(INITIAL);
+<COMMENT_MODE>.         ;
+{char}[{char}{digit}]*  return tokentype::ID;
+{non_zero_digit}{digit}*                   return tokentype::NUM;
 {string}                return tokentype::STRING;
 
 %%
