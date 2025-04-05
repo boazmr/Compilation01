@@ -13,7 +13,6 @@ char                    [a-zA-Z]
 non_zero_digit          [1-9]
 relations               ==|!=|<=|>=|<|>
 binary                  \+|\-|\*|\/
-num                 1
 string              1
 
 %x COMMENT_MODE
