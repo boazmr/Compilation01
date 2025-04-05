@@ -57,14 +57,18 @@ int main()
                                     output::errorUndefinedEscape(non_valid_hex);
                                     return 0;
                                 }
-                                hexBuffer += yytext[i+1];
-                                hexBuffer += yytext[i+2];
+
+                                // Check for validity of the hexa values.
                                 if(!isHex(yytext[i+1]) || !isHex(yytext[i+2])){
                                     validHex = false;
                                 }
                                 else{
+                                    // Values are valid hexa values.
+                                    hexBuffer += yytext[i+1];
+                                    hexBuffer += yytext[i+2];
                                     hexVal = std::stoi(hexBuffer, nullptr, 16);
                                 }
+                                // Check if the hexa value of both numbers together is a "printable character".
                                 if(!validHex || (hexVal < 0x20 && hexVal > 0x7E)){
                                     char non_valid_hex[3] = {'x', yytext[i+1], yytext[i+2]};
                                     output::errorUndefinedEscape(non_valid_hex);
