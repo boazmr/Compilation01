@@ -1,6 +1,8 @@
 #include "tokens.hpp"
 #include "output.hpp"
 
+#include <iostream>
+
 int main()
 {
     enum tokentype token;
