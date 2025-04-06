@@ -9,7 +9,6 @@
 
 digit                   [0-9]
 char                    [a-zA-Z]
-chars_and_digits        [a-zA-Z][0-9]
 
 non_zero_digit          [1-9]
 relations               ==|!=|<=|>=|<|>
@@ -47,8 +46,9 @@ continue                            return tokentype::CONTINUE;
 =                                   return tokentype::ASSIGN;
 {relations}                         return tokentype::RELOP;
 {binary}                            return tokentype::BINOP;
-\/\/                                BEGIN(COMMENT_MODE);
-<COMMENT_MODE>[\n|\r|\r\n]*         BEGIN(INITIAL);
+\/\/                                {BEGIN(COMMENT_MODE);
+                                    return tokentype::COMMENT;}
+<COMMENT_MODE>[\n|\r|\r\n]          BEGIN(INITIAL);
 <COMMENT_MODE>.                     ;
 {char}({char}|{digit})*             return tokentype::ID;
 {non_zero_digit}{digit}*|0          return tokentype::NUM;

@@ -44,7 +44,7 @@ int main()
                                 buff += '\\';
                                 break;
                         case '\"':
-                                buff += '"';
+                                buff += '\"';
                                 break;
                         case 'x':
                                 if(i + 1 == size){ // Can not read characters after the string ends
