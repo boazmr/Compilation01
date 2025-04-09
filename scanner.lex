@@ -60,7 +60,7 @@ continue    					return CONTINUE;
 {digit_no_zero}{digit}*|0       return NUM;
 
 \"({escaped_quote}|{printable_not_quote})*\"				return STRING;
-\"({escaped_quote}|{printable_not_quote})*{end_line}	      return UNCLOSED_STRING;
+\"({escaped_quote}|{printable_not_quote})*	      return UNCLOSED_STRING;
 
 
 

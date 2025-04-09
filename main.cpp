@@ -100,6 +100,9 @@ int main()
         case STRING:
             handle_string(yytext);
             break;
+        case COMMENT:
+            output::printToken(yylineno - 1, token, yytext);
+            break;
         default:
             output::printToken(yylineno, token, yytext);
             break;
