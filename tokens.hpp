@@ -1,7 +1,8 @@
 #ifndef TOKENS_HPP
 #define TOKENS_HPP
 
-enum tokentype {
+enum tokentype
+{
     VOID = 1,
     INT,
     BYTE,
@@ -32,7 +33,9 @@ enum tokentype {
     ID,
     NUM,
     NUM_B,
-    STRING
+    STRING,
+    UNKNOWN_CHAR,
+    UNCLOSED_STRING,
 };
 
 extern int yylineno;
@@ -41,4 +44,4 @@ extern int yyleng;
 
 extern int yylex();
 
-#endif //TOKENS_HPP
+#endif // TOKENS_HPP
