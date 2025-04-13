@@ -1,6 +1,7 @@
 #include "tokens.hpp"
 #include "output.hpp"
 #include <string>
+#include <stdexcept>
 
 using namespace std;
 
@@ -55,7 +56,17 @@ void handle_string(char *s)
                     std::string hexStr;
                     hexStr += lexema[i + 2];
                     hexStr += s[i + 3];
-                    char result = static_cast<char>(std::stoi(hexStr, nullptr, 16));
+                    char result;
+                    try
+                    {
+                        result = static_cast<char>(std::stoi(hexStr, nullptr, 16));
+                    }
+                    catch (const std::invalid_argument &e) // if \xqq for example
+                    {
+                        lexema[i + 4] = '\0';
+                        output::errorUndefinedEscape(&lexema[i + 1]);
+                    }
+
                     if (result >= 0x20 && result <= 0x7E)
                     {
                         buff += result;

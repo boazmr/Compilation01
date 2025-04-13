@@ -57,7 +57,9 @@ continue    					return CONTINUE;
 <COMMENT_STATE>{end_line} 		{BEGIN(INITIAL); return COMMENT;}	
 
 {letter}({letter}|{digit})*     return ID;
+{digit_no_zero}{digit}*b|0b       return NUM_B;
 {digit_no_zero}{digit}*|0       return NUM;
+
 
 \"({escaped_quote}|{printable_not_quote})*\"				return STRING;
 \"({escaped_quote}|{printable_not_quote})*	      return UNCLOSED_STRING;

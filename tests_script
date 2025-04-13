@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for i in {1..11}
+do
+    ./hw1 < tests/t$i.in >& tests/t$i.res
+    if diff_output=$(diff tests/t$i.res tests/t$i.out); then
+        echo "Test $i PASSED ✅"
+    else
+        echo "Test $i FAILED ❌"
+        echo "$diff_output"
+    fi
+    echo ""
+done
