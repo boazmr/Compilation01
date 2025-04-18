@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 %{
 /* Declarations section */
 #include <stdio.h>
