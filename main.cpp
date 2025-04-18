@@ -1,7 +1,6 @@
 #include "tokens.hpp"
 #include "output.hpp"
 #include <string>
-#include <stdexcept>
 
 using namespace std;
 
@@ -14,74 +13,78 @@ void handle_string(char *s)
     {
         if (lexema[i] == '\\')
         {
-            switch (lexema[i + 1]) // "abc\  case doesnt exist: will be catched earlier
+            if(i + 1 == len)
+            { // '\' the last charcater in the string.
+                output::errorUnclosedString();
+            }
+
+            // Check the characters after '\'
+            i++;
+            switch (lexema[i]) // "abc\  case doesnt exist: will be catched earlier
             {
             case '\\':
                 buff += '\\';
-                i++;
                 break;
             case '"':
                 buff += '"';
-                i++;
                 break;
             case 'n':
                 buff += '\n';
-                i++;
                 break;
             case 'r':
                 buff += '\r';
-                i++;
                 break;
             case 't':
                 buff += '\t';
-                i++;
                 break;
             case '0':
                 buff += '\0';
-                i++;
                 break;
             case 'x':
-                if (i + 2 == len) // no place for hex values example: "aa\x"
+                if (i + 1 == len) // no place for hex values example: "aa\x"
                 {
-                    lexema[i + 2] = '\0';
-                    output::errorUndefinedEscape(&lexema[i + 1]);
+                    char undefined_escape[1] = {'x'};
+                    output::errorUndefinedEscape(undefined_escape);
                 }
-                else if (i + 3 == len) // place for only 1 hex value, example: "aa\x2"
+                else if (i + 2 == len) // place for only 1 hex value, example: "aa\x2"
                 {
-                    lexema[i + 3] = '\0';
-                    output::errorUndefinedEscape(&lexema[i + 1]);
+                    char undefined_escape[2] = {'x' ,lexema[i + 1]};
+                    output::errorUndefinedEscape(undefined_escape);
                 }
                 else
                 {
                     std::string hexStr;
+                    // Note:
+                    // lexema[i-1] == '\'
+                    // lexema[i] == x
+                    // lexema[i+1] == first hex digit
+                    // lexema[i+2] == second hex digit
+                    hexStr += lexema[i + 1];
                     hexStr += lexema[i + 2];
-                    hexStr += s[i + 3];
                     char result;
-                    try
-                    {
+                    try{
                         result = static_cast<char>(std::stoi(hexStr, nullptr, 16));
+                    } catch (...) {
+                        // In case this function fail if the digits are not hexa digits. For example: lexema[i + 1] == 'P'
+                        char undefined_escape[3] = {'x' ,lexema[i + 1], lexema[i + 2]};
+                        output::errorUndefinedEscape(undefined_escape);
                     }
-                    catch (const std::invalid_argument &e) // if \xqq for example
-                    {
-                        lexema[i + 4] = '\0';
-                        output::errorUndefinedEscape(&lexema[i + 1]);
-                    }
-
+                    // Result is a hex value character which value is the value after \x..
                     if (result >= 0x20 && result <= 0x7E)
                     {
                         buff += result;
-                        i += 3;
+                        i += 2;
                     }
                     else
                     {
-                        lexema[i + 4] = '\0';
-                        output::errorUndefinedEscape(&lexema[i + 1]);
+                        char undefined_escape[3] = {'x', lexema[i + 1], lexema[i + 2]};
+                        output::errorUndefinedEscape(undefined_escape);
                     }
                 }
                 break;
             default: // there is \ and after this nothing familier
-                lexema[i + 2] = '\0';
-                output::errorUndefinedEscape(&lexema[i + 1]);
+                char undefined_escape[1] = {lexema[i]};
+                output::errorUndefinedEscape(undefined_escape);
                 break;
             }
         }
@@ -90,7 +93,6 @@ void handle_string(char *s)
             buff += lexema[i];
         }
     }
-    buff += '\0';
     output::printToken(yylineno, STRING, &buff[0]);
 }
 
