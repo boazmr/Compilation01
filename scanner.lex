@@ -10,7 +10,7 @@
 digit                           [0-9]
 digit_no_zero                   [1-9]
 letter                          [a-zA-Z]
-whitespace                      [\t\n ]
+whitespace                      [\r\t\n ]|\r\n
 end_line                        \n|\r|\r\n
 cmp_operator                    ==|!=|<=|>=|<|>
 binary_operator                 \+|\-|\*|\/
