@@ -73,7 +73,7 @@ void handle_string(char *s)
                         output::errorUndefinedEscape(undefined_escape);
                     }
                     // Result is a hex value character which value is the value after \x..
-                    if (result >= 0x20 && result <= 0x7E)
+                    if ((result >= 0x20 && result <= 0x7E) || result == 0x09 || result == 0x0A || result == 0x0D)
                     {
                         buff += result;
                         i += 2;
