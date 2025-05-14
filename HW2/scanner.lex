@@ -37,8 +37,18 @@ continue    					{yylval = std::shared_ptr(new ast::Continue()); return CONTINUE
 \[        		 				{/*to do*/ return LBRACK;};
 \]         						{/*to do*/ return RBRACK;};
 =           					{/*to do*/return ASSIGN;};
-==|!=|<=|>=|<|>      	        {/*to do*/ return RelOp;};
-\+|\-|\*|\/   			        {/*to do*/ return BINOP;};
+==      	                    {return EQ;};
+!=      	                    {return NE;};
+<=     	                        {return LE;};
+>=      	                    {return GE;};
+<      	                        {return LT;};
+>      	                        {return GT;};
+
+\+  			                {return BINOP_ADD;};
+\- 			                    {return BINOP_SUB;};
+\*			                    {return BINOP_MUL;};
+\/   			                {return BINOP_DIV;};
+
 
 [a-zA-Z][a-zA-Z0-9]*            {yylval = std::shared_ptr(new ast::ID(yytext)); return ID;};
 0 | [1-9][0-9]*                 {yylval = std::shared_ptr(new ast::Num(yytext)); return NUM;};
