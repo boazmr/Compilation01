@@ -41,8 +41,19 @@ using namespace std;
 %token LBRACK
 %token RBRACK
 %token ASSIGN
-%token RELOP
-%token BINOP
+
+%token RelOp_Equal
+%token RelOp_Not_Equal
+%token RelOp_Greather_Equal
+%token RelOp_Less_Equal
+%token RelOp_Greather
+%token RelOp_Less
+
+%left BINOP_PLUS
+%left BINOP_MINUS
+%left BINOP_DIV
+%left BINOP_MUL
+
 %token ID
 %token NUM
 %token NUM_B
@@ -56,65 +67,75 @@ using namespace std;
 // While reducing the start variable, set the root of the AST
 Program: Funcs                { program = $1; };
 
-Funcs: FuncDecl Funcs         { }
-     | /* epsilon */          { };
+Funcs: FuncDecl Funcs         {$$ = $2; $$->push_front($1);}
+     | /* epsilon */          {$$ = std::shared_ptr(new ast::Funcs())};
 
-FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE { };
+FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE {$$ = std::shared_ptr(new FuncDecl($2, $1, $4, $7))};
 
-RetType: Type                 { }
-       | VOID                 { };
-
-Formals: /* epsilon */        { }
+RetType: Type                 {$$ = $1}
+       | VOID                 {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::STRING));}
+Formals: /* epsilon */        {$$ = std::shared_ptr(new ast::Formals())}
        | FormalsList          { };
 
-FormalsList: FormalDecl       { }
-           | FormalDecl COMMA FormalsList { };
+FormalsList: FormalDecl       {$$ = std::shared_ptr(new ast::Formals($1))}
+           | FormalDecl COMMA FormalsList {$$ = $3;
+                                           $$->push_front($1);};
 
-FormalDecl: Type ID           { };
+FormalDecl: Type ID           {$$ = std::shared_ptr(new ast::Formal($2,$1))};
 
-Statements: Statement         { }
-          | Statements Statement { };
+Statements: Statement            {$$ = std::shared_ptr(new ast::Statements($1));}
+          | Statements Statement {$$ = $1;
+                                  $$->push_back($2);};
 
-Statement: LBRACE Statements RBRACE                       { }
-         | Type ID SC                                     { }
-         | Type ID ASSIGN Exp SC                          { }
-         | ID ASSIGN Exp SC                               { }
-         | ID LBRACK Exp RBRACK ASSIGN Exp SC             { }
-         | Type ID LBRACK Exp RBRACK SC                   { }
-         | Call SC                                        { }
-         | RETURN SC                                      { }
-         | RETURN Exp SC                                  { }
-         | IF LPAREN Exp RPAREN Statement                 { }
-         | IF LPAREN Exp RPAREN Statement ELSE Statement  { }
-         | WHILE LPAREN Exp RPAREN Statement              { }
-         | BREAK SC                                       { }
-         | CONTINUE SC                                    { };
+Statement: LBRACE Statements RBRACE                       {$$ = $1;}
+         | Type ID SC                                     {$$ = std::shared_ptr(new ast::VarDecl($2, $1));}
+         | Type ID ASSIGN Exp SC                          {$$ = std::shared_ptr(new ast::VarDecl($2, $1, $4));}
+         | ID ASSIGN Exp SC                               {$$ = std::shared_ptr(new ast::Assign($1, $3));}
+         | ID LBRACK Exp RBRACK ASSIGN Exp SC             {$$ = std::shared_ptr(new ast::ArrayAssign($1,$3, $6));}
+         | Type ID LBRACK Exp RBRACK SC                   {$$ = std::shared_ptr(new ast::ArrayType($1->type,$4));}
+         | Call SC                                        {$$ = $1}
+         | RETURN SC                                      {$$ = std::shared_ptr(new ast::Return());}
+         | RETURN Exp SC                                  {$$ = std::shared_ptr(new ast::Return($2));}
+         | IF LPAREN Exp RPAREN Statement                 {$$ = std::shared_ptr(new ast::If($3, $5));}
+         | IF LPAREN Exp RPAREN Statement ELSE Statement  {$$ = std::shared_ptr(new ast::If($3, $5, $7));}
+         | WHILE LPAREN Exp RPAREN Statement              {$$ = std::shared_ptr(new ast::While($3, $5));}
+         | BREAK SC                                       {$$ = std::shared_ptr(new ast::Break());}
+         | CONTINUE SC                                    {$$ = std::shared_ptr(new ast::Continue());};
 
-Call: ID LPAREN ExpList RPAREN    { }
-    | ID LPAREN RPAREN            { };
+Call: ID LPAREN ExpList RPAREN    {$$ = std::shared_ptr(new ast::Call($1, $3));}
+    | ID LPAREN RPAREN            {$$ = std_shared_ptr(new ast::Call($1))};
 
-ExpList: Exp                      { }
-       | Exp COMMA ExpList        { };
+ExpList: Exp                      {$$ = std::shared_ptr(new ast::ExpList($1));}
+       | Exp COMMA ExpList        {$$ = $3;
+                                   $$->push_front($1);};
 
-Type: INT                         { }
-    | BYTE                        { }
-    | BOOL                        { };
+Type: INT                         {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::INT));}
+    | BYTE                        {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::BYTE));}
+    | BOOL                        {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::BOOL));};
 
-Exp: LPAREN Exp RPAREN                          { }
-   | ID LBRACK Exp RBRACK                       { }
-   | Exp BINOP Exp                              { }
-   | ID                                         { }
-   | Call                                       { }
-   | NUM                                        { }
-   | NUM_B                                      { }
-   | STRING                                     { }
-   | TRUE                                       { }
-   | FALSE                                      { }
-   | NOT Exp                                    { }
-   | Exp AND Exp                                { }
-   | Exp OR Exp                                 { }
-   | Exp RELOP Exp                              { }
-   | LPAREN Type RPAREN Exp                     { };
+Exp: LPAREN Exp RPAREN                          {$$ = $1;}
+   | ID LBRACK Exp RBRACK                       {$$ = std::shared_ptr(new ast::ArrayDereference($1, $3));}
+   | Exp BINOP_ADD Exp                          {$$ = std::shared_ptr(new ast::BinOp($1, $3, ast::BinOpType::ADD));}
+   | Exp BINOP_SUB Exp                          {$$ = std::shared_ptr(new ast::BinOp($1, $3, ast::BinOpType::SUB));}
+   | Exp BINOP_MUL Exp                          {$$ = std::shared_ptr(new ast::BinOp($1, $3, ast::BinOpType::MUL));}
+   | Exp BINOP_DIV Exp                          {$$ = std::shared_ptr(new ast::BinOp($1, $3, ast::BinOpType::DIV));}
+   | ID                                         {$$ = $1;}
+   | Call                                       {$$ = $1;}
+   | NUM                                        {$$ = $1;}
+   | NUM_B                                      {$$ = $1;}
+   | STRING                                     {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::STRING));}
+   | TRUE                                       {$$ = $1;}
+   | FALSE                                      {$$ = $1;}
+   | NOT Exp                                    {$$ = std::shared_ptr(new ast::Not($2));}
+   | Exp AND Exp                                {$$ = std::shared_ptr(new ast::And($1, $3));}
+   | Exp OR Exp                                 {$$ = std::shared_ptr(new ast::($1, $3));}
+   | Exp RelOp_EQ Exp                           {$$ = std::shared_ptr(new ast::RelOp($1, $3, ast::RelOpType::EQ));}
+   | Exp RelOp_NE Exp                           {$$ = std::shared_ptr(new ast::RelOp($1, $3, ast::RelOpType::NE));}
+   | Exp RelOp_LT Exp                           {$$ = std::shared_ptr(new ast::RelOp($1, $3, ast::RelOpType::LT));}
+   | Exp RelOp_GT Exp                           {$$ = std::shared_ptr(new ast::RelOp($1, $3, ast::RelOpType::GT));}
+   | Exp RelOp_LE Exp                           {$$ = std::shared_ptr(new ast::RelOp($1, $3, ast::RelOpType::LE));}
+   | Exp RelOp_GE Exp                           {$$ = std::shared_ptr(new ast::RelOp($1, $3, ast::RelOpType::GE));}
+   | LPAREN Type RPAREN Exp                     {$$ = std::shared_ptr(new ast::Cast($4, std::dynamic_pointer_cast<ast::PrimitiveType>($2)));};
 
 
 %%
