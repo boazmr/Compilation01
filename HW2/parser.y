@@ -73,7 +73,7 @@ Funcs: FuncDecl Funcs         {$$ = $2; $$->push_front($1);}
 FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE {$$ = std::shared_ptr(new FuncDecl($2, $1, $4, $7))};
 
 RetType: Type                 {$$ = $1}
-       | VOID                 {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::STRING));}
+       | VOID                 {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::VOID));}
 Formals: /* epsilon */        {$$ = std::shared_ptr(new ast::Formals())}
        | FormalsList          { };
 
@@ -91,7 +91,7 @@ Statement: LBRACE Statements RBRACE                       {$$ = $1;}
          | Type ID SC                                     {$$ = std::shared_ptr(new ast::VarDecl($2, $1));}
          | Type ID ASSIGN Exp SC                          {$$ = std::shared_ptr(new ast::VarDecl($2, $1, $4));}
          | ID ASSIGN Exp SC                               {$$ = std::shared_ptr(new ast::Assign($1, $3));}
-         | ID LBRACK Exp RBRACK ASSIGN Exp SC             {$$ = std::shared_ptr(new ast::ArrayAssign($1,$3, $6));}
+         | ID LBRACK Exp RBRACK ASSIGN Exp SC             {$$ = std::shared_ptr(new ast::ArrayAssign($1, $6, $3));}
          | Type ID LBRACK Exp RBRACK SC                   {$$ = std::shared_ptr(new ast::ArrayType($1->type,$4));}
          | Call SC                                        {$$ = $1}
          | RETURN SC                                      {$$ = std::shared_ptr(new ast::Return());}
@@ -123,7 +123,7 @@ Exp: LPAREN Exp RPAREN                          {$$ = $1;}
    | Call                                       {$$ = $1;}
    | NUM                                        {$$ = $1;}
    | NUM_B                                      {$$ = $1;}
-   | STRING                                     {$$ = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::STRING));}
+   | STRING                                     {$$ = $1;}
    | TRUE                                       {$$ = $1;}
    | FALSE                                      {$$ = $1;}
    | NOT Exp                                    {$$ = std::shared_ptr(new ast::Not($2));}
