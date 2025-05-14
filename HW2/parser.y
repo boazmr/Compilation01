@@ -21,14 +21,11 @@ using namespace std;
 %token INT
 %token BYTE
 %token BOOL
-%token AND
-%token OR
-%token NOT
 %token TRUE
 %token FALSE
 %token RETURN
 %token IF
-%token ELSE
+%right ELSE
 %token WHILE
 %token BREAK
 %token CONTINUE
@@ -42,17 +39,23 @@ using namespace std;
 %token RBRACK
 %token ASSIGN
 
-%token RelOp_Equal
-%token RelOp_Not_Equal
-%token RelOp_Greather_Equal
-%token RelOp_Less_Equal
-%token RelOp_Greather
-%token RelOp_Less
 
-%left BINOP_PLUS
-%left BINOP_MINUS
+
+%left BINOP_ADD
+%left BINOP_SUB
+%right NOT
 %left BINOP_DIV
 %left BINOP_MUL
+
+%left AND
+%left OR
+
+%left RelOp_EQ
+%left RelOp_NE
+%left RelOp_LT
+%left RelOp_GT
+%left RelOp_LE
+%left RelOp_GE
 
 %token ID
 %token NUM
