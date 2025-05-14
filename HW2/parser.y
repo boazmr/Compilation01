@@ -41,21 +41,21 @@ using namespace std;
 
 
 
-%left BINOP_ADD
-%left BINOP_SUB
+%token BINOP_ADD
+%token BINOP_SUB
 %right NOT
-%left BINOP_DIV
-%left BINOP_MUL
+%token BINOP_DIV
+%token BINOP_MUL
 
-%left AND
-%left OR
+%token AND
+%token OR
 
-%left RelOp_EQ
-%left RelOp_NE
-%left RelOp_LT
-%left RelOp_GT
-%left RelOp_LE
-%left RelOp_GE
+%token RelOp_EQ
+%token RelOp_NE
+%token RelOp_LT
+%token RelOp_GT
+%token RelOp_LE
+%token RelOp_GE
 
 %token ID
 %token NUM
