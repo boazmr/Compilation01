@@ -52,7 +52,7 @@ continue    					{yylval = std::shared_ptr(new ast::Continue()); return CONTINUE
 
 [a-zA-Z][a-zA-Z0-9]*            {yylval = std::shared_ptr(new ast::ID(yytext)); return ID;};
 0 | [1-9][0-9]*                 {yylval = std::shared_ptr(new ast::Num(yytext)); return NUM;};
-0b | [1-9][0-9]*b               {yylval = std::shared_ptr(new ast::NumB(yytext) ;return NUM_B;};
+0b | [1-9][0-9]*b               {yylval = std::shared_ptr(new ast::NumB(yytext)) ;return NUM_B;};
 
 \"([^\n\r\"\\]|\\[rnt"\\])+\"	{yylval = std::shared_ptr(new ast::String(yytext)); return STRING;};
 
