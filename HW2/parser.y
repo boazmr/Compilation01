@@ -39,8 +39,6 @@ using namespace std;
 %token RBRACK
 %token ASSIGN
 
-
-
 %token BINOP_ADD
 %token BINOP_SUB
 %right NOT
