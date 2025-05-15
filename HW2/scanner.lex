@@ -39,9 +39,9 @@ continue    					{yylval = std::shared_ptr(new ast::Continue()); return CONTINUE
 =           					{return ASSIGN;};
 ==      	                    {return EQ;};
 !=      	                    {return NE;};
-<=     	                        {return LE;};
+\<=     	                    {return LE;};
 >=      	                    {return GE;};
-<      	                        {return LT;};
+\<      	                        {return LT;};
 >      	                        {return GT;};
 
 \+  			                {return BINOP_ADD;};
