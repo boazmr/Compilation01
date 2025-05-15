@@ -1267,7 +1267,7 @@ yyreduce:
 
   case 4: /* Funcs: %empty  */
 #line 73 "parser.y"
-                              {yyval = std::shared_ptr(new ast::Funcs())}
+                              {yyval = std::shared_ptr(new ast::Funcs());}
 #line 1272 "parser.tab.c"
     break;
 

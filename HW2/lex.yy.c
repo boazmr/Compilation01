@@ -829,22 +829,22 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 16 "scanner.lex"
-{yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::VOID)); return VOID;};
+{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::VOID); return VOID;};
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 17 "scanner.lex"
-{yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::INT)); return INT;};
+{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::INT); return INT;};
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 18 "scanner.lex"
-{yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::BYTE)); return BYTE;};
+{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BYTE); return BYTE;};
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 19 "scanner.lex"
-{yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::BOOL)); return BOOL;};
+{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BOOL); return BOOL;};
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -864,12 +864,12 @@ YY_RULE_SETUP
 case 8:
 YY_RULE_SETUP
 #line 23 "scanner.lex"
-{yylval = std::shared_ptr(new ast::Bool(true)); return TRUE;};
+{yylval = std::make_shared<ast::Bool>(true); return TRUE;};
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 24 "scanner.lex"
-{yylval = std::shared_ptr(new ast::Bool(false)); return FALSE;};
+{yylval = std::make_shared<ast::Bool>(false); return FALSE;};
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
@@ -894,12 +894,12 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 29 "scanner.lex"
-{yylval = std::shared_ptr(new ast::Break()); return BREAK;};
+{yylval = std::make_shared<ast::Break>(); return BREAK;};
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 30 "scanner.lex"
-{yylval = std::shared_ptr(new ast::Continue()); return CONTINUE;};
+{yylval = std::make_shared<ast::Continue>(); return CONTINUE;};
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
@@ -949,32 +949,32 @@ YY_RULE_SETUP
 case 25:
 YY_RULE_SETUP
 #line 40 "scanner.lex"
-{return EQ;};
+{return ast::RelOpType::EQ;};
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 41 "scanner.lex"
-{return NE;};
+{return ast::RelOpType::NE;};
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 42 "scanner.lex"
-{return LE;};
+{return ast::RelOpType::LE;};
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 43 "scanner.lex"
-{return GE;};
+{return ast::RelOpType::GE;};
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 44 "scanner.lex"
-{return LT;};
+{return ast::RelOpType::LT;};
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 45 "scanner.lex"
-{return GT;};
+{return ast::RelOpType::GT;};
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -999,7 +999,7 @@ YY_RULE_SETUP
 case 35:
 YY_RULE_SETUP
 #line 53 "scanner.lex"
-{yylval = std::shared_ptr(new ast::ID(yytext)); return ID;};
+{yylval = std::make_shared<ast::ID>(yytext); return ID;};
 	YY_BREAK
 case 36:
 #line 55 "scanner.lex"
@@ -1008,7 +1008,7 @@ case 37:
 case 38:
 YY_RULE_SETUP
 #line 57 "scanner.lex"
-{yylval = std::shared_ptr(new ast::String(yytext)); return STRING;};
+{yylval = std::make_shared<ast::String>(yytext); return STRING;};
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */

@@ -69,8 +69,8 @@ using namespace std;
 // While reducing the start variable, set the root of the AST
 Program: Funcs                { program = $1; };
 
-Funcs: FuncDecl Funcs         {$$ = $2; $$->push_front($1);}
-     | /* epsilon */          {$$ = std::shared_ptr(new ast::Funcs())};
+Funcs: FuncDecl Funcs         {$$ = $2; $$->push_front($1);};
+     | /* epsilon */          {$$ = std::shared_ptr(new ast::Funcs());};
 
 FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE {$$ = std::shared_ptr(new FuncDecl($2, $1, $4, $7))};
 
