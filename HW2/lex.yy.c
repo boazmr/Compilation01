@@ -531,8 +531,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "./scanner.lex"
-#line 2 "./scanner.lex"
+#line 1 "scanner.lex"
+#line 2 "scanner.lex"
 /* Declarations section */
 #include <stdio.h>
 #include "output.hpp"
@@ -756,7 +756,7 @@ YY_DECL
 		}
 
 	{
-#line 14 "./scanner.lex"
+#line 14 "scanner.lex"
 
 
 #line 763 "lex.yy.c"
@@ -828,200 +828,200 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "./scanner.lex"
+#line 16 "scanner.lex"
 {yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::VOID)); return VOID;};
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 "./scanner.lex"
+#line 17 "scanner.lex"
 {yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::INT)); return INT;};
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "./scanner.lex"
+#line 18 "scanner.lex"
 {yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::BYTE)); return BYTE;};
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 "./scanner.lex"
+#line 19 "scanner.lex"
 {yylval = std::shared_ptr(new ast::PrimitiveType(ast::BuiltInType::BOOL)); return BOOL;};
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "./scanner.lex"
+#line 20 "scanner.lex"
 {return AND;};
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 "./scanner.lex"
+#line 21 "scanner.lex"
 {return OR;};
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "./scanner.lex"
+#line 22 "scanner.lex"
 {return NOT;};
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 "./scanner.lex"
+#line 23 "scanner.lex"
 {yylval = std::shared_ptr(new ast::Bool(true)); return TRUE;};
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 "./scanner.lex"
+#line 24 "scanner.lex"
 {yylval = std::shared_ptr(new ast::Bool(false)); return FALSE;};
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 "./scanner.lex"
+#line 25 "scanner.lex"
 {return RETURN;};
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "./scanner.lex"
+#line 26 "scanner.lex"
 {return IF;};
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "./scanner.lex"
+#line 27 "scanner.lex"
 {return ELSE;};
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "./scanner.lex"
+#line 28 "scanner.lex"
 {return WHILE;};
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 29 "./scanner.lex"
+#line 29 "scanner.lex"
 {yylval = std::shared_ptr(new ast::Break()); return BREAK;};
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 30 "./scanner.lex"
+#line 30 "scanner.lex"
 {yylval = std::shared_ptr(new ast::Continue()); return CONTINUE;};
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 31 "./scanner.lex"
+#line 31 "scanner.lex"
 {return SC;};
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "./scanner.lex"
+#line 32 "scanner.lex"
 {return COMMA;};
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 33 "./scanner.lex"
+#line 33 "scanner.lex"
 {return LPAREN;};
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 34 "./scanner.lex"
+#line 34 "scanner.lex"
 {return RPAREN;};
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 35 "./scanner.lex"
+#line 35 "scanner.lex"
 {return LBRACE;};
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 36 "./scanner.lex"
+#line 36 "scanner.lex"
 {return RBRACE;};
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 37 "./scanner.lex"
+#line 37 "scanner.lex"
 {return LBRACK;};
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 38 "./scanner.lex"
+#line 38 "scanner.lex"
 {return RBRACK;};
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 39 "./scanner.lex"
+#line 39 "scanner.lex"
 {return ASSIGN;};
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 40 "./scanner.lex"
+#line 40 "scanner.lex"
 {return EQ;};
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 41 "./scanner.lex"
+#line 41 "scanner.lex"
 {return NE;};
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 42 "./scanner.lex"
+#line 42 "scanner.lex"
 {return LE;};
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 43 "./scanner.lex"
+#line 43 "scanner.lex"
 {return GE;};
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 44 "./scanner.lex"
+#line 44 "scanner.lex"
 {return LT;};
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 45 "./scanner.lex"
+#line 45 "scanner.lex"
 {return GT;};
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 47 "./scanner.lex"
+#line 47 "scanner.lex"
 {return BINOP_ADD;};
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 48 "./scanner.lex"
+#line 48 "scanner.lex"
 {return BINOP_SUB;};
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 49 "./scanner.lex"
+#line 49 "scanner.lex"
 {return BINOP_MUL;};
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 50 "./scanner.lex"
+#line 50 "scanner.lex"
 {return BINOP_DIV;};
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 53 "./scanner.lex"
+#line 53 "scanner.lex"
 {yylval = std::shared_ptr(new ast::ID(yytext)); return ID;};
 	YY_BREAK
 case 36:
-#line 55 "./scanner.lex"
+#line 55 "scanner.lex"
 case 37:
-#line 56 "./scanner.lex"
+#line 56 "scanner.lex"
 case 38:
 YY_RULE_SETUP
-#line 57 "./scanner.lex"
+#line 57 "scanner.lex"
 {yylval = std::shared_ptr(new ast::String(yytext)); return STRING;};
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */
-#line 62 "./scanner.lex"
+#line 62 "scanner.lex"
 case 40:
 /* rule 40 can match eol */
 YY_RULE_SETUP
-#line 64 "./scanner.lex"
+#line 64 "scanner.lex"
 {output::errorLex(yylineno);};
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 67 "./scanner.lex"
+#line 67 "scanner.lex"
 ECHO;
 	YY_BREAK
 #line 1028 "lex.yy.c"
@@ -2041,5 +2041,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 67 "./scanner.lex"
+#line 67 "scanner.lex"
 

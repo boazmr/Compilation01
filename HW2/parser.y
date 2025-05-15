@@ -30,35 +30,36 @@ using namespace std;
 %token BREAK
 %token CONTINUE
 %token SC
-%token COMMA
-%token LPAREN
-%token RPAREN
-%token LBRACE
-%token RBRACE
-%token LBRACK
-%token RBRACK
-%token ASSIGN
-
-%token BINOP_ADD
-%token BINOP_SUB
-%right NOT
-%token BINOP_DIV
-%token BINOP_MUL
-
-%token AND
-%token OR
-
-%token RelOp_EQ
-%token RelOp_NE
-%token RelOp_LT
-%token RelOp_GT
-%token RelOp_LE
-%token RelOp_GE
+%left COMMA
+%left LPAREN
+%left RPAREN
+%left LBRACE
+%left RBRACE
+%left LBRACK
+%left RBRACK
+%right ASSIGN
 
 %token ID
 %token NUM
 %token NUM_B
 %token STRING;
+
+%right BINOP_ADD
+%right BINOP_SUB
+%left BINOP_DIV
+%left BINOP_MUL
+
+%right NOT
+%left AND
+%left OR
+
+%left RelOp_EQ
+%left RelOp_NE
+%left RelOp_LT
+%left RelOp_GT
+%left RelOp_LE
+%left RelOp_GE
+
 
 
 // TODO: Define precedence and associativity here

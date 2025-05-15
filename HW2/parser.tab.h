@@ -75,23 +75,23 @@ extern int yydebug;
     LBRACK = 276,                  /* LBRACK  */
     RBRACK = 277,                  /* RBRACK  */
     ASSIGN = 278,                  /* ASSIGN  */
-    BINOP_ADD = 279,               /* BINOP_ADD  */
-    BINOP_SUB = 280,               /* BINOP_SUB  */
-    NOT = 281,                     /* NOT  */
-    BINOP_DIV = 282,               /* BINOP_DIV  */
-    BINOP_MUL = 283,               /* BINOP_MUL  */
-    AND = 284,                     /* AND  */
-    OR = 285,                      /* OR  */
-    RelOp_EQ = 286,                /* RelOp_EQ  */
-    RelOp_NE = 287,                /* RelOp_NE  */
-    RelOp_LT = 288,                /* RelOp_LT  */
-    RelOp_GT = 289,                /* RelOp_GT  */
-    RelOp_LE = 290,                /* RelOp_LE  */
-    RelOp_GE = 291,                /* RelOp_GE  */
-    ID = 292,                      /* ID  */
-    NUM = 293,                     /* NUM  */
-    NUM_B = 294,                   /* NUM_B  */
-    STRING = 295                   /* STRING  */
+    ID = 279,                      /* ID  */
+    NUM = 280,                     /* NUM  */
+    NUM_B = 281,                   /* NUM_B  */
+    STRING = 282,                  /* STRING  */
+    BINOP_ADD = 283,               /* BINOP_ADD  */
+    BINOP_SUB = 284,               /* BINOP_SUB  */
+    BINOP_DIV = 285,               /* BINOP_DIV  */
+    BINOP_MUL = 286,               /* BINOP_MUL  */
+    NOT = 287,                     /* NOT  */
+    AND = 288,                     /* AND  */
+    OR = 289,                      /* OR  */
+    RelOp_EQ = 290,                /* RelOp_EQ  */
+    RelOp_NE = 291,                /* RelOp_NE  */
+    RelOp_LT = 292,                /* RelOp_LT  */
+    RelOp_GT = 293,                /* RelOp_GT  */
+    RelOp_LE = 294,                /* RelOp_LE  */
+    RelOp_GE = 295                 /* RelOp_GE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
