@@ -4,6 +4,11 @@
 // Extern from the bison-generated parser
 extern int yyparse();
 
+// Basic implementation of yyerror.
+ void yyerror (char const *s) {
+   fprintf (stderr, "%s\n", s);
+ }
+
 extern std::shared_ptr<ast::Node> program;
 
 int main() {
