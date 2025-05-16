@@ -61,8 +61,8 @@ extern int yydebug;
     TRUE = 262,                    /* TRUE  */
     FALSE = 263,                   /* FALSE  */
     RETURN = 264,                  /* RETURN  */
-    IF = 265,                      /* IF  */
-    ELSE = 266,                    /* ELSE  */
+    ELSE = 265,                    /* ELSE  */
+    IF = 266,                      /* IF  */
     WHILE = 267,                   /* WHILE  */
     BREAK = 268,                   /* BREAK  */
     CONTINUE = 269,                /* CONTINUE  */

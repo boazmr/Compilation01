@@ -227,24 +227,27 @@ namespace ast {
 
     class Type : virtual public Node {
         public:
-            BuiltInType type;
             Type() = default;
         };    
 
     /* Type symbol */
     class PrimitiveType : public Type {
-        public:
-            // Constructor that receives the typeSS
-            explicit PrimitiveType(BuiltInType type);
+    public:
+        // Type
+        BuiltInType type;
 
-            void accept(Visitor &visitor) override {
-                visitor.visit(*this);
-            }
+        // Constructor that receives the typeSS
+        explicit PrimitiveType(BuiltInType type);
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
     };
 
     /* Type symbol For Array*/
     class ArrayType : public Type {
         public:
+            BuiltInType type;
             std::shared_ptr<Exp> length;
             
             // Constructor that receives the type

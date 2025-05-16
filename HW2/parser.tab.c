@@ -124,8 +124,8 @@ enum yysymbol_kind_t
   YYSYMBOL_TRUE = 7,                       /* TRUE  */
   YYSYMBOL_FALSE = 8,                      /* FALSE  */
   YYSYMBOL_RETURN = 9,                     /* RETURN  */
-  YYSYMBOL_IF = 10,                        /* IF  */
-  YYSYMBOL_ELSE = 11,                      /* ELSE  */
+  YYSYMBOL_ELSE = 10,                      /* ELSE  */
+  YYSYMBOL_IF = 11,                        /* IF  */
   YYSYMBOL_WHILE = 12,                     /* WHILE  */
   YYSYMBOL_BREAK = 13,                     /* BREAK  */
   YYSYMBOL_CONTINUE = 14,                  /* CONTINUE  */
@@ -558,12 +558,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    70,    70,    72,    75,    77,    79,    80,    82,    83,
-      85,    86,    90,    92,    93,    97,    98,    99,   100,   101,
-     102,   103,   104,   105,   106,   107,   108,   109,   110,   112,
-     113,   115,   116,   120,   121,   122,   124,   125,   126,   127,
-     128,   129,   130,   131,   132,   133,   134,   135,   136,   137,
-     138,   139,   140,   141,   142,   143,   144,   145,   146
+       0,    70,    70,    72,    73,    77,    85,    86,    88,    89,
+      91,    94,    98,   104,   108,   113,   114,   118,   123,   127,
+     132,   143,   144,   145,   148,   152,   157,   161,   162,   164,
+     168,   172,   175,   180,   181,   182,   184,   185,   189,   193,
+     197,   201,   205,   206,   207,   208,   209,   210,   211,   212,
+     215,   219,   223,   227,   231,   235,   239,   243,   247
 };
 #endif
 
@@ -580,7 +580,7 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "VOID", "INT", "BYTE",
-  "BOOL", "TRUE", "FALSE", "RETURN", "IF", "ELSE", "WHILE", "BREAK",
+  "BOOL", "TRUE", "FALSE", "RETURN", "ELSE", "IF", "WHILE", "BREAK",
   "CONTINUE", "SC", "COMMA", "LPAREN", "RPAREN", "LBRACE", "RBRACE",
   "LBRACK", "RBRACK", "ASSIGN", "ID", "NUM", "NUM_B", "STRING",
   "BINOP_ADD", "BINOP_SUB", "BINOP_DIV", "BINOP_MUL", "NOT", "AND", "OR",
@@ -630,8 +630,8 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       4,     7,    33,    34,    35,     0,     2,     4,     0,     6,
-       1,     3,     0,     8,     0,     9,    10,     0,     0,     0,
+       3,     7,    33,    34,    35,     0,     2,     3,     0,     6,
+       1,     4,     0,     8,     0,     9,    10,     0,     0,     0,
       12,     0,    11,     0,     0,     0,     0,     0,     0,     0,
        0,    13,     0,     0,    47,    48,    22,     0,    42,    44,
       45,    46,     0,    43,     0,     0,     0,    27,    28,     0,
@@ -689,11 +689,11 @@ static const yytype_int8 yytable[] =
       69,    70,    71,    72,    73,     0,    62,    63,    64,    65,
      101,    66,    67,    68,    69,    70,    71,    72,    73,     0,
       62,    63,    64,    65,     0,    66,    67,    68,    69,    70,
-      71,    72,    73,     2,     3,     4,     0,     0,    23,    24,
-       0,    25,    26,    27,     0,     0,     0,     0,    28,    53,
-       2,     3,     4,    29,     0,    23,    24,     0,    25,    26,
+      71,    72,    73,     2,     3,     4,     0,     0,    23,     0,
+      24,    25,    26,    27,     0,     0,     0,     0,    28,    53,
+       2,     3,     4,    29,     0,    23,     0,    24,    25,    26,
       27,     0,     0,     0,     0,    28,    76,     2,     3,     4,
-      29,     0,    23,    24,     0,    25,    26,    27,     0,     0,
+      29,     0,    23,     0,    24,    25,    26,    27,     0,     0,
        0,     0,    28,   104,     0,     0,     0,    29,     0,    62,
       63,    64,    65,     0,    66,    67,    68,    69,    70,    71,
       72,    73,   109,    69,    70,    71,    72,    73,    62,    63,
@@ -735,11 +735,11 @@ static const yytype_int8 yycheck[] =
       36,    37,    38,    39,    40,    -1,    28,    29,    30,    31,
       18,    33,    34,    35,    36,    37,    38,    39,    40,    -1,
       28,    29,    30,    31,    -1,    33,    34,    35,    36,    37,
-      38,    39,    40,     4,     5,     6,    -1,    -1,     9,    10,
-      -1,    12,    13,    14,    -1,    -1,    -1,    -1,    19,    20,
-       4,     5,     6,    24,    -1,     9,    10,    -1,    12,    13,
+      38,    39,    40,     4,     5,     6,    -1,    -1,     9,    -1,
+      11,    12,    13,    14,    -1,    -1,    -1,    -1,    19,    20,
+       4,     5,     6,    24,    -1,     9,    -1,    11,    12,    13,
       14,    -1,    -1,    -1,    -1,    19,    20,     4,     5,     6,
-      24,    -1,     9,    10,    -1,    12,    13,    14,    -1,    -1,
+      24,    -1,     9,    -1,    11,    12,    13,    14,    -1,    -1,
       -1,    -1,    19,    22,    -1,    -1,    -1,    24,    -1,    28,
       29,    30,    31,    -1,    33,    34,    35,    36,    37,    38,
       39,    40,    22,    36,    37,    38,    39,    40,    28,    29,
@@ -759,7 +759,7 @@ static const yytype_int8 yystos[] =
 {
        0,     3,     4,     5,     6,    42,    43,    44,    45,    53,
        0,    43,    24,    17,    46,    47,    48,    53,    18,    16,
-      24,    19,    47,     9,    10,    12,    13,    14,    19,    24,
+      24,    19,    47,     9,    11,    12,    13,    14,    19,    24,
       49,    50,    51,    53,     7,     8,    15,    17,    24,    25,
       26,    27,    32,    51,    54,    17,    17,    15,    15,    49,
       17,    21,    23,    20,    50,    15,    24,    53,    54,    21,
@@ -785,7 +785,7 @@ static const yytype_int8 yyr1[] =
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     0,     8,     1,     1,     0,     1,
+       0,     2,     1,     0,     2,     8,     1,     1,     0,     1,
        1,     3,     2,     1,     2,     3,     3,     5,     4,     7,
        6,     2,     2,     3,     5,     7,     5,     2,     2,     4,
        3,     1,     3,     1,     1,     1,     3,     4,     3,     3,
@@ -1259,353 +1259,456 @@ yyreduce:
 #line 1260 "parser.tab.c"
     break;
 
-  case 3: /* Funcs: FuncDecl Funcs  */
+  case 3: /* Funcs: %empty  */
 #line 72 "parser.y"
-                              {yyval = yyvsp[0]; 
-                                   const auto const_first = std::make_shared<ast::Exp>(yyvsp[-1]);
-                                   std::dynamic_pointer_cast<ast::ExpList>(yyval)->push_front(const_first);}
-#line 1268 "parser.tab.c"
+                              {yyval = std::make_shared<ast::Funcs>();}
+#line 1266 "parser.tab.c"
     break;
 
-  case 4: /* Funcs: %empty  */
-#line 75 "parser.y"
-                              {yyval = std::make_shared<ast::Funcs>();}
+  case 4: /* Funcs: FuncDecl Funcs  */
+#line 73 "parser.y"
+                           {yyval = yyvsp[0];
+                                   const auto const_first = std::dynamic_pointer_cast<ast::FuncDecl>(yyvsp[-1]);
+                                   std::dynamic_pointer_cast<ast::Funcs>(yyval)->push_front(const_first);}
 #line 1274 "parser.tab.c"
     break;
 
   case 5: /* FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE  */
 #line 77 "parser.y"
-                                                                    { yyval = std::make_shared<ast::FuncDecl>(yyvsp[-6], yyvsp[-7], yyvsp[-4], yyvsp[-1]); }
-#line 1280 "parser.tab.c"
-    break;
-
-  case 6: /* RetType: Type  */
-#line 79 "parser.y"
-                                          { yyval = yyvsp[0]; }
+                                                                    { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-6]);
+        auto Type_ptr = std::dynamic_pointer_cast<ast::Type>(yyvsp[-7]);
+        auto Formals_ptr = std::dynamic_pointer_cast<ast::Formals>(yyvsp[-4]);
+        auto Statements_ptr = std::dynamic_pointer_cast<ast::Statements>(yyvsp[-1]);
+        yyval = std::make_shared<ast::FuncDecl>(ID_ptr, Type_ptr, Formals_ptr, Statements_ptr);
+}
 #line 1286 "parser.tab.c"
     break;
 
-  case 7: /* RetType: VOID  */
-#line 80 "parser.y"
-                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::VOID); }
+  case 6: /* RetType: Type  */
+#line 85 "parser.y"
+                                          { yyval = yyvsp[0]; }
 #line 1292 "parser.tab.c"
     break;
 
-  case 8: /* Formals: %empty  */
-#line 82 "parser.y"
-                                          { yyval = std::make_shared<ast::Formals>(); }
+  case 7: /* RetType: VOID  */
+#line 86 "parser.y"
+                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::VOID); }
 #line 1298 "parser.tab.c"
     break;
 
-  case 9: /* Formals: FormalsList  */
-#line 83 "parser.y"
-                                          { /* $$ already set by FormalsList */ }
+  case 8: /* Formals: %empty  */
+#line 88 "parser.y"
+                                          { yyval = std::make_shared<ast::Formals>(); }
 #line 1304 "parser.tab.c"
     break;
 
-  case 10: /* FormalsList: FormalDecl  */
-#line 85 "parser.y"
-                                          { yyval = std::make_shared<ast::Formals>(yyvsp[0]); }
+  case 9: /* Formals: FormalsList  */
+#line 89 "parser.y"
+                                          { yyval = yyvsp[0]; }
 #line 1310 "parser.tab.c"
     break;
 
-  case 11: /* FormalsList: FormalDecl COMMA FormalsList  */
-#line 86 "parser.y"
-                                          { yyval = yyvsp[0]; 
-                                                 const auto const_first = std::make_shared<ast::Exp>(yyvsp[-2]);
-                                                 std::dynamic_pointer_cast<ast::ExpList>(yyval)->push_front(const_first);}
+  case 10: /* FormalsList: FormalDecl  */
+#line 91 "parser.y"
+                                          { auto formals = std::make_shared<ast::Formals>();
+                                            formals->push_front(std::dynamic_pointer_cast<ast::Formal>(yyvsp[0]));
+                                            yyval = formals;}
 #line 1318 "parser.tab.c"
     break;
 
+  case 11: /* FormalsList: FormalDecl COMMA FormalsList  */
+#line 94 "parser.y"
+                                          { auto formals = std::dynamic_pointer_cast<ast::Formals>(yyvsp[0]);
+                                            formals->push_front(std::dynamic_pointer_cast<ast::Formal>(yyvsp[-2]));
+                                            yyval = formals;}
+#line 1326 "parser.tab.c"
+    break;
+
   case 12: /* FormalDecl: Type ID  */
-#line 90 "parser.y"
-                                          { yyval = std::make_shared<ast::Formal>(yyvsp[0], yyvsp[-1]); }
-#line 1324 "parser.tab.c"
+#line 98 "parser.y"
+                                          { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[0]);
+        auto Type_ptr = std::dynamic_pointer_cast<ast::Type>(yyvsp[-1]);
+        yyval = std::make_shared<ast::Formal>(ID_ptr, Type_ptr); 
+}
+#line 1336 "parser.tab.c"
     break;
 
   case 13: /* Statements: Statement  */
-#line 92 "parser.y"
-                                          { yyval = std::make_shared<ast::Statements>(yyvsp[0]); }
-#line 1330 "parser.tab.c"
+#line 104 "parser.y"
+                                          { 
+        auto statements = std::make_shared<ast::Statements>();
+        statements->push_front(std::dynamic_pointer_cast<ast::Statement>(yyvsp[0]));
+        yyval = statements; }
+#line 1345 "parser.tab.c"
     break;
 
   case 14: /* Statements: Statements Statement  */
-#line 93 "parser.y"
-                                          { yyval = yyvsp[-1]; 
-                                                 const auto const_second = std::make_shared<ast::Exp>(yyvsp[0]);
-                                                 std::dynamic_pointer_cast<ast::ExpList>(yyval)->push_front(const_second);}
-#line 1338 "parser.tab.c"
+#line 108 "parser.y"
+                                          { 
+        auto statements = std::dynamic_pointer_cast<ast::Statements>(yyvsp[-1]);
+        statements->push_front(std::dynamic_pointer_cast<ast::Statement>(yyvsp[0]));
+        yyval = statements;}
+#line 1354 "parser.tab.c"
     break;
 
   case 15: /* Statement: LBRACE Statements RBRACE  */
-#line 97 "parser.y"
+#line 113 "parser.y"
                                                  { yyval = yyvsp[-1]; }
-#line 1344 "parser.tab.c"
+#line 1360 "parser.tab.c"
     break;
 
   case 16: /* Statement: Type ID SC  */
-#line 98 "parser.y"
-                                          { yyval = std::make_shared<ast::VarDecl>(yyvsp[-1], yyvsp[-2]); }
-#line 1350 "parser.tab.c"
+#line 114 "parser.y"
+                                          {  
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-1]);
+        auto Type_ptr = std::dynamic_pointer_cast<ast::Type>(yyvsp[-2]);
+        yyval = std::make_shared<ast::VarDecl>(ID_ptr, Type_ptr); }
+#line 1369 "parser.tab.c"
     break;
 
   case 17: /* Statement: Type ID ASSIGN Exp SC  */
-#line 99 "parser.y"
-                                          { yyval = std::make_shared<ast::VarDecl>(yyvsp[-3], yyvsp[-4], yyvsp[-1]); }
-#line 1356 "parser.tab.c"
+#line 118 "parser.y"
+                                          {
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-3]);
+        auto Type_ptr = std::dynamic_pointer_cast<ast::Type>(yyvsp[-4]);
+        auto Value_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-1]);
+        yyval = std::make_shared<ast::VarDecl>(ID_ptr, Type_ptr, Value_ptr); }
+#line 1379 "parser.tab.c"
     break;
 
   case 18: /* Statement: ID ASSIGN Exp SC  */
-#line 100 "parser.y"
-                                          { yyval = std::make_shared<ast::Assign>(yyvsp[-3], yyvsp[-1]); }
-#line 1362 "parser.tab.c"
+#line 123 "parser.y"
+                                          { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-3]);
+        auto Value_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-1]);
+        yyval = std::make_shared<ast::Assign>(ID_ptr, Value_ptr); }
+#line 1388 "parser.tab.c"
     break;
 
   case 19: /* Statement: ID LBRACK Exp RBRACK ASSIGN Exp SC  */
-#line 101 "parser.y"
-                                          { yyval = std::make_shared<ast::ArrayAssign>(yyvsp[-6], yyvsp[-1], yyvsp[-4]); }
-#line 1368 "parser.tab.c"
-    break;
-
-  case 20: /* Statement: Type ID LBRACK Exp RBRACK SC  */
-#line 102 "parser.y"
-                                          { yyval = std::make_shared<ast::ArrayType>(std::make_shared<ast::Type>(yyvsp[-5])->type, yyvsp[-2]); }
-#line 1374 "parser.tab.c"
-    break;
-
-  case 21: /* Statement: Call SC  */
-#line 103 "parser.y"
-                                          { yyval = yyvsp[-1]; }
-#line 1380 "parser.tab.c"
-    break;
-
-  case 22: /* Statement: RETURN SC  */
-#line 104 "parser.y"
-                                          { yyval = std::make_shared<ast::Return>(); }
-#line 1386 "parser.tab.c"
-    break;
-
-  case 23: /* Statement: RETURN Exp SC  */
-#line 105 "parser.y"
-                                          { yyval = std::make_shared<ast::Return>(yyvsp[-1]); }
-#line 1392 "parser.tab.c"
-    break;
-
-  case 24: /* Statement: IF LPAREN Exp RPAREN Statement  */
-#line 106 "parser.y"
-                                                        { yyval = std::make_shared<ast::If>(yyvsp[-2], yyvsp[0]); }
+#line 127 "parser.y"
+                                          { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-6]);
+        auto Index_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-4]);
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-1]);
+        yyval = std::make_shared<ast::ArrayAssign>(ID_ptr, Exp_ptr, Index_ptr); }
 #line 1398 "parser.tab.c"
     break;
 
-  case 25: /* Statement: IF LPAREN Exp RPAREN Statement ELSE Statement  */
-#line 107 "parser.y"
-                                                        { yyval = std::make_shared<ast::If>(yyvsp[-4], yyvsp[-2], yyvsp[0]); }
-#line 1404 "parser.tab.c"
+  case 20: /* Statement: Type ID LBRACK Exp RBRACK SC  */
+#line 132 "parser.y"
+                                          { 
+        auto Type_ptr = std::dynamic_pointer_cast<ast::Type>(yyvsp[-5]);
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        ast::BuiltInType base_type;
+        if (auto prim = std::dynamic_pointer_cast<ast::PrimitiveType>(Type_ptr)) {
+          base_type = prim->type;
+        } else{
+          auto arr = std::dynamic_pointer_cast<ast::ArrayType>(Type_ptr);
+          base_type = arr->type;
+        }
+        yyval = std::make_shared<ast::ArrayType>(base_type, Exp_ptr); }
+#line 1414 "parser.tab.c"
     break;
 
-  case 26: /* Statement: WHILE LPAREN Exp RPAREN Statement  */
-#line 108 "parser.y"
-                                          { yyval = std::make_shared<ast::While>(yyvsp[-2], yyvsp[0]); }
-#line 1410 "parser.tab.c"
+  case 21: /* Statement: Call SC  */
+#line 143 "parser.y"
+                                          { yyval = yyvsp[-1]; }
+#line 1420 "parser.tab.c"
     break;
 
-  case 27: /* Statement: BREAK SC  */
-#line 109 "parser.y"
-                                          { yyval = std::make_shared<ast::Break>(); }
-#line 1416 "parser.tab.c"
+  case 22: /* Statement: RETURN SC  */
+#line 144 "parser.y"
+                                          { yyval = std::make_shared<ast::Return>(); }
+#line 1426 "parser.tab.c"
     break;
 
-  case 28: /* Statement: CONTINUE SC  */
-#line 110 "parser.y"
-                                          { yyval = std::make_shared<ast::Continue>(); }
-#line 1422 "parser.tab.c"
-    break;
-
-  case 29: /* Call: ID LPAREN ExpList RPAREN  */
-#line 112 "parser.y"
-                                          { yyval = std::make_shared<ast::Call>(yyvsp[-3], yyvsp[-1]); }
-#line 1428 "parser.tab.c"
-    break;
-
-  case 30: /* Call: ID LPAREN RPAREN  */
-#line 113 "parser.y"
-                                          { yyval = std::make_shared<ast::Call>(yyvsp[-2]); }
+  case 23: /* Statement: RETURN Exp SC  */
+#line 145 "parser.y"
+                                          { 
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-1]);
+        yyval = std::make_shared<ast::Return>(Exp_ptr); }
 #line 1434 "parser.tab.c"
     break;
 
+  case 24: /* Statement: IF LPAREN Exp RPAREN Statement  */
+#line 148 "parser.y"
+                                                        { 
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Statement_ptr = std::dynamic_pointer_cast<ast::Statement>(yyvsp[0]);
+        yyval = std::make_shared<ast::If>(Exp_ptr, Statement_ptr); }
+#line 1443 "parser.tab.c"
+    break;
+
+  case 25: /* Statement: IF LPAREN Exp RPAREN Statement ELSE Statement  */
+#line 152 "parser.y"
+                                                        { 
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-4]);
+        auto If_Statement_ptr = std::dynamic_pointer_cast<ast::Statement>(yyvsp[-2]);
+        auto Else_Statement_ptr = std::dynamic_pointer_cast<ast::Statement>(yyvsp[0]);
+        yyval = std::make_shared<ast::If>(Exp_ptr, If_Statement_ptr, Else_Statement_ptr); }
+#line 1453 "parser.tab.c"
+    break;
+
+  case 26: /* Statement: WHILE LPAREN Exp RPAREN Statement  */
+#line 157 "parser.y"
+                                          { 
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Statement_ptr = std::dynamic_pointer_cast<ast::Statement>(yyvsp[0]);
+        yyval = std::make_shared<ast::While>(Exp_ptr, Statement_ptr); }
+#line 1462 "parser.tab.c"
+    break;
+
+  case 27: /* Statement: BREAK SC  */
+#line 161 "parser.y"
+                                          { yyval = std::make_shared<ast::Break>(); }
+#line 1468 "parser.tab.c"
+    break;
+
+  case 28: /* Statement: CONTINUE SC  */
+#line 162 "parser.y"
+                                          { yyval = std::make_shared<ast::Continue>(); }
+#line 1474 "parser.tab.c"
+    break;
+
+  case 29: /* Call: ID LPAREN ExpList RPAREN  */
+#line 164 "parser.y"
+                                           { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-3]);
+        auto ExpList_ptr = std::dynamic_pointer_cast<ast::ExpList>(yyvsp[-1]);
+        yyval = std::make_shared<ast::Call>(ID_ptr, ExpList_ptr); }
+#line 1483 "parser.tab.c"
+    break;
+
+  case 30: /* Call: ID LPAREN RPAREN  */
+#line 168 "parser.y"
+                                          { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-2]);
+        yyval = std::make_shared<ast::Call>(ID_ptr); }
+#line 1491 "parser.tab.c"
+    break;
+
   case 31: /* ExpList: Exp  */
-#line 115 "parser.y"
-                                          { yyval = std::make_shared<ast::ExpList>(yyvsp[0]); }
-#line 1440 "parser.tab.c"
+#line 172 "parser.y"
+                                          { 
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::ExpList>(Exp_ptr); }
+#line 1499 "parser.tab.c"
     break;
 
   case 32: /* ExpList: Exp COMMA ExpList  */
-#line 116 "parser.y"
-                                          { yyval = yyvsp[0]; 
-                                                 const auto const_first = std::make_shared<ast::Exp>(yyvsp[-2]);
-                                                 std::dynamic_pointer_cast<ast::ExpList>(yyval)->push_front(const_first);}
-#line 1448 "parser.tab.c"
-    break;
-
-  case 33: /* Type: INT  */
-#line 120 "parser.y"
-                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::INT); }
-#line 1454 "parser.tab.c"
-    break;
-
-  case 34: /* Type: BYTE  */
-#line 121 "parser.y"
-                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BYTE); }
-#line 1460 "parser.tab.c"
-    break;
-
-  case 35: /* Type: BOOL  */
-#line 122 "parser.y"
-                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BOOL); }
-#line 1466 "parser.tab.c"
-    break;
-
-  case 36: /* Exp: LPAREN Exp RPAREN  */
-#line 124 "parser.y"
-                                          { yyval = yyvsp[-1]; }
-#line 1472 "parser.tab.c"
-    break;
-
-  case 37: /* Exp: ID LBRACK Exp RBRACK  */
-#line 125 "parser.y"
-                                          { yyval = std::make_shared<ast::ArrayDereference>(yyvsp[-3], yyvsp[-1]); }
-#line 1478 "parser.tab.c"
-    break;
-
-  case 38: /* Exp: Exp BINOP_ADD Exp  */
-#line 126 "parser.y"
-                                          { yyval = std::make_shared<ast::BinOp>(yyvsp[-2], yyvsp[0], ast::BinOpType::ADD); }
-#line 1484 "parser.tab.c"
-    break;
-
-  case 39: /* Exp: Exp BINOP_SUB Exp  */
-#line 127 "parser.y"
-                                          { yyval = std::make_shared<ast::BinOp>(yyvsp[-2], yyvsp[0], ast::BinOpType::SUB); }
-#line 1490 "parser.tab.c"
-    break;
-
-  case 40: /* Exp: Exp BINOP_MUL Exp  */
-#line 128 "parser.y"
-                                          { yyval = std::make_shared<ast::BinOp>(yyvsp[-2], yyvsp[0], ast::BinOpType::MUL); }
-#line 1496 "parser.tab.c"
-    break;
-
-  case 41: /* Exp: Exp BINOP_DIV Exp  */
-#line 129 "parser.y"
-                                          { yyval = std::make_shared<ast::BinOp>(yyvsp[-2], yyvsp[0], ast::BinOpType::DIV); }
-#line 1502 "parser.tab.c"
-    break;
-
-  case 42: /* Exp: ID  */
-#line 130 "parser.y"
-                                          { yyval = yyvsp[0]; }
+#line 175 "parser.y"
+                                          { 
+        auto expression_list = std::dynamic_pointer_cast<ast::ExpList>(yyvsp[0]);
+        expression_list->push_front(std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]));
+        yyval = expression_list; }
 #line 1508 "parser.tab.c"
     break;
 
-  case 43: /* Exp: Call  */
-#line 131 "parser.y"
-                                          { yyval = yyvsp[0]; }
+  case 33: /* Type: INT  */
+#line 180 "parser.y"
+                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::INT); }
 #line 1514 "parser.tab.c"
     break;
 
-  case 44: /* Exp: NUM  */
-#line 132 "parser.y"
-                                          { yyval = yyvsp[0]; }
+  case 34: /* Type: BYTE  */
+#line 181 "parser.y"
+                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BYTE); }
 #line 1520 "parser.tab.c"
     break;
 
-  case 45: /* Exp: NUM_B  */
-#line 133 "parser.y"
-                                          { yyval = yyvsp[0]; }
+  case 35: /* Type: BOOL  */
+#line 182 "parser.y"
+                                          { yyval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BOOL); }
 #line 1526 "parser.tab.c"
     break;
 
-  case 46: /* Exp: STRING  */
-#line 134 "parser.y"
-                                          { yyval = yyvsp[0]; }
+  case 36: /* Exp: LPAREN Exp RPAREN  */
+#line 184 "parser.y"
+                                          { yyval = yyvsp[-1]; }
 #line 1532 "parser.tab.c"
     break;
 
-  case 47: /* Exp: TRUE  */
-#line 135 "parser.y"
-                                          { yyval = yyvsp[0]; }
-#line 1538 "parser.tab.c"
+  case 37: /* Exp: ID LBRACK Exp RBRACK  */
+#line 185 "parser.y"
+                                          { 
+        auto ID_ptr = std::dynamic_pointer_cast<ast::ID>(yyvsp[-3]);
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-1]);
+        yyval = std::make_shared<ast::ArrayDereference>(ID_ptr, Exp_ptr); }
+#line 1541 "parser.tab.c"
     break;
 
-  case 48: /* Exp: FALSE  */
-#line 136 "parser.y"
-                                          { yyval = yyvsp[0]; }
-#line 1544 "parser.tab.c"
-    break;
-
-  case 49: /* Exp: NOT Exp  */
-#line 137 "parser.y"
-                                          { yyval = std::make_shared<ast::Not>(yyvsp[0]); }
+  case 38: /* Exp: Exp BINOP_ADD Exp  */
+#line 189 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::BinOp>(First_Exp_ptr, Second_Exp_ptr, ast::BinOpType::ADD); }
 #line 1550 "parser.tab.c"
     break;
 
-  case 50: /* Exp: Exp AND Exp  */
-#line 138 "parser.y"
-                                          { yyval = std::make_shared<ast::And>(yyvsp[-2], yyvsp[0]); }
-#line 1556 "parser.tab.c"
+  case 39: /* Exp: Exp BINOP_SUB Exp  */
+#line 193 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::BinOp>(First_Exp_ptr, Second_Exp_ptr, ast::BinOpType::SUB); }
+#line 1559 "parser.tab.c"
     break;
 
-  case 51: /* Exp: Exp OR Exp  */
-#line 139 "parser.y"
-                                          { yyval = std::make_shared<ast::Or>(yyvsp[-2], yyvsp[0]); }
-#line 1562 "parser.tab.c"
-    break;
-
-  case 52: /* Exp: Exp RelOp_EQ Exp  */
-#line 140 "parser.y"
-                                          { yyval = std::make_shared<ast::RelOp>(yyvsp[-2], yyvsp[0], ast::RelOpType::EQ); }
+  case 40: /* Exp: Exp BINOP_MUL Exp  */
+#line 197 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::BinOp>(First_Exp_ptr, Second_Exp_ptr, ast::BinOpType::MUL); }
 #line 1568 "parser.tab.c"
     break;
 
+  case 41: /* Exp: Exp BINOP_DIV Exp  */
+#line 201 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::BinOp>(First_Exp_ptr, Second_Exp_ptr, ast::BinOpType::DIV); }
+#line 1577 "parser.tab.c"
+    break;
+
+  case 42: /* Exp: ID  */
+#line 205 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1583 "parser.tab.c"
+    break;
+
+  case 43: /* Exp: Call  */
+#line 206 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1589 "parser.tab.c"
+    break;
+
+  case 44: /* Exp: NUM  */
+#line 207 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1595 "parser.tab.c"
+    break;
+
+  case 45: /* Exp: NUM_B  */
+#line 208 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1601 "parser.tab.c"
+    break;
+
+  case 46: /* Exp: STRING  */
+#line 209 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1607 "parser.tab.c"
+    break;
+
+  case 47: /* Exp: TRUE  */
+#line 210 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1613 "parser.tab.c"
+    break;
+
+  case 48: /* Exp: FALSE  */
+#line 211 "parser.y"
+                                          { yyval = yyvsp[0]; }
+#line 1619 "parser.tab.c"
+    break;
+
+  case 49: /* Exp: NOT Exp  */
+#line 212 "parser.y"
+                                          { 
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::Not>(Exp_ptr); }
+#line 1627 "parser.tab.c"
+    break;
+
+  case 50: /* Exp: Exp AND Exp  */
+#line 215 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::And>(First_Exp_ptr, Second_Exp_ptr); }
+#line 1636 "parser.tab.c"
+    break;
+
+  case 51: /* Exp: Exp OR Exp  */
+#line 219 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::Or>(First_Exp_ptr, Second_Exp_ptr); }
+#line 1645 "parser.tab.c"
+    break;
+
+  case 52: /* Exp: Exp RelOp_EQ Exp  */
+#line 223 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::EQ); }
+#line 1654 "parser.tab.c"
+    break;
+
   case 53: /* Exp: Exp RelOp_NE Exp  */
-#line 141 "parser.y"
-                                          { yyval = std::make_shared<ast::RelOp>(yyvsp[-2], yyvsp[0], ast::RelOpType::NE); }
-#line 1574 "parser.tab.c"
+#line 227 "parser.y"
+                                          {  
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::NE); }
+#line 1663 "parser.tab.c"
     break;
 
   case 54: /* Exp: Exp RelOp_LT Exp  */
-#line 142 "parser.y"
-                                          { yyval = std::make_shared<ast::RelOp>(yyvsp[-2], yyvsp[0], ast::RelOpType::LT); }
-#line 1580 "parser.tab.c"
+#line 231 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::LT); }
+#line 1672 "parser.tab.c"
     break;
 
   case 55: /* Exp: Exp RelOp_GT Exp  */
-#line 143 "parser.y"
-                                          { yyval = std::make_shared<ast::RelOp>(yyvsp[-2], yyvsp[0], ast::RelOpType::GT); }
-#line 1586 "parser.tab.c"
+#line 235 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::GT); }
+#line 1681 "parser.tab.c"
     break;
 
   case 56: /* Exp: Exp RelOp_LE Exp  */
-#line 144 "parser.y"
-                                          { yyval = std::make_shared<ast::RelOp>(yyvsp[-2], yyvsp[0], ast::RelOpType::LE); }
-#line 1592 "parser.tab.c"
+#line 239 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::LE); }
+#line 1690 "parser.tab.c"
     break;
 
   case 57: /* Exp: Exp RelOp_GE Exp  */
-#line 145 "parser.y"
-                                          { yyval = std::make_shared<ast::RelOp>(yyvsp[-2], yyvsp[0], ast::RelOpType::GE); }
-#line 1598 "parser.tab.c"
+#line 243 "parser.y"
+                                          { 
+        auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[-2]);
+        auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::GE); }
+#line 1699 "parser.tab.c"
     break;
 
   case 58: /* Exp: LPAREN Type RPAREN Exp  */
-#line 146 "parser.y"
-                                          { auto prim = std::dynamic_pointer_cast<ast::PrimitiveType>(yyvsp[-2]);
-                                            yyval = std::make_shared<ast::Cast>(yyvsp[0], prim);}
-#line 1605 "parser.tab.c"
+#line 247 "parser.y"
+                                          { 
+        auto Prim_ptr = std::dynamic_pointer_cast<ast::PrimitiveType>(yyvsp[-2]);
+        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>(yyvsp[0]);
+        yyval = std::make_shared<ast::Cast>(Exp_ptr, Prim_ptr);}
+#line 1708 "parser.tab.c"
     break;
 
 
-#line 1609 "parser.tab.c"
+#line 1712 "parser.tab.c"
 
       default: break;
     }
@@ -1798,7 +1901,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 150 "parser.y"
+#line 253 "parser.y"
 
 
 // TODO: Place any additional code here
