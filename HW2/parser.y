@@ -7,7 +7,7 @@
 extern int yylineno;
 extern int yylex();
 
- void yyerror (char const *s);
+void yyerror (char const *s);
 
 // root of the AST, set by the parser and used by other parts of the compiler
 std::shared_ptr<ast::Node> program;
