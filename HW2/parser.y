@@ -24,6 +24,7 @@ using namespace std;
 %token TRUE
 %token FALSE
 %token RETURN
+%nonassoc LOWER_THAN_ELSE
 %right ELSE
 %token IF
 %token WHILE
@@ -145,7 +146,7 @@ Statement: LBRACE Statements RBRACE              { $$ = $2; }
   | RETURN Exp SC                         { 
         auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($2);
         $$ = std::make_shared<ast::Return>(Exp_ptr); }
-  | IF LPAREN Exp RPAREN Statement                      { 
+  | IF LPAREN Exp RPAREN Statement %prec LOWER_THAN_ELSE                     { 
         auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($3);
         auto Statement_ptr = std::dynamic_pointer_cast<ast::Statement>($5);
         $$ = std::make_shared<ast::If>(Exp_ptr, Statement_ptr); }
