@@ -46,21 +46,13 @@ using namespace std;
 %token NUM_B
 %token STRING;
 
-%left BINOP_ADD
-%left BINOP_SUB
-%left BINOP_DIV
-%left BINOP_MUL
-
-%right NOT
+%left OR        // lowest
 %left AND
-%left OR
-
-%left RelOp_EQ
-%left RelOp_NE
-%left RelOp_LT
-%left RelOp_GT
-%left RelOp_LE
-%left RelOp_GE
+%nonassoc RelOp_EQ RelOp_NE RelOp_LT RelOp_GT RelOp_LE RelOp_GE
+%left BINOP_ADD BINOP_SUB
+%left BINOP_MUL BINOP_DIV
+%right UNARY_CAST
+%right NOT      // unary not
 ;
 
 
@@ -207,7 +199,11 @@ Exp: LPAREN Exp RPAREN                    { $$ = $2; }
         auto ID_ptr = std::dynamic_pointer_cast<ast::ID>($1);
         auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($3);
         $$ = std::make_shared<ast::ArrayDereference>(ID_ptr, Exp_ptr); }
-  | Exp BINOP_ADD Exp                     { 
+  | LPAREN Type RPAREN Exp %prec UNARY_CAST              {
+            auto Prim_ptr = std::dynamic_pointer_cast<ast::PrimitiveType>($2);
+            auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($4);
+            $$ = std::make_shared<ast::Cast>(Exp_ptr, Prim_ptr);}
+  | Exp BINOP_ADD Exp                     {
         auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($1);
         auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($3);
         $$ = std::make_shared<ast::BinOp>(First_Exp_ptr, Second_Exp_ptr, ast::BinOpType::ADD); }
@@ -265,10 +261,6 @@ Exp: LPAREN Exp RPAREN                    { $$ = $2; }
         auto First_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($1);
         auto Second_Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($3);
         $$ = std::make_shared<ast::RelOp>(First_Exp_ptr, Second_Exp_ptr, ast::RelOpType::GE); }
-  | LPAREN Type RPAREN Exp                { 
-        auto Prim_ptr = std::dynamic_pointer_cast<ast::PrimitiveType>($2);
-        auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($4);
-        $$ = std::make_shared<ast::Cast>(Exp_ptr, Prim_ptr);}
 ;
 
 

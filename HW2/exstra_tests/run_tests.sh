@@ -9,6 +9,8 @@ NC='\033[0m' # No Color
 TESTS_DIR="AllTests"
 HW_EXE="./hw2"
 
+./tests_script_extra
+
 function notify() {
     local len=$((${#1}+2))
     let border=$len*2
@@ -25,7 +27,7 @@ function notify() {
 
 test_failed=false
 #	command to execute test:
-for test_input in $TESTS_DIR/*.in; 
+for test_input in $TESTS_DIR/*.in;
 	do
 		test_name=$(basename "$test_input" .in)
 #		echo $test_name

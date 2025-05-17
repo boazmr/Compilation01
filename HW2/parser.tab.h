@@ -80,19 +80,20 @@ extern int yydebug;
     NUM = 281,                     /* NUM  */
     NUM_B = 282,                   /* NUM_B  */
     STRING = 283,                  /* STRING  */
-    BINOP_ADD = 284,               /* BINOP_ADD  */
-    BINOP_SUB = 285,               /* BINOP_SUB  */
-    BINOP_DIV = 286,               /* BINOP_DIV  */
-    BINOP_MUL = 287,               /* BINOP_MUL  */
-    NOT = 288,                     /* NOT  */
-    AND = 289,                     /* AND  */
-    OR = 290,                      /* OR  */
-    RelOp_EQ = 291,                /* RelOp_EQ  */
-    RelOp_NE = 292,                /* RelOp_NE  */
-    RelOp_LT = 293,                /* RelOp_LT  */
-    RelOp_GT = 294,                /* RelOp_GT  */
-    RelOp_LE = 295,                /* RelOp_LE  */
-    RelOp_GE = 296                 /* RelOp_GE  */
+    OR = 284,                      /* OR  */
+    AND = 285,                     /* AND  */
+    RelOp_EQ = 286,                /* RelOp_EQ  */
+    RelOp_NE = 287,                /* RelOp_NE  */
+    RelOp_LT = 288,                /* RelOp_LT  */
+    RelOp_GT = 289,                /* RelOp_GT  */
+    RelOp_LE = 290,                /* RelOp_LE  */
+    RelOp_GE = 291,                /* RelOp_GE  */
+    BINOP_ADD = 292,               /* BINOP_ADD  */
+    BINOP_SUB = 293,               /* BINOP_SUB  */
+    BINOP_MUL = 294,               /* BINOP_MUL  */
+    BINOP_DIV = 295,               /* BINOP_DIV  */
+    UNARY_CAST = 296,              /* UNARY_CAST  */
+    NOT = 297                      /* NOT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
