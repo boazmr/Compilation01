@@ -1,0 +1,55 @@
+# Git Branching
+
+## Create a New Branch
+- `git branch <branch-name>` - Create a new branch.
+- `git checkout -b <branch-name>` - Create and switch to a new branch.
+
+## Switch Branches
+- `git checkout <branch-name>` - Switch to an existing branch.
+- `git switch <branch-name>` - Switch to an existing branch (modern alternative).
+
+## Rename a Branch
+- `git branch -m <new-branch-name>` - Rename the current branch.
+- `git branch -m <old-branch-name> <new-branch-name>` - Rename a specific branch.
+
+## Delete a Branch
+- `git branch -d <branch-name>` - Delete a branch (only if fully merged).
+- `git branch -D <branch-name>` - Force delete a branch.
+
+## Push a Branch to Remote
+- `git push origin <branch-name>` - Push a branch to the remote repository.
+
+## Track a Remote Branch
+- `git branch --set-upstream-to=origin/<branch-name>` - Set a local branch to track a remote branch.
+
+## View Branch History
+- `git log --oneline --graph --all` - View a graphical representation of branch history.
+
+# Docker Compose
+
+## Start Services
+- `docker-compose up` - Start services defined in `docker-compose.yml`.
+- `docker-compose up -d` - Start services in detached mode.
+
+## Stop Services
+- `docker-compose down` - Stop and remove containers, networks, and volumes.
+
+## Restart Services
+- `docker-compose restart` - Restart all services.
+
+## View Logs
+- `docker-compose logs` - View logs for all services.
+- `docker-compose logs <service-name>` - View logs for a specific service.
+
+## List Running Services
+- `docker-compose ps` - List all running services.
+
+## Build or Rebuild Services
+- `docker-compose build` - Build or rebuild services.
+- `docker-compose build <service-name>` - Build or rebuild a specific service.
+
+## Execute Commands in a Service
+- `docker-compose exec <service-name> <command>` - Run a command in a running service container.
+
+## Scale Services
+- `docker-compose up --scale <service-name>=<number>` - Scale a service to the specified number of instances.
