@@ -2,6 +2,7 @@
 
 #include "nodes.hpp"
 #include "output.hpp"
+#include <iostream>
 
 // bison declarations
 extern int yylineno;
@@ -145,6 +146,7 @@ Statement: LBRACE Statements RBRACE              { $$ = $2; }
   | Type ID LBRACK Exp RBRACK SC          { 
         auto Type_ptr = std::dynamic_pointer_cast<ast::Type>($1);
         auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($4);
+        auto Id_ptr = std::dynamic_pointer_cast<ast::ID>($2);
         ast::BuiltInType base_type;
         if (auto prim = std::dynamic_pointer_cast<ast::PrimitiveType>(Type_ptr)) {
           base_type = prim->type;
@@ -152,7 +154,8 @@ Statement: LBRACE Statements RBRACE              { $$ = $2; }
           auto arr = std::dynamic_pointer_cast<ast::ArrayType>(Type_ptr);
           base_type = arr->type;
         }
-        $$ = std::make_shared<ast::ArrayType>(base_type, Exp_ptr); 
+        auto Arr_Type = std::make_shared<ast::ArrayType>(base_type, Exp_ptr);
+        $$ = std::make_shared<ast::VarDecl>(Id_ptr, Arr_Type);
         }
   | Call SC                               { $$ = $1; }
   | RETURN SC                             { $$ = std::make_shared<ast::Return>(); }
