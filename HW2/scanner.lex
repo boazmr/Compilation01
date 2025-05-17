@@ -2,7 +2,9 @@
 /* Declarations section */
 #include <stdio.h>
 #include "output.hpp"
+#include "nodes.hpp"
 #include "parser.tab.h"
+
 
 %}
 
@@ -14,7 +16,7 @@ whitespace                   [\r\t\n ]|\r\n
 %%
 
 void        					{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::VOID); return VOID;};
-int         					{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::INT); return INT;};
+int         					{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::INT);  return INT;};
 byte        					{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BYTE); return BYTE;};
 bool        					{yylval = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BOOL); return BOOL;};
 and         					{return AND;};
@@ -50,7 +52,7 @@ continue    					{yylval = std::make_shared<ast::Continue>(); return CONTINUE;};
 \/   			                {return BINOP_DIV;};
 
 
-[a-zA-Z][a-zA-Z0-9]*            {yylval = std::make_shared<ast::ID>(yytext); return ID;};
+[a-zA-Z][a-zA-Z0-9]*            {yylval = std::make_shared<ast::ID>(yytext);  return ID;};
 0 | [1-9][0-9]*                 {yylval = std::make_shared<ast::Num>(yytext); return NUM;};
 0b | [1-9][0-9]*b               {yylval = std::make_shared<ast::NumB>(yytext);return NUM_B;};
 
