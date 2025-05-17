@@ -46,8 +46,8 @@ using namespace std;
 %token NUM_B
 %token STRING;
 
-%right BINOP_ADD
-%right BINOP_SUB
+%left BINOP_ADD
+%left BINOP_SUB
 %left BINOP_DIV
 %left BINOP_MUL
 
