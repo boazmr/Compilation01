@@ -15,6 +15,8 @@ int main() {
     // Parse the input. The result is stored in the global variable `program`
     yyparse();
     // Print the AST using the PrintVisitor
-    output::PrintVisitor printVisitor;
-    program->accept(printVisitor);
+    if(program){
+      output::PrintVisitor printVisitor;
+      program->accept(printVisitor);
+    }
 }
