@@ -70,10 +70,13 @@ using namespace std;
 // While reducing the start variable, set the root of the AST
 Program: Funcs                { program = $1; };
 
-Funcs: /* epsilon */          {$$ = std::make_shared<ast::Funcs>();}; 
-  | FuncDecl Funcs         {$$ = $2;
-                                   const auto const_first = std::dynamic_pointer_cast<ast::FuncDecl>($1);
-                                   std::dynamic_pointer_cast<ast::Funcs>($$)->push_front(const_first);};
+Funcs: /* epsilon */          {$$ = std::make_shared<ast::Funcs>();}
+  | FuncDecl Funcs         {
+      $$ = $2;
+      const auto const_first = std::dynamic_pointer_cast<ast::FuncDecl>($1);
+      std::dynamic_pointer_cast<ast::Funcs>($$)->push_front(const_first);
+  }
+;
 
 FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE { 
         auto ID_ptr = std::dynamic_pointer_cast<ast::ID>($2);
@@ -81,35 +84,43 @@ FuncDecl: RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE {
         auto Formals_ptr = std::dynamic_pointer_cast<ast::Formals>($4);
         auto Statements_ptr = std::dynamic_pointer_cast<ast::Statements>($7);
         $$ = std::make_shared<ast::FuncDecl>(ID_ptr, Type_ptr, Formals_ptr, Statements_ptr);
-};
+}
+;
 
 RetType: Type                             { $$ = $1; }
   | VOID                                  { $$ = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::VOID); }
+;
 
 Formals: /* epsilon */                    { $$ = std::make_shared<ast::Formals>(); }
   | FormalsList                           { $$ = $1; }
+;
 
 FormalsList: FormalDecl                   { auto formals = std::make_shared<ast::Formals>();
                                             formals->push_front(std::dynamic_pointer_cast<ast::Formal>($1));
                                             $$ = formals;}
   | FormalDecl COMMA FormalsList          { auto formals = std::dynamic_pointer_cast<ast::Formals>($3);
                                             formals->push_front(std::dynamic_pointer_cast<ast::Formal>($1));
-                                            $$ = formals;};
+                                            $$ = formals;}
+;
 
 FormalDecl: Type ID                       { 
         auto ID_ptr = std::dynamic_pointer_cast<ast::ID>($2);
         auto Type_ptr = std::dynamic_pointer_cast<ast::Type>($1);
         $$ = std::make_shared<ast::Formal>(ID_ptr, Type_ptr); 
-};
+}
+;
 
 Statements: Statement                     { 
         auto statements = std::make_shared<ast::Statements>();
         statements->push_front(std::dynamic_pointer_cast<ast::Statement>($1));
-        $$ = statements; }
+        $$ = statements; 
+      }
   | Statements Statement                  { 
         auto statements = std::dynamic_pointer_cast<ast::Statements>($1);
         statements->push_front(std::dynamic_pointer_cast<ast::Statement>($2));
-        $$ = statements;};
+        $$ = statements;
+      }
+;
 
 Statement: LBRACE Statements RBRACE              { $$ = $2; }
   | Type ID SC                            {  
@@ -140,7 +151,8 @@ Statement: LBRACE Statements RBRACE              { $$ = $2; }
           auto arr = std::dynamic_pointer_cast<ast::ArrayType>(Type_ptr);
           base_type = arr->type;
         }
-        $$ = std::make_shared<ast::ArrayType>(base_type, Exp_ptr); }
+        $$ = std::make_shared<ast::ArrayType>(base_type, Exp_ptr); 
+        }
   | Call SC                               { $$ = $1; }
   | RETURN SC                             { $$ = std::make_shared<ast::Return>(); }
   | RETURN Exp SC                         { 
@@ -161,6 +173,7 @@ Statement: LBRACE Statements RBRACE              { $$ = $2; }
         $$ = std::make_shared<ast::While>(Exp_ptr, Statement_ptr); }
   | BREAK SC                              { $$ = std::make_shared<ast::Break>(); }
   | CONTINUE SC                           { $$ = std::make_shared<ast::Continue>(); }
+;
 
 Call: ID LPAREN ExpList RPAREN             { 
         auto ID_ptr = std::dynamic_pointer_cast<ast::ID>($1);
@@ -169,6 +182,7 @@ Call: ID LPAREN ExpList RPAREN             {
   | ID LPAREN RPAREN                      { 
         auto ID_ptr = std::dynamic_pointer_cast<ast::ID>($1);
         $$ = std::make_shared<ast::Call>(ID_ptr); }
+;
 
 ExpList: Exp                              { 
         auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($1);
@@ -177,10 +191,12 @@ ExpList: Exp                              {
         auto expression_list = std::dynamic_pointer_cast<ast::ExpList>($3);
         expression_list->push_front(std::dynamic_pointer_cast<ast::Exp>($1));
         $$ = expression_list; }
+;
 
 Type:  INT                                { $$ = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::INT); }
   | BYTE                                  { $$ = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BYTE); }
   | BOOL                                  { $$ = std::make_shared<ast::PrimitiveType>(ast::BuiltInType::BOOL); }
+;
 
 Exp: LPAREN Exp RPAREN                    { $$ = $2; }
   | ID LBRACK Exp RBRACK                  { 
@@ -248,7 +264,8 @@ Exp: LPAREN Exp RPAREN                    { $$ = $2; }
   | LPAREN Type RPAREN Exp                { 
         auto Prim_ptr = std::dynamic_pointer_cast<ast::PrimitiveType>($2);
         auto Exp_ptr = std::dynamic_pointer_cast<ast::Exp>($4);
-        $$ = std::make_shared<ast::Cast>(Exp_ptr, Prim_ptr);};
+        $$ = std::make_shared<ast::Cast>(Exp_ptr, Prim_ptr);}
+;
 
 
 %%
