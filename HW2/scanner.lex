@@ -39,12 +39,12 @@ continue    					{yylval = std::make_shared<ast::Continue>(); return CONTINUE;};
 \[        		 				{return LBRACK;};
 \]         						{return RBRACK;};
 =           					{return ASSIGN;};
-==      	                    {return ast::RelOpType::EQ;};
-!=      	                    {return ast::RelOpType::NE;};
-\<=     	                    {return ast::RelOpType::LE;};
->=      	                    {return ast::RelOpType::GE;};
-\<                              {return ast::RelOpType::LT;};
->      	                        {return ast::RelOpType::GT;};
+==      	                    {return RelOp_EQ;};
+!=      	                    {return RelOp_NE;};
+\<=     	                    {return RelOp_LE;};
+>=      	                    {return RelOp_GE;};
+\<                              {return RelOp_LT;};
+>      	                        {return RelOp_GT;};
 
 \+  			                {return BINOP_ADD;};
 \- 			                    {return BINOP_SUB;};
