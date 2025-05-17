@@ -113,12 +113,12 @@ FormalDecl: Type ID                       {
 
 Statements: Statement                     { 
         auto statements = std::make_shared<ast::Statements>();
-        statements->push_front(std::dynamic_pointer_cast<ast::Statement>($1));
+        statements->push_back(std::dynamic_pointer_cast<ast::Statement>($1));
         $$ = statements; 
       }
   | Statements Statement                  { 
         auto statements = std::dynamic_pointer_cast<ast::Statements>($1);
-        statements->push_front(std::dynamic_pointer_cast<ast::Statement>($2));
+        statements->push_back(std::dynamic_pointer_cast<ast::Statement>($2));
         $$ = statements;
       }
 ;
