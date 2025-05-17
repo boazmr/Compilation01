@@ -60,7 +60,8 @@ continue    					{yylval = std::make_shared<ast::Continue>(); return CONTINUE;};
 
 
 
-{whitespace} | //[^\r\n]*[\r|\n|\r\n]?        ;
+\/\/[^\r\n]*[\r|\n|\r\n]?        ;
+{whitespace}                     ;
 
 
 .                               {output::errorLex(yylineno);};

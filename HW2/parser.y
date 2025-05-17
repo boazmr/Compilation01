@@ -59,7 +59,8 @@ using namespace std;
 %left RelOp_LT
 %left RelOp_GT
 %left RelOp_LE
-%left RelOp_GE;
+%left RelOp_GE
+;
 
 
 
