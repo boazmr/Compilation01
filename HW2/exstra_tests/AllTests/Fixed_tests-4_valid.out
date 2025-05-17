@@ -1,0 +1,16 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: multiply
+        ├──PrimitiveType: int
+        ├──Formals
+        │   ├──Formal
+        │   │   ├──ID: y
+        │   │   └──PrimitiveType: int
+        │   └──Formal
+        │       ├──ID: x
+        │       └──PrimitiveType: int
+        └──Statements
+            └──Return
+                └──BinOp: *
+                    ├──ID: x
+                    └──ID: y

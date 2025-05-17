@@ -1,0 +1,10 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: breakTest
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──While
+                ├──Num: 1
+                └──Statements
+                    └──Break

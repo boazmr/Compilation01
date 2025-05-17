@@ -1,0 +1,33 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: func2
+        ├──PrimitiveType: bool
+        ├──Formals
+        └──Statements
+            ├──VarDecl
+            │   ├──ID: x
+            │   ├──PrimitiveType: int
+            │   └──Num: 5
+            ├──VarDecl
+            │   ├──ID: y
+            │   ├──PrimitiveType: byte
+            │   └──Num: 10
+            ├──VarDecl
+            │   ├──ID: z
+            │   ├──PrimitiveType: int
+            │   └──Cast
+            │       ├──ID: y
+            │       └──PrimitiveType: int
+            ├──VarDecl
+            │   ├──ID: w
+            │   ├──PrimitiveType: byte
+            │   └──Cast
+            │       ├──ID: z
+            │       └──PrimitiveType: byte
+            └──Assign
+                ├──ID: w
+                └──BinOp: +
+                    ├──ID: w
+                    └──Cast
+                        ├──ID: x
+                        └──PrimitiveType: byte

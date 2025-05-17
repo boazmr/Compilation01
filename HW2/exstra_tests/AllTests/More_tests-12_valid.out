@@ -1,0 +1,10 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: test
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──VarDecl
+                ├──ID: x
+                ├──PrimitiveType: int
+                └──Num: 10

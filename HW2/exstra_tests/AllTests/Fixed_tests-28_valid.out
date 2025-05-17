@@ -1,0 +1,10 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: main
+        ├──PrimitiveType: int
+        ├──Formals
+        └──Statements
+            └──Call
+                ├──ID: sum
+                └──ExpList
+                    └──Num: 1

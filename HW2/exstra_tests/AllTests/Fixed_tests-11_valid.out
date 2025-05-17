@@ -1,0 +1,13 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: doubleValue
+        ├──PrimitiveType: int
+        ├──Formals
+        │   └──Formal
+        │       ├──ID: x
+        │       └──PrimitiveType: int
+        └──Statements
+            └──Return
+                └──BinOp: *
+                    ├──ID: x
+                    └──Num: 2

@@ -1,0 +1,9 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: callTest
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──Call
+                ├──ID: print
+                └──ExpList

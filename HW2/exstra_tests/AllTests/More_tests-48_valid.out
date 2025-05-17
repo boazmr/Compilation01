@@ -1,0 +1,331 @@
+└──Funcs
+    ├──FuncDecl
+    │   ├──ID: main
+    │   ├──PrimitiveType: int
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: x
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 10
+    │       ├──VarDecl
+    │       │   ├──ID: b
+    │       │   ├──PrimitiveType: byte
+    │       │   └──NumB: 1010
+    │       ├──VarDecl
+    │       │   ├──ID: y
+    │       │   └──PrimitiveType: int
+    │       ├──Assign
+    │       │   ├──ID: y
+    │       │   └──BinOp: +
+    │       │       ├──ID: x
+    │       │       └──Num: 5
+    │       ├──VarDecl
+    │       │   ├──ID: z
+    │       │   ├──PrimitiveType: byte
+    │       │   └──Cast
+    │       │       ├──BinOp: *
+    │       │       │   ├──ID: x
+    │       │       │   └──Num: 2
+    │       │       └──PrimitiveType: byte
+    │       ├──If
+    │       │   ├──RelOp: >
+    │       │   │   ├──ID: y
+    │       │   │   └──Num: 15
+    │       │   ├──Statements
+    │       │   │   └──Assign
+    │       │   │       ├──ID: x
+    │       │   │       └──BinOp: +
+    │       │   │           ├──ID: x
+    │       │   │           └──Num: 1
+    │       │   └──Statements
+    │       │       └──Assign
+    │       │           ├──ID: x
+    │       │           └──BinOp: -
+    │       │               ├──ID: x
+    │       │               └──Num: 1
+    │       ├──If
+    │       │   ├──ID: flag
+    │       │   └──Statements
+    │       │       └──If
+    │       │           ├──RelOp: ==
+    │       │           │   ├──ID: x
+    │       │           │   └──Num: 0
+    │       │           ├──Statements
+    │       │           │   └──Assign
+    │       │           │       ├──ID: y
+    │       │           │       └──Num: 1
+    │       │           └──Statements
+    │       │               └──Assign
+    │       │                   ├──ID: y
+    │       │                   └──Num: 2
+    │       ├──If
+    │       │   ├──ID: flag
+    │       │   └──Statements
+    │       │       └──If
+    │       │           ├──RelOp: ==
+    │       │           │   ├──ID: x
+    │       │           │   └──Num: 0
+    │       │           ├──Assign
+    │       │           │   ├──ID: y
+    │       │           │   └──Num: 1
+    │       │           └──Assign
+    │       │               ├──ID: y
+    │       │               └──Num: 2
+    │       ├──If
+    │       │   ├──ID: flag
+    │       │   └──Statements
+    │       │       └──If
+    │       │           ├──RelOp: ==
+    │       │           │   ├──ID: x
+    │       │           │   └──Num: 0
+    │       │           ├──Statements
+    │       │           │   ├──Assign
+    │       │           │   │   ├──ID: y
+    │       │           │   │   └──Num: 1
+    │       │           │   └──If
+    │       │           │       ├──RelOp: >=
+    │       │           │       │   ├──ID: y
+    │       │           │       │   └──Num: 1
+    │       │           │       ├──Call
+    │       │           │       │   ├──ID: print
+    │       │           │       │   └──ExpList
+    │       │           │       │       └──String: bigger
+    │       │           │       └──Call
+    │       │           │           ├──ID: print
+    │       │           │           └──ExpList
+    │       │           │               └──String: smaller
+    │       │           └──Assign
+    │       │               ├──ID: y
+    │       │               └──Num: 2
+    │       ├──While
+    │       │   ├──RelOp: >
+    │       │   │   ├──ID: x
+    │       │   │   └──Num: 0
+    │       │   └──Statements
+    │       │       ├──Assign
+    │       │       │   ├──ID: x
+    │       │       │   └──BinOp: -
+    │       │       │       ├──ID: x
+    │       │       │       └──Num: 1
+    │       │       ├──If
+    │       │       │   ├──RelOp: ==
+    │       │       │   │   ├──ID: x
+    │       │       │   │   └──Num: 5
+    │       │       │   └──Statements
+    │       │       │       └──Break
+    │       │       └──Continue
+    │       ├──Call
+    │       │   ├──ID: printResult
+    │       │   └──ExpList
+    │       │       ├──ID: y
+    │       │       └──ID: x
+    │       ├──VarDecl
+    │       │   ├──ID: sum
+    │       │   ├──PrimitiveType: int
+    │       │   └──Call
+    │       │       ├──ID: add
+    │       │       └──ExpList
+    │       │           ├──ID: y
+    │       │           └──ID: x
+    │       └──Return
+    │           └──ID: sum
+    ├──FuncDecl
+    │   ├──ID: add
+    │   ├──PrimitiveType: int
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: int
+    │   └──Statements
+    │       └──Return
+    │           └──BinOp: +
+    │               ├──ID: a
+    │               └──ID: b
+    ├──FuncDecl
+    │   ├──ID: multiply
+    │   ├──PrimitiveType: byte
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: byte
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: byte
+    │   └──Statements
+    │       └──Return
+    │           └──BinOp: *
+    │               ├──ID: a
+    │               └──ID: b
+    ├──FuncDecl
+    │   ├──ID: isGreater
+    │   ├──PrimitiveType: bool
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: int
+    │   └──Statements
+    │       └──Return
+    │           └──RelOp: >
+    │               ├──ID: a
+    │               └──ID: b
+    ├──FuncDecl
+    │   ├──ID: printResult
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: int
+    │   └──Statements
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       └──String: The result is:
+    │       └──Call
+    │           ├──ID: print
+    │           └──ExpList
+    │               └──BinOp: +
+    │                   ├──ID: a
+    │                   └──ID: b
+    ├──FuncDecl
+    │   ├──ID: castExample
+    │   ├──PrimitiveType: int
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: b
+    │       │   ├──PrimitiveType: byte
+    │       │   └──NumB: 11110
+    │       └──Return
+    │           └──Cast
+    │               ├──ID: b
+    │               └──PrimitiveType: int
+    ├──FuncDecl
+    │   ├──ID: logicalOperations
+    │   ├──PrimitiveType: bool
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: a
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 10
+    │       ├──VarDecl
+    │       │   ├──ID: b
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 20
+    │       └──Return
+    │           └──And
+    │               ├──RelOp: <
+    │               │   ├──ID: a
+    │               │   └──ID: b
+    │               └──Not
+    │                   └──RelOp: ==
+    │                       ├──ID: a
+    │                       └──ID: b
+    ├──FuncDecl
+    │   ├──ID: complexExpressions
+    │   ├──PrimitiveType: int
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: a
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 5
+    │       ├──VarDecl
+    │       │   ├──ID: b
+    │       │   ├──PrimitiveType: int
+    │       │   └──BinOp: *
+    │       │       ├──Cast
+    │       │       │   ├──BinOp: +
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──Num: 10
+    │       │       │   └──PrimitiveType: int
+    │       │       └──BinOp: -
+    │       │           ├──ID: a
+    │       │           └──Num: 1
+    │       └──Return
+    │           └──ID: b
+    ├──FuncDecl
+    │   ├──ID: nestedLoops
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: i
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 0
+    │       ├──VarDecl
+    │       │   ├──ID: j
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 0
+    │       └──While
+    │           ├──RelOp: <
+    │           │   ├──ID: i
+    │           │   └──Num: 10
+    │           └──Statements
+    │               ├──While
+    │               │   ├──RelOp: <
+    │               │   │   ├──ID: j
+    │               │   │   └──Num: 5
+    │               │   └──Statements
+    │               │       ├──Call
+    │               │       │   ├──ID: print
+    │               │       │   └──ExpList
+    │               │       │       └──BinOp: *
+    │               │       │           ├──ID: i
+    │               │       │           └──ID: j
+    │               │       └──Assign
+    │               │           ├──ID: j
+    │               │           └──BinOp: +
+    │               │               ├──ID: j
+    │               │               └──Num: 1
+    │               ├──Assign
+    │               │   ├──ID: j
+    │               │   └──Num: 0
+    │               └──Assign
+    │                   ├──ID: i
+    │                   └──BinOp: +
+    │                       ├──ID: i
+    │                       └──Num: 1
+    ├──FuncDecl
+    │   ├──ID: testBooleans
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: a
+    │       │   ├──PrimitiveType: bool
+    │       │   └──Bool: true
+    │       ├──VarDecl
+    │       │   ├──ID: b
+    │       │   ├──PrimitiveType: bool
+    │       │   └──Bool: false
+    │       └──If
+    │           ├──Or
+    │           │   ├──ID: a
+    │           │   └──ID: b
+    │           ├──Statements
+    │           │   └──Call
+    │           │       ├──ID: print
+    │           │       └──ExpList
+    │           │           └──String: At least one is true
+    │           └──Statements
+    │               └──Call
+    │                   ├──ID: print
+    │                   └──ExpList
+    │                       └──String: Both are false
+    └──FuncDecl
+        ├──ID: doNothing
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──Return

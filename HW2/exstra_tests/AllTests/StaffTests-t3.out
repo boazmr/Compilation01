@@ -1,0 +1,70 @@
+└──Funcs
+    ├──FuncDecl
+    │   ├──ID: main
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: x
+    │       │   ├──PrimitiveType: int
+    │       │   └──BinOp: *
+    │       │       ├──BinOp: +
+    │       │       │   ├──Num: 4
+    │       │       │   └──Num: 7
+    │       │       └──Num: 12
+    │       ├──VarDecl
+    │       │   ├──ID: y
+    │       │   ├──PrimitiveType: byte
+    │       │   └──NumB: 1
+    │       ├──Call
+    │       │   ├──ID: intFun
+    │       │   └──ExpList
+    │       │       ├──ID: y
+    │       │       ├──ID: x
+    │       │       ├──ID: x
+    │       │       └──RelOp: <
+    │       │           ├──ID: x
+    │       │           └──ID: y
+    │       └──VarDecl
+    │           ├──ID: z
+    │           └──PrimitiveType: int
+    └──FuncDecl
+        ├──ID: intFun
+        ├──PrimitiveType: int
+        ├──Formals
+        │   ├──Formal
+        │   │   ├──ID: e
+        │   │   └──PrimitiveType: byte
+        │   ├──Formal
+        │   │   ├──ID: d
+        │   │   └──PrimitiveType: int
+        │   ├──Formal
+        │   │   ├──ID: c
+        │   │   └──PrimitiveType: int
+        │   └──Formal
+        │       ├──ID: a
+        │       └──PrimitiveType: bool
+        └──Statements
+            ├──VarDecl
+            │   ├──ID: tmp
+            │   ├──PrimitiveType: int
+            │   └──BinOp: +
+            │       ├──ID: c
+            │       └──ID: e
+            ├──VarDecl
+            │   ├──ID: b
+            │   ├──PrimitiveType: bool
+            │   └──ID: a
+            ├──If
+            │   ├──And
+            │   │   ├──ID: a
+            │   │   └──RelOp: <
+            │   │       ├──ID: c
+            │   │       └──ID: d
+            │   └──Statements
+            │       └──VarDecl
+            │           ├──ID: j
+            │           ├──PrimitiveType: byte
+            │           └──ID: e
+            └──Return
+                └──ID: tmp

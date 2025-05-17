@@ -1,0 +1,27 @@
+└──Funcs
+    ├──FuncDecl
+    │   ├──ID: sum
+    │   ├──PrimitiveType: int
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: int
+    │   └──Statements
+    │       └──Return
+    │           └──BinOp: +
+    │               ├──ID: a
+    │               └──ID: b
+    └──FuncDecl
+        ├──ID: main
+        ├──PrimitiveType: int
+        ├──Formals
+        └──Statements
+            └──Return
+                └──Call
+                    ├──ID: sum
+                    └──ExpList
+                        ├──Num: 2
+                        └──Num: 1

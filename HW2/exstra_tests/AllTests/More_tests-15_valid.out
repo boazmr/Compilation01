@@ -1,0 +1,9 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: declareVar
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──VarDecl
+                ├──ID: x
+                └──PrimitiveType: int

@@ -1,0 +1,11 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: block
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──Statements
+                └──VarDecl
+                    ├──ID: x
+                    ├──PrimitiveType: int
+                    └──Num: 5

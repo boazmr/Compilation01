@@ -1,0 +1,7 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: noReturn
+        ├──PrimitiveType: void
+        ├──Formals
+        └──Statements
+            └──Return

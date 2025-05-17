@@ -1,0 +1,141 @@
+└──Funcs
+    ├──FuncDecl
+    │   ├──ID: main
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: c
+    │       │   ├──PrimitiveType: bool
+    │       │   └──Bool: true
+    │       └──If
+    │           ├──Not
+    │           │   └──ID: c
+    │           ├──Statements
+    │           │   ├──VarDecl
+    │           │   │   ├──ID: x
+    │           │   │   ├──PrimitiveType: int
+    │           │   │   └──Call
+    │           │   │       ├──ID: return6
+    │           │   │       └──ExpList
+    │           │   ├──Call
+    │           │   │   ├──ID: printi
+    │           │   │   └──ExpList
+    │           │   │       └──ID: x
+    │           │   └──Assign
+    │           │       ├──ID: x
+    │           │       └──Cast
+    │           │           ├──ID: e
+    │           │           └──PrimitiveType: int
+    │           └──If
+    │               ├──And
+    │               │   ├──Bool: true
+    │               │   └──Bool: false
+    │               ├──Statements
+    │               │   └──If
+    │               │       ├──Bool: false
+    │               │       ├──Call
+    │               │       │   ├──ID: main
+    │               │       │   └──ExpList
+    │               │       └──If
+    │               │           ├──Bool: false
+    │               │           ├──Call
+    │               │           │   ├──ID: main
+    │               │           │   └──ExpList
+    │               │           └──Statements
+    │               │               ├──VarDecl
+    │               │               │   ├──ID: b
+    │               │               │   ├──PrimitiveType: byte
+    │               │               │   └──NumB: 3
+    │               │               ├──While
+    │               │               │   ├──Bool: false
+    │               │               │   └──Statements
+    │               │               │       ├──VarDecl
+    │               │               │       │   ├──ID: a
+    │               │               │       │   ├──PrimitiveType: int
+    │               │               │       │   └──BinOp: +
+    │               │               │       │       ├──BinOp: *
+    │               │               │       │       │   ├──Num: 2
+    │               │               │       │       │   └──Num: 3
+    │               │               │       │       └──BinOp: /
+    │               │               │       │           ├──BinOp: *
+    │               │               │       │           │   ├──BinOp: +
+    │               │               │       │           │   │   ├──ID: b
+    │               │               │       │           │   │   └──Num: 3
+    │               │               │       │           │   └──Num: 5
+    │               │               │       │           └──Num: 4
+    │               │               │       ├──VarDecl
+    │               │               │       │   ├──ID: result
+    │               │               │       │   ├──PrimitiveType: int
+    │               │               │       │   └──Call
+    │               │               │       │       ├──ID: existingFunction
+    │               │               │       │       └──ExpList
+    │               │               │       │           ├──ID: c
+    │               │               │       │           ├──ID: b
+    │               │               │       │           └──ID: a
+    │               │               │       └──Return
+    │               │               │           └──ID: result
+    │               │               └──While
+    │               │                   ├──Bool: true
+    │               │                   └──Statements
+    │               │                       ├──Break
+    │               │                       └──Return
+    │               └──Assign
+    │                   ├──ID: c
+    │                   └──Bool: false
+    └──FuncDecl
+        ├──ID: existingFunction
+        ├──PrimitiveType: int
+        ├──Formals
+        │   ├──Formal
+        │   │   ├──ID: c
+        │   │   └──PrimitiveType: bool
+        │   ├──Formal
+        │   │   ├──ID: b
+        │   │   └──PrimitiveType: byte
+        │   └──Formal
+        │       ├──ID: a
+        │       └──PrimitiveType: int
+        └──Statements
+            ├──If
+            │   ├──Or
+            │   │   ├──Or
+            │   │   │   ├──Or
+            │   │   │   │   ├──RelOp: <=
+            │   │   │   │   │   ├──ID: a
+            │   │   │   │   │   └──Num: 5
+            │   │   │   │   └──RelOp: ==
+            │   │   │   │       ├──ID: a
+            │   │   │   │       └──Num: 6
+            │   │   │   └──RelOp: >
+            │   │   │       ├──ID: b
+            │   │   │       └──Num: 3
+            │   │   └──Not
+            │   │       └──ID: c
+            │   ├──Statements
+            │   │   ├──Call
+            │   │   │   ├──ID: print
+            │   │   │   └──ExpList
+            │   │   │       └──ID: str
+            │   │   └──Return
+            │   │       └──Num: 420
+            │   └──If
+            │       ├──And
+            │       │   ├──RelOp: ==
+            │       │   │   ├──Call
+            │       │   │   │   ├──ID: isProfanity
+            │       │   │   │   └──ExpList
+            │       │   │   │       └──Num: 69
+            │       │   │   └──Bool: true
+            │       │   └──ID: c
+            │       └──Statements
+            │           ├──Call
+            │           │   ├──ID: print
+            │           │   └──ExpList
+            │           │       └──String: not cool bro
+            │           └──Return
+            │               └──BinOp: -
+            │                   ├──Num: 0
+            │                   └──Num: 420
+            └──Return
+                └──Num: 666

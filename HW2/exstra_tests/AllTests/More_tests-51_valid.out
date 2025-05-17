@@ -1,0 +1,603 @@
+└──Funcs
+    ├──FuncDecl
+    │   ├──ID: main
+    │   ├──PrimitiveType: int
+    │   ├──Formals
+    │   └──Statements
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       └──String: Starting precedence stress test...
+    │       ├──VarDecl
+    │       │   ├──ID: a
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 10
+    │       ├──VarDecl
+    │       │   ├──ID: b
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 20
+    │       ├──VarDecl
+    │       │   ├──ID: c
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 30
+    │       ├──VarDecl
+    │       │   ├──ID: d
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 40
+    │       ├──VarDecl
+    │       │   ├──ID: e
+    │       │   ├──PrimitiveType: byte
+    │       │   └──NumB: 5
+    │       ├──VarDecl
+    │       │   ├──ID: f
+    │       │   ├──PrimitiveType: byte
+    │       │   └──NumB: 7
+    │       ├──VarDecl
+    │       │   ├──ID: flag1
+    │       │   ├──PrimitiveType: bool
+    │       │   └──Bool: true
+    │       ├──VarDecl
+    │       │   ├──ID: flag2
+    │       │   ├──PrimitiveType: bool
+    │       │   └──Bool: false
+    │       ├──Call
+    │       │   ├──ID: testArithmeticPrecedence
+    │       │   └──ExpList
+    │       │       ├──ID: f
+    │       │       ├──ID: e
+    │       │       ├──ID: d
+    │       │       ├──ID: c
+    │       │       ├──ID: b
+    │       │       └──ID: a
+    │       ├──Call
+    │       │   ├──ID: testLogicalPrecedence
+    │       │   └──ExpList
+    │       │       ├──ID: c
+    │       │       ├──ID: b
+    │       │       ├──ID: a
+    │       │       ├──ID: flag2
+    │       │       └──ID: flag1
+    │       ├──Call
+    │       │   ├──ID: testRelationalPrecedence
+    │       │   └──ExpList
+    │       │       ├──ID: d
+    │       │       ├──ID: c
+    │       │       ├──ID: b
+    │       │       └──ID: a
+    │       ├──Call
+    │       │   ├──ID: testMixedPrecedence
+    │       │   └──ExpList
+    │       │       ├──ID: flag2
+    │       │       ├──ID: flag1
+    │       │       ├──ID: f
+    │       │       ├──ID: e
+    │       │       ├──ID: d
+    │       │       ├──ID: c
+    │       │       ├──ID: b
+    │       │       └──ID: a
+    │       └──Return
+    │           └──Num: 0
+    ├──FuncDecl
+    │   ├──ID: testArithmeticPrecedence
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: f
+    │   │   │   └──PrimitiveType: byte
+    │   │   ├──Formal
+    │   │   │   ├──ID: e
+    │   │   │   └──PrimitiveType: byte
+    │   │   ├──Formal
+    │   │   │   ├──ID: d
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: c
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: int
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: result
+    │       │   ├──PrimitiveType: int
+    │       │   └──Num: 0
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: +
+    │       │       ├──ID: a
+    │       │       └──BinOp: *
+    │       │           ├──ID: b
+    │       │           └──ID: c
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Result 1:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: *
+    │       │       ├──BinOp: +
+    │       │       │   ├──ID: a
+    │       │       │   └──ID: b
+    │       │       └──ID: c
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Result 2:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: -
+    │       │       ├──BinOp: *
+    │       │       │   ├──ID: a
+    │       │       │   └──ID: b
+    │       │       └──BinOp: /
+    │       │           ├──ID: c
+    │       │           └──ID: d
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Result 3:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: /
+    │       │       ├──BinOp: *
+    │       │       │   ├──BinOp: +
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──ID: b
+    │       │       │   └──BinOp: -
+    │       │       │       ├──ID: c
+    │       │       │       └──ID: d
+    │       │       └──BinOp: +
+    │       │           ├──ID: e
+    │       │           └──ID: f
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Result 4:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: +
+    │       │       ├──BinOp: -
+    │       │       │   ├──BinOp: +
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──BinOp: *
+    │       │       │   │       ├──ID: b
+    │       │       │   │       └──ID: c
+    │       │       │   └──BinOp: /
+    │       │       │       ├──ID: d
+    │       │       │       └──ID: e
+    │       │       └──ID: f
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Result 5:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: /
+    │       │       ├──BinOp: +
+    │       │       │   ├──BinOp: *
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──ID: b
+    │       │       │   └──ID: c
+    │       │       └──BinOp: *
+    │       │           ├──BinOp: -
+    │       │           │   ├──ID: d
+    │       │           │   └──ID: e
+    │       │           └──ID: f
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Result 6:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──BinOp: -
+    │       │       ├──BinOp: /
+    │       │       │   ├──BinOp: +
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──BinOp: *
+    │       │       │   │       ├──ID: b
+    │       │       │   │       └──ID: c
+    │       │       │   └──ID: d
+    │       │       └──BinOp: *
+    │       │           ├──BinOp: +
+    │       │           │   ├──ID: e
+    │       │           │   └──ID: f
+    │       │           └──ID: a
+    │       └──Call
+    │           ├──ID: print
+    │           └──ExpList
+    │               ├──ID: result
+    │               └──String: Result 7:
+    ├──FuncDecl
+    │   ├──ID: testLogicalPrecedence
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: c
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: a
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: flag2
+    │   │   │   └──PrimitiveType: bool
+    │   │   └──Formal
+    │   │       ├──ID: flag1
+    │   │       └──PrimitiveType: bool
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: result
+    │       │   └──PrimitiveType: bool
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──Or
+    │       │       ├──And
+    │       │       │   ├──ID: flag1
+    │       │       │   └──ID: flag2
+    │       │       └──RelOp: >
+    │       │           ├──ID: a
+    │       │           └──ID: b
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Logical Result 1:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──And
+    │       │       ├──ID: flag1
+    │       │       └──Or
+    │       │           ├──ID: flag2
+    │       │           └──RelOp: >
+    │       │               ├──ID: a
+    │       │               └──ID: b
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Logical Result 2:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──Or
+    │       │       ├──Not
+    │       │       │   └──ID: flag1
+    │       │       └──And
+    │       │           ├──ID: flag2
+    │       │           └──RelOp: <
+    │       │               ├──ID: a
+    │       │               └──ID: b
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Logical Result 3:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──Or
+    │       │       ├──Not
+    │       │       │   └──And
+    │       │       │       ├──ID: flag1
+    │       │       │       └──ID: flag2
+    │       │       └──And
+    │       │           ├──RelOp: >
+    │       │           │   ├──ID: a
+    │       │           │   └──ID: b
+    │       │           └──RelOp: >
+    │       │               ├──ID: c
+    │       │               └──ID: a
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Logical Result 4:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──And
+    │       │       ├──Or
+    │       │       │   ├──Not
+    │       │       │   │   └──ID: flag1
+    │       │       │   └──Not
+    │       │       │       └──ID: flag2
+    │       │       └──Or
+    │       │           ├──RelOp: >
+    │       │           │   ├──ID: a
+    │       │           │   └──ID: b
+    │       │           └──RelOp: <
+    │       │               ├──ID: b
+    │       │               └──ID: c
+    │       └──Call
+    │           ├──ID: print
+    │           └──ExpList
+    │               ├──ID: result
+    │               └──String: Logical Result 5:
+    ├──FuncDecl
+    │   ├──ID: testRelationalPrecedence
+    │   ├──PrimitiveType: void
+    │   ├──Formals
+    │   │   ├──Formal
+    │   │   │   ├──ID: d
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: c
+    │   │   │   └──PrimitiveType: int
+    │   │   ├──Formal
+    │   │   │   ├──ID: b
+    │   │   │   └──PrimitiveType: int
+    │   │   └──Formal
+    │   │       ├──ID: a
+    │   │       └──PrimitiveType: int
+    │   └──Statements
+    │       ├──VarDecl
+    │       │   ├──ID: result
+    │       │   └──PrimitiveType: bool
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──And
+    │       │       ├──RelOp: <
+    │       │       │   ├──ID: a
+    │       │       │   └──ID: b
+    │       │       └──RelOp: <
+    │       │           ├──ID: b
+    │       │           └──ID: c
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Relational Result 1:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──RelOp: <
+    │       │       ├──BinOp: +
+    │       │       │   ├──ID: a
+    │       │       │   └──ID: b
+    │       │       └──BinOp: -
+    │       │           ├──ID: c
+    │       │           └──ID: d
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Relational Result 2:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──Or
+    │       │       ├──RelOp: >=
+    │       │       │   ├──BinOp: *
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──ID: b
+    │       │       │   └──BinOp: /
+    │       │       │       ├──ID: c
+    │       │       │       └──ID: d
+    │       │       └──RelOp: ==
+    │       │           ├──ID: a
+    │       │           └──ID: b
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Relational Result 3:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──Or
+    │       │       ├──And
+    │       │       │   ├──RelOp: >
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──ID: b
+    │       │       │   └──RelOp: <=
+    │       │       │       ├──ID: b
+    │       │       │       └──ID: c
+    │       │       └──RelOp: !=
+    │       │           ├──ID: c
+    │       │           └──ID: d
+    │       ├──Call
+    │       │   ├──ID: print
+    │       │   └──ExpList
+    │       │       ├──ID: result
+    │       │       └──String: Relational Result 4:
+    │       ├──Assign
+    │       │   ├──ID: result
+    │       │   └──And
+    │       │       ├──RelOp: >
+    │       │       │   ├──BinOp: +
+    │       │       │   │   ├──ID: a
+    │       │       │   │   └──ID: b
+    │       │       │   └──BinOp: -
+    │       │       │       ├──ID: c
+    │       │       │       └──ID: d
+    │       │       └──RelOp: <=
+    │       │           ├──BinOp: *
+    │       │           │   ├──ID: a
+    │       │           │   └──ID: c
+    │       │           └──BinOp: /
+    │       │               ├──ID: b
+    │       │               └──ID: d
+    │       └──Call
+    │           ├──ID: print
+    │           └──ExpList
+    │               ├──ID: result
+    │               └──String: Relational Result 5:
+    └──FuncDecl
+        ├──ID: testMixedPrecedence
+        ├──PrimitiveType: void
+        ├──Formals
+        │   ├──Formal
+        │   │   ├──ID: flag2
+        │   │   └──PrimitiveType: bool
+        │   ├──Formal
+        │   │   ├──ID: flag1
+        │   │   └──PrimitiveType: bool
+        │   ├──Formal
+        │   │   ├──ID: f
+        │   │   └──PrimitiveType: byte
+        │   ├──Formal
+        │   │   ├──ID: e
+        │   │   └──PrimitiveType: byte
+        │   ├──Formal
+        │   │   ├──ID: d
+        │   │   └──PrimitiveType: int
+        │   ├──Formal
+        │   │   ├──ID: c
+        │   │   └──PrimitiveType: int
+        │   ├──Formal
+        │   │   ├──ID: b
+        │   │   └──PrimitiveType: int
+        │   └──Formal
+        │       ├──ID: a
+        │       └──PrimitiveType: int
+        └──Statements
+            ├──VarDecl
+            │   ├──ID: result
+            │   └──PrimitiveType: int
+            ├──VarDecl
+            │   ├──ID: logicalResult
+            │   └──PrimitiveType: bool
+            ├──Assign
+            │   ├──ID: result
+            │   └──BinOp: +
+            │       ├──BinOp: -
+            │       │   ├──BinOp: +
+            │       │   │   ├──ID: a
+            │       │   │   └──BinOp: *
+            │       │   │       ├──ID: b
+            │       │   │       └──ID: c
+            │       │   └──BinOp: /
+            │       │       ├──ID: d
+            │       │       └──ID: e
+            │       └──ID: f
+            ├──Assign
+            │   ├──ID: logicalResult
+            │   └──And
+            │       ├──RelOp: >
+            │       │   ├──ID: result
+            │       │   └──ID: a
+            │       └──Not
+            │           └──Or
+            │               ├──ID: flag1
+            │               └──ID: flag2
+            ├──Call
+            │   ├──ID: print
+            │   └──ExpList
+            │       ├──ID: logicalResult
+            │       ├──String: Logical:
+            │       ├──ID: result
+            │       └──String: Mixed Result 1:
+            ├──Assign
+            │   ├──ID: logicalResult
+            │   └──Or
+            │       ├──And
+            │       │   ├──RelOp: >
+            │       │   │   ├──BinOp: +
+            │       │   │   │   ├──ID: a
+            │       │   │   │   └──ID: b
+            │       │   │   └──BinOp: -
+            │       │   │       ├──ID: c
+            │       │   │       └──ID: d
+            │       │   └──RelOp: <
+            │       │       ├──BinOp: *
+            │       │       │   ├──ID: e
+            │       │       │   └──ID: f
+            │       │       └──ID: d
+            │       └──Not
+            │           └──ID: flag1
+            ├──Call
+            │   ├──ID: print
+            │   └──ExpList
+            │       ├──ID: logicalResult
+            │       └──String: Mixed Logical Result 2:
+            ├──Assign
+            │   ├──ID: result
+            │   └──BinOp: +
+            │       ├──BinOp: -
+            │       │   ├──BinOp: /
+            │       │   │   ├──BinOp: *
+            │       │   │   │   ├──BinOp: +
+            │       │   │   │   │   ├──ID: a
+            │       │   │   │   │   └──ID: b
+            │       │   │   │   └──BinOp: -
+            │       │   │   │       ├──ID: c
+            │       │   │   │       └──ID: d
+            │       │   │   └──BinOp: +
+            │       │   │       ├──ID: e
+            │       │   │       └──ID: f
+            │       │   └──BinOp: *
+            │       │       ├──ID: a
+            │       │       └──ID: c
+            │       └──ID: b
+            ├──Assign
+            │   ├──ID: logicalResult
+            │   └──Or
+            │       ├──Not
+            │       │   └──RelOp: >
+            │       │       ├──ID: result
+            │       │       └──ID: a
+            │       └──And
+            │           ├──ID: flag1
+            │           └──Or
+            │               ├──ID: flag2
+            │               └──RelOp: <
+            │                   ├──ID: a
+            │                   └──ID: b
+            ├──Call
+            │   ├──ID: print
+            │   └──ExpList
+            │       ├──ID: logicalResult
+            │       ├──String: Logical:
+            │       ├──ID: result
+            │       └──String: Mixed Result 3:
+            ├──Assign
+            │   ├──ID: result
+            │   └──BinOp: /
+            │       ├──BinOp: *
+            │       │   ├──BinOp: -
+            │       │   │   ├──BinOp: *
+            │       │   │   │   ├──BinOp: +
+            │       │   │   │   │   ├──ID: a
+            │       │   │   │   │   └──ID: b
+            │       │   │   │   └──ID: c
+            │       │   │   └──BinOp: +
+            │       │   │       ├──BinOp: /
+            │       │   │       │   ├──ID: d
+            │       │   │       │   └──ID: e
+            │       │   │       └──ID: f
+            │       │   └──BinOp: +
+            │       │       ├──BinOp: -
+            │       │       │   ├──ID: a
+            │       │       │   └──ID: b
+            │       │       └──BinOp: *
+            │       │           ├──ID: c
+            │       │           └──ID: d
+            │       └──ID: f
+            ├──Assign
+            │   ├──ID: logicalResult
+            │   └──Or
+            │       ├──And
+            │       │   ├──RelOp: >
+            │       │   │   ├──ID: result
+            │       │   │   └──ID: a
+            │       │   └──Not
+            │       │       └──ID: flag1
+            │       └──And
+            │           ├──ID: flag2
+            │           └──RelOp: <
+            │               ├──BinOp: +
+            │               │   ├──ID: b
+            │               │   └──ID: c
+            │               └──ID: d
+            └──Call
+                ├──ID: print
+                └──ExpList
+                    ├──ID: logicalResult
+                    ├──String: Logical:
+                    ├──ID: result
+                    └──String: Mixed Result 4:

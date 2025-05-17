@@ -1,0 +1,12 @@
+└──Funcs
+    └──FuncDecl
+        ├──ID: main
+        ├──PrimitiveType: int
+        ├──Formals
+        └──Statements
+            └──VarDecl
+                ├──ID: flag
+                ├──PrimitiveType: bool
+                └──Or
+                    ├──Bool: true
+                    └──Bool: false
