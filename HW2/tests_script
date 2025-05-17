@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for i in {1..3}
+do
+    ./hw2 < hw2-tests/t$i.in >& hw2-tests/t$i.res
+    if diff_output=$(diff hw2-tests/t$i.res hw2-tests/t$i.out); then
+        echo "Test $i PASSED ✅"
+    else
+        echo "Test $i FAILED ❌"
+        echo "$diff_output"
+    fi
+    echo ""
+done
