@@ -149,32 +149,22 @@ namespace output {
     }
 
 /* SemanticVisitor implementation */
+    SemanticVisitor::SemanticVisitor() : first_run(true) {};
 
-    SemanticVisitor::SemanticVisitor() : indents({last_child_indent}), prefixes({last_child_prefix}) {}
-
-    void SemanticVisitor::print_indented(const std::string &str) {
-        for (auto it = indents.begin(); it != indents.end() - 1; ++it) {
-            std::cout << *it;
-        }
-        std::cout << prefixes.back() << str << std::endl;
+    void SemanticVisitor::push_symbol_table(){
+        // TODO
     }
-
-    void SemanticVisitor::enter_child() {
-        indents.emplace_back(child_indent);
-        prefixes.emplace_back(child_prefix);
-    }
-
-    void SemanticVisitor::enter_last_child() {
-        indents.emplace_back(last_child_indent);
-        prefixes.emplace_back(last_child_prefix);
-    }
-
-    void SemanticVisitor::leave_child() {
-        indents.pop_back();
-        prefixes.pop_back();
+    
+    void SemanticVisitor::pop_symbol_table(){
+        // TODO
     }
 
     void SemanticVisitor::visit(ast::Num &node) {
+        // TODO: 
+        // Search if already exists, add to the symbol table
+        // Call emitvar
+        this->scopePrinter.emitVar()
+
         print_indented("Num: " + std::to_string(node.value));
     }
 

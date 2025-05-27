@@ -81,6 +81,7 @@ namespace output {
     class SymbolTable{
     private:
         std::map<std::string, Type_Offset> symbolTable;
+        int current_offset;
 
     public:
         SymbolTable();
@@ -100,7 +101,7 @@ namespace output {
 
     public:
         bool first_run;
-        SemanticVisitor() : first_run(true) {};
+        SemanticVisitor();
 
         void push_symbol_table();
         void pop_symbol_table();
