@@ -2,6 +2,8 @@
 #define OUTPUT_HPP
 
 #include <vector>
+#include <map>
+#include <stack>
 #include <string>
 #include <sstream>
 #include "visitor.hpp"
@@ -64,42 +66,41 @@ namespace output {
         friend std::ostream &operator<<(std::ostream &os, const ScopePrinter &printer);
     };
 
-enum Type{}
+    enum Type{
+        NUMERIC,
+        BOOL,
+        STRING,
 
-struct Type_Offset{
-    Type type;
-    int offset;
-}
+    };
 
-class SymbolTable
-{
+    struct Type_Offset{
+        Type type;
+        int offset;
+    };
+
+    class SymbolTable{
     private:
         std::map<std::string, Type_Offset> symbolTable;
 
     public:
-        SymTable();
-}
+        SymbolTable();
+    };
 
-/* PrintVisitor class
+    /* PrintVisitor class
      * This class is used to print the AST in a human-readable format.
      */
     class SemanticVisitor : public Visitor {
     private:
+        // The symbol table, implementad as a scopes stack.
         std::stack<SymbolTable> symbol_stack;
+        // Stack of scopes offsets.
         std::stack<int> offsets;
-        /* Helper function to print a string with the current indentation */
-        void print_indented(const std::string &str);
-
-        /* Functions to manage the indentation level */
-        void enter_child();
-
-        void enter_last_child();
-
-        void leave_child();
+        
+        ScopePrinter scopePrinter;
 
     public:
         bool first_run;
-        SemanticVisitor();
+        SemanticVisitor() : first_run(true) {};
 
         void push_symbol_table();
         void pop_symbol_table();
@@ -126,7 +127,7 @@ class SymbolTable
 
         void visit(ast::Or &node) override;
 
-        // void visit(ast::Type &node) override;
+        //void visit(ast::Type &node) override;
 
         void visit(ast::ArrayType &node) override;
 
