@@ -273,6 +273,13 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Call &node) {
+        if (!search_func(node.func_id->value))
+            errorUndefFunc(node.line, node.func_id->value);
+
+        if (search_var(node.func_id->value))
+                errorDefAsVar(node.line, node.func_id->value);
+
+
         node.func_id->accept(*this);
         node.args->accept(*this);
     }
@@ -319,6 +326,7 @@ namespace output {
         if (search_func(node.id->value))
             errorDefAsFunc(node.line, node.id->value);
 
+
         push_var(node.id->value, node.type->value);
         offset_increment(node.type->value);
         node.id->accept(*this);
@@ -329,7 +337,7 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Assign &node) {
-        if (!search_var(node.id->value))
+        if (!search_var(/*to do*/))
             errorUndef(node.line, node.id->value);
 
         if (search_func(node.id->value))
