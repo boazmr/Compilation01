@@ -246,164 +246,74 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Break &node) {
-        print_indented("Break");
+        // Do nothing
+        return;
     }
 
     void SemanticVisitor::visit(ast::Continue &node) {
-        print_indented("Continue");
+        // Do nothing
+        return;
     }
 
     void SemanticVisitor::visit(ast::Return &node) {
-        print_indented("Return");
-
         if (node.exp) {
-            enter_last_child();
             node.exp->accept(*this);
-            leave_child();
         }
     }
 
     void SemanticVisitor::visit(ast::If &node) {
-        print_indented("If");
-
-        enter_child();
         node.condition->accept(*this);
-        leave_child();
-
-        if (node.otherwise) {
-            enter_child();
-        } else {
-            enter_last_child();
-        }
         node.then->accept(*this);
-        leave_child();
-
         if (node.otherwise) {
-            enter_last_child();
             node.otherwise->accept(*this);
-            leave_child();
         }
     }
 
     void SemanticVisitor::visit(ast::While &node) {
-        print_indented("While");
-
-        enter_child();
         node.condition->accept(*this);
-        leave_child();
-
-        enter_last_child();
         node.body->accept(*this);
-        leave_child();
     }
 
     void SemanticVisitor::visit(ast::VarDecl &node) {
-        print_indented("VarDecl");
-
-        enter_child();
         node.id->accept(*this);
-        leave_child();
-
-        if (node.init_exp) {
-            enter_child();
-        } else {
-            enter_last_child();
-        }
         node.type->accept(*this);
-        leave_child();
-
         if (node.init_exp) {
-            enter_last_child();
             node.init_exp->accept(*this);
-            leave_child();
         }
     }
 
     void SemanticVisitor::visit(ast::Assign &node) {
-        print_indented("Assign");
-
-        enter_child();
         node.id->accept(*this);
-        leave_child();
-
-        enter_last_child();
         node.exp->accept(*this);
-        leave_child();
     }
 
     void SemanticVisitor::visit(ast::ArrayAssign &node) {
-        print_indented("ArrayAssign");
-
-        enter_child();
         node.id->accept(*this);
-        leave_child();
-
-        enter_child();
         node.index->accept(*this);
-        leave_child();
-
-        enter_last_child();
         node.exp->accept(*this);
-        leave_child();
     }
 
     void SemanticVisitor::visit(ast::Formal &node) {
-        print_indented("Formal");
-
-        enter_child();
         node.id->accept(*this);
-        leave_child();
-
-        enter_last_child();
         node.type->accept(*this);
-        leave_child();
     }
 
     void SemanticVisitor::visit(ast::Formals &node) {
-        print_indented("Formals");
-
         for (auto it = node.formals.rbegin(); it != node.formals.rend(); ++it) {
-            if (it != node.formals.rend() - 1) {
-                enter_child();
-            } else {
-                enter_last_child();
-            }
             (*it)->accept(*this);
-            leave_child();
         }
     }
 
     void SemanticVisitor::visit(ast::FuncDecl &node) {
-        print_indented("FuncDecl");
-
-        enter_child();
         node.id->accept(*this);
-        leave_child();
-
-        enter_child();
         node.return_type->accept(*this);
-        leave_child();
-
-        enter_child();
         node.formals->accept(*this);
-        leave_child();
-
-        enter_last_child();
         node.body->accept(*this);
-        leave_child();
     }
-
+    
     void SemanticVisitor::visit(ast::Funcs &node) {
-        print_indented("Funcs");
-
         for (auto it = node.funcs.begin(); it != node.funcs.end(); ++it) {
-            if (it != node.funcs.end() - 1) {
-                enter_child();
-            } else {
-                enter_last_child();
-            }
             (*it)->accept(*this);
-            leave_child();
         }
     }
 }
