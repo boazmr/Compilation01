@@ -313,6 +313,12 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::VarDecl &node) {
+        if (search_var(node.id->value))
+              errorDef(node.line, node.id->value);
+
+        if (search_func(node.id->value))
+            errorDefAsFunc(node.line, node.id->value);
+
         push_var(node.id->value, node.type->value);
         offset_increment(node.type->value);
         node.id->accept(*this);
@@ -323,11 +329,12 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Assign &node) {
-        bool found = search_var(node.id->value);
-        if (!found)
-        {
-            // error throw
-        }
+        if (!search_var(node.id->value))
+            errorUndef(node.line, node.id->value);
+
+        if (search_func(node.id->value))
+            errorDefAsFunc(node.line, node.id->value);
+
         node.id->accept(*this);
         node.exp->accept(*this);
     }
