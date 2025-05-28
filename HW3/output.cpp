@@ -151,6 +151,8 @@ namespace output {
 /* SemanticVisitor implementation */
     SemanticVisitor::SemanticVisitor() : first_run(true) {
         offsets.push(0);
+        push_func("print", ast::BuiltInType::VOID,  {ast::BuiltInType::STRING});
+        push_func("printi", ast::BuiltInType::VOID,  {ast::BuiltInType::STRING});
     }
 
     std::shared_ptr<SymbolTable> SemanticVisitor::makeTable()
@@ -162,18 +164,17 @@ namespace output {
     {
         Var_Entry entry = {type, offsets.top()};
         symbol_stack.top()->table[id] = entry;
+        scopePrinter.emitVar(id, type, offsets.top());
+        offsets.top()++;
     }
 
     void SemanticVisitor::push_param(const std::string &id, const ast::BuiltInType &type, int neg_offset)
     {
         Var_Entry entry = {type, neg_offset};
         symbol_stack.top()->table[id] = entry;
+        scopePrinter.emitVar(id, type, neg_offset);
     }
 
-    void SemanticVisitor::offset_increment(const ast::BuiltInType &type)
-    {
-        offsets.top()++;
-    }
 
     bool SemanticVisitor::search_var(std::string& name)
     {
@@ -192,6 +193,7 @@ namespace output {
     {
         Func_Entry entry = {paramTypes, returnType};
         func_table[id] = entry;
+        scopePrinter.emitFunc(id, returnType, paramTypes);
     }
 
     bool SemanticVisitor::search_func(std::string& name)
@@ -336,7 +338,6 @@ namespace output {
 
 
         push_var(node.id->value, node.type->value);
-        offset_increment(node.type->value);
         node.id->accept(*this);
         node.type->accept(*this);
         if (node.init_exp) {
@@ -380,6 +381,7 @@ namespace output {
         }
 
         std::shared_ptr<SymbolTable> sym_t = makeTable();
+        scopePrinter.beginScope();
         symbol_stack.push(sym_t);
         offsets.push(offsets.top());
         int i = -1;
@@ -396,6 +398,7 @@ namespace output {
 
         offsets.pop();
         symbol_stack.pop();
+        scopePrinter.endScope();
     }
     
     void SemanticVisitor::visit(ast::Funcs &node) {
