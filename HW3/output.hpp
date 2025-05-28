@@ -108,6 +108,7 @@ namespace output {
         std::shared_ptr<SymbolTable> makeTable();
         bool search_var(std::string& name);
         void push_var(const std::string &id, const ast::BuiltInType &type);
+        void push_param(const std::string &id, const ast::BuiltInType &type, int neg_offset);
 
         bool search_func(std::string& name);
         void push_func(const std::string &id, const ast::BuiltInType &returnType,
