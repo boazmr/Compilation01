@@ -191,8 +191,7 @@ namespace output {
     void SemanticVisitor::push_func(const std::string &id, const ast::BuiltInType &returnType,
                                     const std::vector<ast::BuiltInType> &paramTypes)
     {
-        Func_Entry entry = {paramTypes, returnType};
-        func_table[id] = entry;
+        func_table[id] = {paramTypes, returnType};
         scopePrinter.emitFunc(id, returnType, paramTypes);
     }
 
