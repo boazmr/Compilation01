@@ -113,6 +113,8 @@ namespace output {
         void push_func(const std::string &id, const ast::BuiltInType &returnType,
                       const std::vector<ast::BuiltInType> &paramTypes);
 
+        void offset_increment(const ast::BuiltInType &type);
+
         void visit(ast::Num &node) override;
 
         void visit(ast::NumB &node) override;

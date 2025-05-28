@@ -160,6 +160,10 @@ namespace output {
     {
         Var_Entry entry = {type, offsets.top()};
         symbol_stack.top()->table[id] = entry;
+    }
+
+    void SemanticVisitor::offset_increment(const ast::BuiltInType &type)
+    {
         offsets.top()++;
     }
 
@@ -309,6 +313,8 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::VarDecl &node) {
+        push_var(node.id->value, node.type->value);
+        offset_increment(node.type->value);
         node.id->accept(*this);
         node.type->accept(*this);
         if (node.init_exp) {
@@ -317,6 +323,11 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Assign &node) {
+        bool found = search_var(node.id->value);
+        if (!found)
+        {
+            // error throw
+        }
         node.id->accept(*this);
         node.exp->accept(*this);
     }
@@ -339,27 +350,20 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::FuncDecl &node) {
-        if (first_run)
-        {
-            std::vector<ast::BuiltInType> params = {};
-            ast::BuiltInType retType = node.return_type->type;
+        std::shared_ptr<SymbolTable> sym_t = makeTable();
+        symbol_stack.push(sym_t);
+        offsets.push(offsets.top());
 
-            Func_Entry entry{params, retType};
-            func_table[node.id->value] = entry;
-            push_var(node.id->value, node.return_type->type, 0);
-        }
         node.id->accept(*this);
         node.return_type->accept(*this);
         node.formals->accept(*this);
         node.body->accept(*this);
+
+        offsets.pop();
+        symbol_stack.pop();
     }
     
     void SemanticVisitor::visit(ast::Funcs &node) {
-        if (first_run)
-        {
-
-            return;
-        }
         for (auto it = node.funcs.begin(); it != node.funcs.end(); ++it) {
             (*it)->accept(*this);
         }
