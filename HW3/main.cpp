@@ -19,7 +19,7 @@ int main() {
     if(program){
       output::SemanticVisitor semanticVisitor;
       program->accept(semanticVisitor);
-      semanticVisitor.first_round = false;
+      semanticVisitor.first_run = false;
       program->accept(semanticVisitor);
     }
 }
