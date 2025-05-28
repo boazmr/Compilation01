@@ -160,29 +160,28 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Num &node) {
-        // TODO: 
-        // Search if already exists, add to the symbol table
-        // Call emitvar
-        this->scopePrinter.emitVar()
-
-        print_indented("Num: " + std::to_string(node.value));
+        // Dont do nothing.
+        return;
     }
 
     void SemanticVisitor::visit(ast::NumB &node) {
-
-        print_indented("NumB: " + std::to_string(node.value));
+        // Dont do nothing.
+        return;
     }
 
     void SemanticVisitor::visit(ast::String &node) {
-        print_indented("String: " + node.value);
+        // Dont do nothing.
+        return;
     }
 
     void SemanticVisitor::visit(ast::Bool &node) {
-        print_indented("Bool: " + std::string((node.value ? "true" : "false")));
+        // Dont do nothing.
+        return;
     }
 
     void SemanticVisitor::visit(ast::ID &node) {
-        print_indented("ID: " + node.value);
+        // Dont do nothing.
+        return;
     }
 
     void SemanticVisitor::visit(ast::BinOp &node) {
