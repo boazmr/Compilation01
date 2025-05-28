@@ -240,16 +240,8 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Statements &node) {
-        print_indented("Statements");
-
         for (auto it = node.statements.begin(); it != node.statements.end(); ++it) {
-            if (it != node.statements.end() - 1) {
-                enter_child();
-            } else {
-                enter_last_child();
-            }
             (*it)->accept(*this);
-            leave_child();
         }
     }
 
