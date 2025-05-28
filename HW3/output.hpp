@@ -73,18 +73,19 @@ namespace output {
 
     };
 
-    struct Type_Offset{
-        Type type;
+    struct Var_Entry{
+        ast::BuiltInType type;
         int offset;
     };
 
-    class SymbolTable{
-    private:
-        std::map<std::string, Type_Offset> symbolTable;
-        int current_offset;
+    struct Func_Entry {
+        std::vector<ast::BuiltInType> paramTypes;
+        ast::BuiltInType returnType;
+    };
 
-    public:
-        SymbolTable();
+
+    struct SymbolTable{
+        std::map<std::string, Var_Entry> table;
     };
 
     /* PrintVisitor class
@@ -93,20 +94,24 @@ namespace output {
     class SemanticVisitor : public Visitor {
     private:
         // The symbol table, implementad as a scopes stack.
-        std::stack<SymbolTable> symbol_stack;
+        std::stack<std::shared_ptr<SymbolTable>> symbol_stack;
         // Stack of scopes offsets.
         std::stack<int> offsets;
+        // data struct that saves func
+        std::map<std::string, Func_Entry> func_table;
         
         ScopePrinter scopePrinter;
 
     public:
         bool first_run;
         SemanticVisitor();
+        std::shared_ptr<SymbolTable> makeTable();
+        bool search_var(std::string& name);
+        void push_var(const std::string &id, const ast::BuiltInType &type);
 
-        void push_symbol_table();
-        void pop_symbol_table();
-        bool search_var(std::string &name);
-        void push_var(std::string &name, Type type, int offset);
+        bool search_func(std::string& name);
+        void push_func(const std::string &id, const ast::BuiltInType &returnType,
+                      const std::vector<ast::BuiltInType> &paramTypes);
 
         void visit(ast::Num &node) override;
 

@@ -151,13 +151,47 @@ namespace output {
 /* SemanticVisitor implementation */
     SemanticVisitor::SemanticVisitor() : first_run(true) {};
 
-    void SemanticVisitor::push_symbol_table(){
-        // TODO
+    std::shared_ptr<SymbolTable> SemanticVisitor::makeTable()
+    {
+        return std::make_shared<SymbolTable>();
     }
-    
-    void SemanticVisitor::pop_symbol_table(){
-        // TODO
+
+    void SemanticVisitor::push_var(const std::string &id, const ast::BuiltInType &type)
+    {
+        Var_Entry entry = {type, offsets.top()};
+        symbol_stack.top()->table[id] = entry;
+        offsets.top()++;
     }
+
+    bool SemanticVisitor::search_var(std::string& name)
+    {
+        for (const std::shared_ptr<SymbolTable>& symbolTable : symbol_stack)
+        {
+            if (symbolTable->table.find(name) != symbolTable->table.end())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void SemanticVisitor::push_func(const std::string &id, const ast::BuiltInType &returnType,
+                                    const std::vector<ast::BuiltInType> &paramTypes)
+    {
+        Func_Entry entry = {paramTypes, returnType};
+        func_table[id] = entry;
+    }
+
+    bool SemanticVisitor::search_func(std::string& name)
+    {
+        if (func_table.find(name) != func_table.end())
+            return true;
+        return false;
+    }
+
+
+
+
 
     void SemanticVisitor::visit(ast::Num &node) {
         // Dont do nothing.
@@ -305,6 +339,15 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::FuncDecl &node) {
+        if (first_run)
+        {
+            std::vector<ast::BuiltInType> params = {};
+            ast::BuiltInType retType = node.return_type->type;
+
+            Func_Entry entry{params, retType};
+            func_table[node.id->value] = entry;
+            push_var(node.id->value, node.return_type->type, 0);
+        }
         node.id->accept(*this);
         node.return_type->accept(*this);
         node.formals->accept(*this);
@@ -312,8 +355,14 @@ namespace output {
     }
     
     void SemanticVisitor::visit(ast::Funcs &node) {
+        if (first_run)
+        {
+
+            return;
+        }
         for (auto it = node.funcs.begin(); it != node.funcs.end(); ++it) {
             (*it)->accept(*this);
         }
+
     }
 }
