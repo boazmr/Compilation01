@@ -32,7 +32,8 @@ namespace ast {
         BOOL,
         BYTE,
         INT,
-        STRING
+        STRING,
+        NONE,
     };
 
     /* Base class for all AST nodes */
@@ -51,7 +52,9 @@ namespace ast {
     /* Base class for all expressions */
     class Exp : virtual public Node {
     public:
-        Exp() = default;
+        BuiltInType type;
+        explicit Exp(BuiltInType exp_type);
+
     };
 
     /* Base class for all statements */

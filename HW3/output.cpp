@@ -1,8 +1,14 @@
    #include "output.hpp"
-#include <iostream>
 
-namespace output {
+#include <cmath>
+#include <iostream>
+#include <math.h>
+
+   namespace output {
     /* Helper functions */
+    bool is_number(const std::shared_ptr<ast::Exp>& exp) {
+        return exp->type == ast::BuiltInType::INT || exp->type == ast::BuiltInType::BYTE;
+    }
 
     static std::string toString(ast::BuiltInType type) {
         switch (type) {
@@ -233,12 +239,31 @@ namespace output {
 
     void SemanticVisitor::visit(ast::BinOp &node) {
         node.left->accept(*this);
+        if (!is_number(node.left))
+            errorMismatch(node.line);
+
         node.right->accept(*this);
+        if (!is_number(node.right))
+            errorMismatch(node.line);
+
+
+        if (node.left->type == ast::BuiltInType::INT || node.right->type == ast::BuiltInType::INT)
+        {
+            node.type = ast::BuiltInType::INT;
+        } else
+        {
+            node.type = ast::BuiltInType::BYTE;
+        }
     }
 
     void SemanticVisitor::visit(ast::RelOp &node) {
         node.left->accept(*this);
+        if (!is_number(node.left))
+            errorMismatch(node.line);
+
         node.right->accept(*this);
+        if (!is_number(node.right))
+            errorMismatch(node.line);
     }
 
     void SemanticVisitor::visit(ast::PrimitiveType &node) {
@@ -257,22 +282,39 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Cast &node) {
-        // TODO:
-        // Check if this cast is correct.
+        node.exp->accept(*this);
+
+        node.target_type->accept(*this);
+        if (!is_number(node.exp) || (node.target_type->type != ast::BuiltInType::INT && node.target_type->type != ast::BuiltInType::BYTE))
+        {
+            errorMismatch(node.line);
+        }
     }
 
     void SemanticVisitor::visit(ast::Not &node) {
         node.exp->accept(*this);
+        if (node.exp->type != ast::BuiltInType::BOOL)
+            errorMismatch(node.line);
     }
 
     void SemanticVisitor::visit(ast::And &node) {
         node.left->accept(*this);
+        if (node.left->type != ast::BuiltInType::BOOL)
+            errorMismatch(node.line);
+
         node.right->accept(*this);
+        if (node.right->type != ast::BuiltInType::BOOL)
+            errorMismatch(node.line);
     }
 
     void SemanticVisitor::visit(ast::Or &node) {
         node.left->accept(*this);
+        if (node.left->type != ast::BuiltInType::BOOL)
+            errorMismatch(node.line);
+
         node.right->accept(*this);
+        if (node.right->type != ast::BuiltInType::BOOL)
+            errorMismatch(node.line);
     }
 
     void SemanticVisitor::visit(ast::ExpList &node) {
@@ -288,9 +330,27 @@ namespace output {
         if (search_var(node.func_id->value))
                 errorDefAsVar(node.line, node.func_id->value);
 
-
         node.func_id->accept(*this);
+        node.type = func_table[node.func_id->value].returnType;
+
+        std::vector<std::string> expected_param;
+        for (ast::BuiltInType type : func_table[node.func_id->value].paramTypes) {
+            expected_param.push_back(toString(type));
+        }
+
+        // wrong number of arguments pass to function
+        if (expected_param.size() != node.args->exps.size())
+            errorPrototypeMismatch(node.line, node.func_id->value, expected_param);
+
+        // check if passed argument type match expected types
         node.args->accept(*this);
+        int i = 0;
+        for (std::shared_ptr<ast::Exp> arg : node.args->exps)
+        {
+            if (arg->type != func_table[node.func_id->value].paramTypes[i])
+                errorPrototypeMismatch(node.line, node.func_id->value, expected_param);
+            i++;
+        }
     }
 
     void SemanticVisitor::visit(ast::Statements &node) {
@@ -405,5 +465,12 @@ namespace output {
             (*it)->accept(*this);
         }
 
+    }
+
+    bool is_number(std::shared_ptr<ast::Exp> exp)
+    {
+        if (exp->type == ast::BuiltInType::INT && exp->type == ast::BuiltInType::BYTE)
+            return true;
+        return false;
     }
 }

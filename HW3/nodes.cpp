@@ -2,45 +2,47 @@
 #include <string>
 #include <utility>
 
+#include "output.hpp"
+
 extern int yylineno;
 
 namespace ast {
 
     Node::Node() : line(yylineno) {}
 
-    Num::Num(const char *str) : Exp(), value(std::stoi(str)) {}
+    Num::Num(const char *str) : Exp(INT), value(std::stoi(str)) {}
 
-    NumB::NumB(const char *str) : Exp(), value(std::stoi(str)) {}
+    NumB::NumB(const char *str) : Exp(BYTE), value(std::stoi(str)) {}
 
-    String::String(const char *str) : Exp(), value(str) {
+    String::String(const char *str) : Exp(STRING), value(str) {
         // Remove the quotes
         value = value.substr(1, value.size() - 2);
     }
 
-    Bool::Bool(bool value) : Exp(), value(value) {}
-
-    ID::ID(const char *str) : Exp(), value(str) {}
+    Bool::Bool(bool value) : Exp(BOOL), value(value) {}
 
     BinOp::BinOp(std::shared_ptr<Exp> left, std::shared_ptr<Exp> right, BinOpType op)
-            : Exp(), left(std::move(left)), right(std::move(right)), op(op) {}
+        : Exp(NONE), left(std::move(left)), right(std::move(right)), op(op){}
+
+    ID::ID(const char *str) : Exp(NONE), value(str) {}
 
     RelOp::RelOp(std::shared_ptr<Exp> left, std::shared_ptr<Exp> right, RelOpType op)
-            : Exp(), left(std::move(left)), right(std::move(right)), op(op) {}
+            : Exp(BOOL), left(std::move(left)), right(std::move(right)), op(op) {}
 
     PrimitiveType::PrimitiveType(BuiltInType type) : Node(), type(type) {}
 
     ArrayType::ArrayType(BuiltInType type, std::shared_ptr<Exp> length) : Node(), type(type), length(length) {}
 
     Cast::Cast(std::shared_ptr<Exp> exp, std::shared_ptr<PrimitiveType> target_type)
-            : Exp(), exp(std::move(exp)), target_type(std::move(target_type)) {}
+            : Exp(target_type->type), exp(std::move(exp)), target_type(std::move(target_type)) {}
 
-    Not::Not(std::shared_ptr<Exp> exp) : Exp(), exp(std::move(exp)) {}
+    Not::Not(std::shared_ptr<Exp> exp) : Exp(BOOL), exp(std::move(exp)) {}
 
     And::And(std::shared_ptr<Exp> left, std::shared_ptr<Exp> right)
-            : Exp(), left(std::move(left)), right(std::move(right)) {}
+            : Exp(BOOL), left(std::move(left)), right(std::move(right)) {}
 
     Or::Or(std::shared_ptr<Exp> left, std::shared_ptr<Exp> right)
-            : Exp(), left(std::move(left)), right(std::move(right)) {}
+            : Exp(BOOL), left(std::move(left)), right(std::move(right)) {}
 
     ExpList::ExpList(std::shared_ptr<Exp> exp) : Node(), exps({std::move(exp)}) {}
 
@@ -53,10 +55,10 @@ namespace ast {
     }
 
     Call::Call(std::shared_ptr<ID> func_id, std::shared_ptr<ExpList> args)
-            : Exp(), func_id(std::move(func_id)), args(std::move(args)) {}
+            : Exp(NONE), func_id(std::move(func_id)), args(std::move(args)) {}
 
     Call::Call(std::shared_ptr<ID> func_id)
-            : Exp(), func_id(std::move(func_id)), args(std::make_shared<ExpList>()) {}
+            : Exp(NONE), func_id(std::move(func_id)), args(std::make_shared<ExpList>()) {}
 
     Statements::Statements(std::shared_ptr<Statement> statement) : Statement(), statements({std::move(statement)}) {}
 
@@ -87,7 +89,7 @@ namespace ast {
             : Statement(), id(std::move(id)), exp(std::move(exp)), index(std::move(index)) {}
     
     ArrayDereference::ArrayDereference(std::shared_ptr<ID> id, std::shared_ptr<Exp> index)
-            : Exp(), id(std::move(id)), index(std::move(index)) {}
+            : Exp(NONE), id(std::move(id)), index(std::move(index)) {}
     
     Formal::Formal(std::shared_ptr<ID> id, std::shared_ptr<Type> type)
             : Node(), id(std::move(id)), type(std::move(type)) {}
