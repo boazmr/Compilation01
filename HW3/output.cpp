@@ -27,6 +27,19 @@
         }
     }
 
+    // Helper function to find the type of virtual 'Type' classs object.
+    ast::BuiltInType find_type(const std::shared_ptr<ast::Type> t){ 
+        if (auto prim = std::dynamic_pointer_cast<ast::PrimitiveType>(t)) {
+            return prim->type;
+        }
+        else if(auto arr = std::dynamic_pointer_cast<ast::ArrayType>(t)){
+            return arr->type;
+        }
+        else{ // The program should not get to this point because every 'Type' object is rather 'PrimitivaType' or 'ArrayType'.
+            return ast::BuiltInType::NONE;
+        }
+    }
+
     /* Error handling functions */
 
     void errorLex(int lineno) {
@@ -181,15 +194,20 @@
         scopePrinter.emitVar(id, type, neg_offset);
     }
 
-
     bool SemanticVisitor::search_var(std::string& name)
     {
-        for (const std::shared_ptr<SymbolTable>& symbolTable : symbol_stack)
+        // Iterating through the stack. 
+        std::stack<std::shared_ptr<SymbolTable>> temp_stack = symbol_stack;
+        while (!temp_stack.empty())
         {
+            // Searching the element in the current symbolTable.
+            const std::shared_ptr<SymbolTable>& symbolTable = temp_stack.top();
             if (symbolTable->table.find(name) != symbolTable->table.end())
             {
                 return true;
             }
+            // Didn't found, countinue to search the element in the stack's symbolTables.
+            temp_stack.pop();
         }
         return false;
     }
@@ -207,10 +225,6 @@
             return true;
         return false;
     }
-
-
-
-
 
     void SemanticVisitor::visit(ast::Num &node) {
         // Dont do nothing.
@@ -395,8 +409,9 @@
         if (search_func(node.id->value))
             errorDefAsFunc(node.line, node.id->value);
 
+        ast::BuiltInType node_type = find_type(node.type);
 
-        push_var(node.id->value, node.type->value);
+        push_var(node.id->value, node_type);
         node.id->accept(*this);
         node.type->accept(*this);
         if (node.init_exp) {
@@ -405,8 +420,10 @@
     }
 
     void SemanticVisitor::visit(ast::Assign &node) {
-        if (!search_var(node.exp->type))
-            errorUndef(node.line, node.id->value);
+        // No need to search the expression since it might not be in the table at all. for example: x = 9;
+        //
+        // if (!search_var(node.exp->type))
+        //     errorUndef(node.line, node.id->value);
 
         if (search_func(node.id->value))
             errorDefAsFunc(node.line, node.id->value);
@@ -435,7 +452,16 @@
     void SemanticVisitor::visit(ast::FuncDecl &node) {
         if (first_run)
         {
-            func_table[node.id->value] = {node.formals->types, node.return_type->value};
+            if (func_table.find(node.id->value) != func_table.end()) {
+                errorDef(node.line, node.id->value);
+            }
+
+            std::vector<ast::BuiltInType> paramTypes;
+            for (const auto& formal : node.formals->formals) {
+                paramTypes.push_back(find_type(formal->type));
+            }
+
+            func_table[node.id->value] = {paramTypes, find_type(node.return_type)};
             return;
         }
 
@@ -444,9 +470,9 @@
         symbol_stack.push(sym_t);
         offsets.push(offsets.top());
         int i = -1;
-        for (ast::Formal& param : node.formals)
+        for (std::shared_ptr<ast::Formal>& param : node.formals->formals)
         {
-            push_param(param.id->value, param.type->type, i);
+            push_param(param->id->value, find_type(param->type), i);
             i--;
         }
 
@@ -465,12 +491,5 @@
             (*it)->accept(*this);
         }
 
-    }
-
-    bool is_number(std::shared_ptr<ast::Exp> exp)
-    {
-        if (exp->type == ast::BuiltInType::INT && exp->type == ast::BuiltInType::BYTE)
-            return true;
-        return false;
     }
 }
