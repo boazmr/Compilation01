@@ -10,11 +10,13 @@ namespace ast {
 
     Node::Node() : line(yylineno) {}
 
-    Num::Num(const char *str) : Exp(INT), value(std::stoi(str)) {}
+    Exp::Exp(BuiltInType exp_type) : type(exp_type) {}
 
-    NumB::NumB(const char *str) : Exp(BYTE), value(std::stoi(str)) {}
+    Num::Num(const char *str) : Exp(BuiltInType::INT), value(std::stoi(str)) {}
 
-    String::String(const char *str) : Exp(STRING), value(str) {
+    NumB::NumB(const char *str) : Exp(BuiltInType::BYTE), value(std::stoi(str)) {}
+
+    String::String(const char *str) : Exp(BuiltInType::STRING), value(str) {
         // Remove the quotes
         value = value.substr(1, value.size() - 2);
     }
