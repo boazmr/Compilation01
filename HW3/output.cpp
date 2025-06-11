@@ -550,7 +550,7 @@ namespace output
             {
                 paramTypes.push_back(find_type(formal->type));
             }
-            func_table[node.id->value] = {paramTypes, find_type(node.return_type)};
+            push_func(node.id->value,find_type(node.return_type), paramTypes);
             return;
         }
 
@@ -576,7 +576,7 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::Funcs& node) {
-        if (!first_run) {
+        if(!first_run){
          // must have exactly one void main() with no parameters
              auto it = func_table.find("main");
              if (it == func_table.end()
@@ -585,6 +585,10 @@ namespace output
                   {
                       errorMainMissing();
                   }
+        }
+        for (auto& f : node.funcs) {
+            // In first_run mode your Func-visitor should only push the signature
+            f->accept(*this);
         }
     }
 }
