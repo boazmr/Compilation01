@@ -104,6 +104,7 @@ namespace output {
 
     public:
         bool first_run;
+        int loopDepth;
         SemanticVisitor();
         std::shared_ptr<SymbolTable> makeTable();
         ast::BuiltInType vars_type(std::string& name);

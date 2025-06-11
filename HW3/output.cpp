@@ -182,6 +182,7 @@ namespace output
         offsets.push(0);
         push_func("print", ast::BuiltInType::VOID, {ast::BuiltInType::STRING});
         push_func("printi", ast::BuiltInType::VOID, {ast::BuiltInType::STRING});
+        loopDepth = 0;
     }
 
     std::shared_ptr<SymbolTable> SemanticVisitor::makeTable() {
@@ -419,12 +420,14 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::Break& node) {
-        // Do nothing
+        if (loopDepth == 0)
+            errorUnexpectedBreak(node.line);
         return;
     }
 
     void SemanticVisitor::visit(ast::Continue& node) {
-        // Do nothing
+        if (loopDepth == 0)
+            errorUnexpectedContinue(node.line);
         return;
     }
 
@@ -437,16 +440,26 @@ namespace output
 
     void SemanticVisitor::visit(ast::If& node) {
         node.condition->accept(*this);
+        // create a new scope for the ‘if’
+        scopePrinter.beginScope();
         node.then->accept(*this);
-        if (node.otherwise)
-        {
+        scopePrinter.endScope();
+
+        if (node.otherwise) {
+            scopePrinter.beginScope();
             node.otherwise->accept(*this);
+            scopePrinter.endScope();
         }
     }
 
     void SemanticVisitor::visit(ast::While& node) {
         node.condition->accept(*this);
+        // open the loop scope
+        scopePrinter.beginScope();
+        loopDepth++;
         node.body->accept(*this);
+        loopDepth--;
+        scopePrinter.endScope();
     }
 
     void SemanticVisitor::visit(ast::VarDecl& node) {
@@ -483,13 +496,33 @@ namespace output
         if (node.id->type == node.exp->type)
             return;
         if (node.id->type == ast::INT && node.exp->type == ast::BYTE)
-            return;;
+            return;
+
+        errorMismatch(node.line);
     }
 
     void SemanticVisitor::visit(ast::ArrayAssign& node) {
-        node.id->accept(*this);
+        // same undef/def checks as for Assign
+        if (!search_var(node.id->value))
+            errorUndef(node.line, node.id->value);
+        if (search_func(node.id->value))
+            errorDefAsFunc(node.line, node.id->value);
+
         node.index->accept(*this);
+        if (!is_number(node.index))
+            errorMismatch(node.line);
+
+        // 2) look up the array’s element type
+        ast::BuiltInType elemType = vars_type(node.id->value);
+
+        // 3) check the RHS
         node.exp->accept(*this);
+        if (node.exp->type == elemType ||
+           (elemType == ast::INT && node.exp->type == ast::BYTE))
+            return;
+
+            // any other case is a type mismatch
+        errorMismatch(node.line);
     }
 
     void SemanticVisitor::visit(ast::Formal& node) {
@@ -517,7 +550,6 @@ namespace output
             {
                 paramTypes.push_back(find_type(formal->type));
             }
-
             func_table[node.id->value] = {paramTypes, find_type(node.return_type)};
             return;
         }
@@ -544,9 +576,15 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::Funcs& node) {
-        for (auto it = node.funcs.begin(); it != node.funcs.end(); ++it)
-        {
-            (*it)->accept(*this);
+        if (!first_run) {
+         // must have exactly one void main() with no parameters
+             auto it = func_table.find("main");
+             if (it == func_table.end()
+                 || it->second.returnType != ast::BuiltInType::VOID
+                 || !it->second.paramTypes.empty())
+                  {
+                      errorMainMissing();
+                  }
         }
     }
 }
