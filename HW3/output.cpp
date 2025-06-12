@@ -189,11 +189,11 @@ namespace output
         return std::make_shared<SymbolTable>();
     }
 
-    void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type) {
+    void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type, int offset) {
         Var_Entry entry = {type, offsets.top()};
         symbol_stack.top()->table[id] = entry;
         scopePrinter.emitVar(id, type, offsets.top());
-        offsets.top()++;
+        offsets.top() =+ offset + 1;
     }
 
     void SemanticVisitor::push_param(const std::string& id, const ast::BuiltInType& type, int neg_offset) {
@@ -295,7 +295,7 @@ namespace output
 
     void SemanticVisitor::visit(ast::ID& node) {
         // Search the ID in the symbol table. Update its type.
-        // Note that ID can be both define both variables and functions.
+        // Note: ID can define both variables and functions.
         // Therefore we need to search both tables.
         // If we didnot find the variable in the tables - how can we know if it is a function or a variable?
         // We will know by the SemanticVisitor.first_run.
@@ -347,7 +347,14 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::ArrayType& node) {
-        // Dont do nothing.
+        // Update node.length->value
+        node.length->accept(*this);
+        // If node.length is not INT return mismatch error.
+        if(node.length->type != ast::BuiltInType::INT){
+            errorMismatch(node.line);
+        }
+        
+
         return;
     }
 
@@ -525,7 +532,22 @@ namespace output
 
         ast::BuiltInType node_type = find_type(node.type);
 
-        push_var(node.id->value, node_type);
+        if (auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
+            int arr_length = -1;
+            if(auto num = std::dynamic_pointer_cast<ast::Num>(arr->length)){ // if length is num
+                arr_length = num->value;
+            } 
+            else if(auto numB = std::dynamic_pointer_cast<ast::NumB>(arr->length)){
+                arr_length = numB->value;
+            }
+            // Change array ID from 'name' to 'name[arr_length]'.
+            std::string arr_name = node.id->value + "[" + std::to_string(arr_length) + "]";
+            node.id->value = arr_name; // Update the variable name
+            push_var(arr_name, node_type, arr_length);
+        }
+        else{
+            push_var(node.id->value, node_type);
+        }
         node.id->accept(*this);
         node.type->accept(*this);
         if (node.init_exp)
