@@ -181,7 +181,7 @@ namespace output
     SemanticVisitor::SemanticVisitor() : first_run(true) {
         offsets.push(0);
         push_func("print", ast::BuiltInType::VOID, {ast::BuiltInType::STRING});
-        push_func("printi", ast::BuiltInType::VOID, {ast::BuiltInType::STRING});
+        push_func("printi", ast::BuiltInType::VOID, {ast::BuiltInType::INT});
         loopDepth = 0;
     }
 
@@ -237,7 +237,7 @@ namespace output
         return false;
     }
 
-    // assume var is declared earlier
+    // Returns the type of the variable from the symbol table.
     ast::BuiltInType SemanticVisitor::vars_type(std::string& name) {
         // Iterating through the stack.
         std::stack<std::shared_ptr<SymbolTable>> temp_stack = symbol_stack;
@@ -259,6 +259,12 @@ namespace output
                                     const std::vector<ast::BuiltInType>& paramTypes) {
         func_table[id] = {paramTypes, returnType};
         scopePrinter.emitFunc(id, returnType, paramTypes);
+    }
+
+    ast::BuiltInType SemanticVisitor::func_return_type(std::string& name) {
+        if (func_table.find(name) != func_table.end())
+            return func_table[name].returnType;
+        return ast::BuiltInType::NONE;
     }
 
     bool SemanticVisitor::search_func(std::string& name) {
@@ -288,7 +294,20 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::ID& node) {
-        // Dont do nothing.
+        // Search the ID in the symbol table. Update its type.
+        // Note that ID can be both define both variables and functions.
+        // Therefore we need to search both tables.
+        // If we didnot find the variable in the tables - how can we know if it is a function or a variable?
+        // We will know by the SemanticVisitor.first_run.
+        if(search_var(node.value)){
+            node.type = vars_type(node.value);
+        }
+        else if(search_func(node.value)){
+            node.type = func_return_type(node.value);
+        }
+        else{ // If the ID is not in the symbol table, then return an error of undefined variable.
+            errorUndef(node.line, node.value);
+        }
         return;
     }
 
