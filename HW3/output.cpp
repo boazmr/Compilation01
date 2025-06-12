@@ -459,26 +459,61 @@ namespace output
 
     void SemanticVisitor::visit(ast::If& node) {
         node.condition->accept(*this);
-        // create a new scope for the ‘if’
-        scopePrinter.beginScope();
-        node.then->accept(*this);
-        scopePrinter.endScope();
-
-        if (node.otherwise) {
+        // create a new scope for the ‘if’.
+        // Check if the 'If' create a new block. That is, check if it hold "statements" or statement.
+        if(dynamic_cast<ast::Statements*>(node.then.get())){
+            // 'If' holds statements and therefore it had to create a new block!
             scopePrinter.beginScope();
-            node.otherwise->accept(*this);
+            scopePrinter.beginScope();
+            node.then->accept(*this);
             scopePrinter.endScope();
+            scopePrinter.endScope();
+        }
+        else{ // 'If' do not create a new block.
+            scopePrinter.beginScope();
+            node.then->accept(*this);
+            scopePrinter.endScope();
+        }
+
+        // Also check if 'else' creates a new block.
+        if (node.otherwise) { 
+            if(dynamic_cast<ast::Statements*>(node.otherwise.get())){
+                // 'else' holds statements and therefore it had to create a new block!
+                scopePrinter.beginScope();
+                scopePrinter.beginScope();
+                node.otherwise->accept(*this);
+                scopePrinter.endScope();
+                scopePrinter.endScope();
+            }
+            else{ // 'else' do not create a new block.
+                scopePrinter.beginScope();
+                node.otherwise->accept(*this);
+                scopePrinter.endScope();
+            }
         }
     }
 
     void SemanticVisitor::visit(ast::While& node) {
         node.condition->accept(*this);
-        // open the loop scope
-        scopePrinter.beginScope();
-        loopDepth++;
-        node.body->accept(*this);
-        loopDepth--;
-        scopePrinter.endScope();
+        // open the loop scope.
+        // Check if the 'While' create a new block. That is, check if it hold "statements" or statement.
+        if(dynamic_cast<ast::Statements*>(node.body.get())){
+            // 'While' holds statements and therefore it had to create a new block!
+            scopePrinter.beginScope();
+            loopDepth++;
+            scopePrinter.beginScope();
+            node.body->accept(*this);
+            scopePrinter.endScope();
+            loopDepth--;
+            scopePrinter.endScope();
+        }
+        else{ // 'While' do not create a new block.
+            scopePrinter.beginScope();
+            loopDepth++;
+            node.body->accept(*this);
+            loopDepth--;
+            scopePrinter.endScope();
+        }
     }
 
     void SemanticVisitor::visit(ast::VarDecl& node) {

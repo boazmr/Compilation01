@@ -100,9 +100,9 @@ namespace output {
         // data struct that saves func
         std::map<std::string, Func_Entry> func_table;
         
-        ScopePrinter scopePrinter;
-
+        
     public:
+        ScopePrinter scopePrinter;
         bool first_run;
         int loopDepth;
         SemanticVisitor();
