@@ -1,13 +1,13 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-ftnfug () -> INT
-main () -> VOID
-fwzull (BOOL,INT) -> VOID
-f8qoxv (INT,INT) -> INT
+print (string) -> void
+printi (int) -> void
+ftnfug () -> int
+main () -> void
+fwzull (bool,int) -> void
+f8qoxv (int,int) -> int
   ---begin scope---
-  v3y9br INT 0
-  vje5rh INT 1
+  v3y9br int 0
+  vje5rh int 1
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -18,18 +18,18 @@ f8qoxv (INT,INT) -> INT
     ---end scope---
   ---end scope---
   ---begin scope---
-  vbvkrj BOOL 0
+  vbvkrj bool 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  ph6a0b BOOL -1
-  p79rcp INT -2
-  v573xs BOOL 0
-  v23wpz INT 1
-  vzknbg INT 2
+  ph6a0b bool -1
+  p79rcp int -2
+  v573xs bool 0
+  v23wpz int 1
+  vzknbg int 2
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -40,10 +40,10 @@ f8qoxv (INT,INT) -> INT
     ---end scope---
   ---end scope---
   ---begin scope---
-  pdpol1 INT -1
-  p3ulxa INT -2
-  vzzco7 INT 0
-  v5e33p BOOL 1
+  pdpol1 int -1
+  p3ulxa int -2
+  vzzco7 int 0
+  v5e33p bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---

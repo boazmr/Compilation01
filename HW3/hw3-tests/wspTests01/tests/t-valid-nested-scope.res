@@ -1,12 +1,12 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+main () -> void
   ---begin scope---
-  a INT 0
+  a int 0
     ---begin scope---
       ---begin scope---
-      b INT 1
+      b int 1
       ---end scope---
     ---end scope---
   ---end scope---

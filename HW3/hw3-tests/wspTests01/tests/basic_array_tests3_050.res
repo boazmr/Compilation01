@@ -1,38 +1,38 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f449wro (INT) -> VOID
-fz6h59c (BYTE,BYTE) -> BYTE
-f3ehqhi (INT,BYTE) -> INT
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f449wro (int) -> void
+fz6h59c (byte,byte) -> byte
+f3ehqhi (int,byte) -> int
+main () -> void
   ---begin scope---
-  pebef8 INT -1
-  vefz2u INT 0
-  vhf00m BYTE 1
+  pebef8 int -1
+  vefz2u int 0
+  vhf00m byte 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  ptulef BYTE -1
-  pyti0g BYTE -2
-  vffjpo INT 0
+  ptulef byte -1
+  pyti0g byte -2
+  vffjpo int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  prtzb7 INT -1
-  pnqz9d BYTE -2
-  vyk41i INT 0
+  prtzb7 int -1
+  pnqz9d byte -2
+  vyk41i int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  mxmm69 BYTE 0
+  mxmm69 byte 0
   ---end scope---
 ---end global scope---

@@ -1,12 +1,12 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+main () -> void
   ---begin scope---
-  x INT 0
-  y[17] INT 1
-  z BYTE 18
-  w[3] BOOL 19
-  a INT 22
+  x int 0
+  y[17] int 1
+  z byte 18
+  w[3] bool 19
+  a int 22
   ---end scope---
 ---end global scope---

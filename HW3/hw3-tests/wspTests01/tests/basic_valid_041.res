@@ -1,17 +1,17 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-main () -> VOID
-frchye () -> BOOL
-fcfy20 (BOOL,INT) -> INT
-frgxo6 (INT) -> VOID
-fekkll (INT) -> INT
+print (string) -> void
+printi (int) -> void
+main () -> void
+frchye () -> bool
+fcfy20 (bool,int) -> int
+frgxo6 (int) -> void
+fekkll (int) -> int
   ---begin scope---
-  v9zgr5 INT 0
-  vp82rh INT 1
+  v9zgr5 int 0
+  vp82rh int 1
   ---end scope---
   ---begin scope---
-  v4xe0h INT 0
+  v4xe0h int 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -26,9 +26,9 @@ fekkll (INT) -> INT
     ---end scope---
   ---end scope---
   ---begin scope---
-  pvpnsb BOOL -1
-  pzrwhz INT -2
-  vkr3ur INT 0
+  pvpnsb bool -1
+  pzrwhz int -2
+  vkr3ur int 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -39,14 +39,14 @@ fekkll (INT) -> INT
     ---end scope---
   ---end scope---
   ---begin scope---
-  p5j8t7 INT -1
-  v5qf6i INT 0
-  vdpemi INT 1
+  p5j8t7 int -1
+  v5qf6i int 0
+  vdpemi int 1
   ---end scope---
   ---begin scope---
-  p112dd INT -1
-  vsswl7 BOOL 0
-  vp7qmw BOOL 1
+  p112dd int -1
+  vsswl7 bool 0
+  vp7qmw bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---

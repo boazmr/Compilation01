@@ -1,64 +1,64 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f31647o (BYTE,BOOL) -> BOOL
-fk5hvty (BOOL,BYTE) -> BOOL
-ffb06nl (BYTE) -> VOID
-fahl905 () -> INT
-fkxp7j0 (BYTE,BOOL) -> BOOL
-f36fbxn () -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f31647o (byte,bool) -> bool
+fk5hvty (bool,byte) -> bool
+ffb06nl (byte) -> void
+fahl905 () -> int
+fkxp7j0 (byte,bool) -> bool
+f36fbxn () -> void
+main () -> void
   ---begin scope---
-  p7j8ry BYTE -1
-  px6pxo BOOL -2
-  vos2b2 BYTE 0
-  v4fs3r BYTE 1
-  vabqv7 BYTE 2
+  p7j8ry byte -1
+  px6pxo bool -2
+  vos2b2 byte 0
+  v4fs3r byte 1
+  vabqv7 byte 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pbfhw0 BOOL -1
-  pn9m67 BYTE -2
-  vqw9d9 BYTE 0
+  pbfhw0 bool -1
+  pn9m67 byte -2
+  vqw9d9 byte 0
   ---end scope---
   ---begin scope---
-  pjjs2d BYTE -1
-  vvhu1x BYTE 0
-  vr6iic BOOL 1
+  pjjs2d byte -1
+  vvhu1x byte 0
+  vr6iic bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vy7023 BOOL 0
-  vmemsh BYTE 1
-  v3b8zc BOOL 2
+  vy7023 bool 0
+  vmemsh byte 1
+  v3b8zc bool 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  p51q4t BYTE -1
-  pv8mlj BOOL -2
-  vu8786 BOOL 0
-  vt580r INT 1
+  p51q4t byte -1
+  pv8mlj bool -2
+  vu8786 bool 0
+  vt580r int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vmy2tc BOOL 0
-  vhpain BOOL 1
+  vmy2tc bool 0
+  vhpain bool 1
   ---end scope---
   ---begin scope---
-  m8wtbe INT 0
-  mh5k5s INT 1
+  m8wtbe int 0
+  mh5k5s int 1
     ---begin scope---
       ---begin scope---
       ---end scope---

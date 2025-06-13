@@ -1,19 +1,19 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fbqerd () -> INT
-fhmfzh () -> BYTE
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fbqerd () -> int
+fhmfzh () -> byte
+main () -> void
   ---begin scope---
-  v6cwl6 BOOL 0
+  v6cwl6 bool 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vrba3q INT 0
-  vl3m0x BOOL 1
+  vrba3q int 0
+  vl3m0x bool 1
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -24,7 +24,7 @@ main () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  vqtr17 INT 0
+  vqtr17 int 0
     ---begin scope---
       ---begin scope---
         ---begin scope---

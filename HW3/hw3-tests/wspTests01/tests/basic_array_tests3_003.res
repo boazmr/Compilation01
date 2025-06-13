@@ -1,63 +1,63 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f6i1wac (INT) -> VOID
-fc6duxq (INT,BOOL) -> INT
-fcg17mr () -> BYTE
-fanzrxd (INT) -> BYTE
-fyx43m4 (BYTE,INT) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f6i1wac (int) -> void
+fc6duxq (int,bool) -> int
+fcg17mr () -> byte
+fanzrxd (int) -> byte
+fyx43m4 (byte,int) -> void
+main () -> void
   ---begin scope---
-  pp7896 INT -1
-  v3rrd1 BYTE 0
+  pp7896 int -1
+  v3rrd1 byte 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  po20kh INT -1
-  ppxc6r BOOL -2
-  v48vjq INT 0
-  vjmhry INT 1
+  po20kh int -1
+  ppxc6r bool -2
+  v48vjq int 0
+  vjmhry int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vw2cr2 BYTE 0
-  vckn9y BOOL 1
-  vfb6hw BOOL 2
+  vw2cr2 byte 0
+  vckn9y bool 1
+  vfb6hw bool 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pu7hj9 INT -1
-  vy3n0g BYTE 0
-  vhcrxq BOOL 1
+  pu7hj9 int -1
+  vy3n0g byte 0
+  vhcrxq bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pto7w6 BYTE -1
-  pdoir7 INT -2
-  v35vex BYTE 0
-  vxjcxo INT 1
-  vm1gpk INT 2
+  pto7w6 byte -1
+  pdoir7 int -2
+  v35vex byte 0
+  vxjcxo int 1
+  vm1gpk int 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  m9x6bx BYTE 0
-  m9buol BYTE 1
-  mac9ja BYTE 2
+  m9x6bx byte 0
+  m9buol byte 1
+  mac9ja byte 2
     ---begin scope---
       ---begin scope---
       ---end scope---

@@ -12,20 +12,36 @@ namespace output
     }
 
     static std::string toString(ast::BuiltInType type) {
-        switch (type)
-        {
-        case ast::BuiltInType::INT:
-            return "INT";
-        case ast::BuiltInType::BOOL:
-            return "BOOL";
-        case ast::BuiltInType::BYTE:
-            return "BYTE";
-        case ast::BuiltInType::VOID:
-            return "VOID";
-        case ast::BuiltInType::STRING:
-            return "STRING";
-        default:
-            return "UNKNOWN";
+        switch (type) {
+            case ast::BuiltInType::INT:
+                return "int";
+            case ast::BuiltInType::BOOL:
+                return "bool";
+            case ast::BuiltInType::BYTE:
+                return "byte";
+            case ast::BuiltInType::VOID:
+                return "void";
+            case ast::BuiltInType::STRING:
+                return "string";
+            default:
+                return "unknown";
+        }
+    }
+
+    static std::string toStringCapital(ast::BuiltInType type) {
+        switch (type) {
+            case ast::BuiltInType::INT:
+                return "INT";
+            case ast::BuiltInType::BOOL:
+                return "BOOL";
+            case ast::BuiltInType::BYTE:
+                return "BYTE";
+            case ast::BuiltInType::VOID:
+                return "VOID";
+            case ast::BuiltInType::STRING:
+                return "STRING";
+            default:
+                return "UNKNOWN";
         }
     }
 
@@ -58,27 +74,27 @@ namespace output
         exit(0);
     }
 
-    void errorUndef(int lineno, const std::string& id) {
+    void errorUndef(int lineno, const std::string &id) {
         std::cout << "line " << lineno << ":" << " variable " << id << " is not defined" << std::endl;
         exit(0);
     }
 
-    void errorDefAsFunc(int lineno, const std::string& id) {
+    void errorDefAsFunc(int lineno, const std::string &id) {
         std::cout << "line " << lineno << ":" << " symbol " << id << " is a function" << std::endl;
         exit(0);
     }
 
-    void errorDefAsVar(int lineno, const std::string& id) {
+    void errorDefAsVar(int lineno, const std::string &id) {
         std::cout << "line " << lineno << ":" << " symbol " << id << " is a variable" << std::endl;
         exit(0);
     }
 
-    void errorDef(int lineno, const std::string& id) {
+    void errorDef(int lineno, const std::string &id) {
         std::cout << "line " << lineno << ":" << " symbol " << id << " is already defined" << std::endl;
         exit(0);
     }
 
-    void errorUndefFunc(int lineno, const std::string& id) {
+    void errorUndefFunc(int lineno, const std::string &id) {
         std::cout << "line " << lineno << ":" << " function " << id << " is not defined" << std::endl;
         exit(0);
     }
@@ -88,11 +104,10 @@ namespace output
         exit(0);
     }
 
-    void errorPrototypeMismatch(int lineno, const std::string& id, std::vector<std::string>& paramTypes) {
+    void errorPrototypeMismatch(int lineno, const std::string &id, std::vector<std::string> &paramTypes) {
         std::cout << "line " << lineno << ": prototype mismatch, function " << id << " expects parameters (";
 
-        for (int i = 0; i < paramTypes.size(); ++i)
-        {
+        for (int i = 0; i < paramTypes.size(); ++i) {
             std::cout << paramTypes[i];
             if (i != paramTypes.size() - 1)
                 std::cout << ",";
@@ -122,20 +137,18 @@ namespace output
         exit(0);
     }
 
-    void ErrorInvalidAssignArray(int lineno, const std::string& id_arr) {
-        std::cout << "line " << lineno << ": invalid assignment to/from array " << id_arr << std::endl;
+    void ErrorInvalidAssignArray(int lineno, const std::string &id_arr) {
+        std::cout << "line " << lineno << ": invalid assignment to array " << id_arr << std::endl;
         exit(0);
     }
 
     /* ScopePrinter class */
 
-    ScopePrinter::ScopePrinter() : indentLevel(0) {
-    }
+    ScopePrinter::ScopePrinter() : indentLevel(0) {}
 
     std::string ScopePrinter::indent() const {
         std::string result;
-        for (int i = 0; i < indentLevel; ++i)
-        {
+        for (int i = 0; i < indentLevel; ++i) {
             result += "  ";
         }
         return result;
@@ -151,21 +164,19 @@ namespace output
         indentLevel--;
     }
 
-    void ScopePrinter::emitVar(const std::string& id, const ast::BuiltInType& type, int offset, bool isArray, int arrSize) {
-        if(isArray){
-            buffer << indent() << id << "[" << std::to_string(arrSize) << "] " << toString(type) << " " << offset << std::endl;
-        }
-        else{
-            buffer << indent() << id << " " << toString(type) << " " << offset << std::endl;
-        }
+    void ScopePrinter::emitVar(const std::string &id, const ast::BuiltInType &type, int offset) {
+        buffer << indent() << id << " " << toString(type) << " " << offset << std::endl;
     }
 
-    void ScopePrinter::emitFunc(const std::string& id, const ast::BuiltInType& returnType,
-                                const std::vector<ast::BuiltInType>& paramTypes) {
+    void ScopePrinter::emitArr(const std::string &id, const ast::BuiltInType &type, int length , int offset ) {
+        buffer << indent() << id << "[" << length << "]" << " " << toString(type) << " " << offset <<  std::endl;
+    }
+
+    void ScopePrinter::emitFunc(const std::string &id, const ast::BuiltInType &returnType,
+                                const std::vector<ast::BuiltInType> &paramTypes) {
         globalsBuffer << id << " " << "(";
 
-        for (int i = 0; i < paramTypes.size(); ++i)
-        {
+        for (int i = 0; i < paramTypes.size(); ++i) {
             globalsBuffer << toString(paramTypes[i]);
             if (i != paramTypes.size() - 1)
                 globalsBuffer << ",";
@@ -174,7 +185,7 @@ namespace output
         globalsBuffer << ")" << " -> " << toString(returnType) << std::endl;
     }
 
-    std::ostream& operator<<(std::ostream& os, const ScopePrinter& printer) {
+    std::ostream &operator<<(std::ostream &os, const ScopePrinter &printer) {
         os << "---begin global scope---" << std::endl;
         os << printer.globalsBuffer.str();
         os << printer.buffer.str();
@@ -197,11 +208,12 @@ namespace output
     void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type, bool isArray, int arrSize) {
         Var_Entry entry = {type, offsets.top(), isArray, arrSize};
         symbol_stack.top()->table[id] = entry;
-        scopePrinter.emitVar(id, type, offsets.top(), isArray, arrSize);
         if(isArray){
+            scopePrinter.emitArr(id, type, arrSize, offsets.top());
             offsets.top() += arrSize;
         }
         else{
+            scopePrinter.emitVar(id, type, offsets.top());
             offsets.top()++;
         }
     }
@@ -454,7 +466,7 @@ namespace output
         std::vector<std::string> expected_param;
         for (ast::BuiltInType type : func_table[node.func_id->value].paramTypes)
         {
-            expected_param.push_back(toString(type));
+            expected_param.push_back(toStringCapital(type));
         }
 
         // wrong number of arguments pass to function
@@ -476,6 +488,12 @@ namespace output
         for (auto it = node.statements.begin(); it != node.statements.end(); ++it)
         {
             (*it)->accept(*this);
+            if(auto ret_statement = std::dynamic_pointer_cast<ast::Return>(*it)){
+                if(node.returnType != ret_statement->exp->type && // The return types must be equal, or int and byte.
+                    !(node.returnType == ast::INT && ret_statement->exp->type == ast::BYTE)){
+                    errorMismatch(ret_statement->line);
+                }
+            }
         }
     }
 
@@ -584,10 +602,16 @@ namespace output
         if (node.init_exp)
         {
             node.init_exp->accept(*this);
-            // Check for typemismatch!
+            // Check for type mismatch!
             if(find_type(node.type) != node.init_exp->type){
                 errorMismatch(node.line);
             }
+            else if(auto exp_id = std::dynamic_pointer_cast<ast::ID>(node.init_exp)){ // Check if RHS is an array.
+                if(this->isArr(exp_id->value)){
+                    errorMismatch(node.line);
+                } 
+            }
+
         }
 
     }
@@ -611,8 +635,10 @@ namespace output
         
         node.exp->accept(*this);
         // Check if the RHS of the assignment is an array id.
-        if(std::dynamic_pointer_cast<ast::ID>(node.exp)){ 
-            errorMismatch(node.line);
+        if(auto exp_id = std::dynamic_pointer_cast<ast::ID>(node.exp)){
+            if(this->isArr(exp_id->value)){
+                errorMismatch(node.line);
+            } 
         }
         if (node.id->type == node.exp->type)
             return;
@@ -638,9 +664,15 @@ namespace output
 
         // 3) check the RHS
         node.exp->accept(*this);
-        if (node.exp->type == elemType ||
-           (elemType == ast::INT && node.exp->type == ast::BYTE))
+        if (node.exp->type == elemType || (elemType == ast::INT && node.exp->type == ast::BYTE)){
+            if(auto exp_id = std::dynamic_pointer_cast<ast::ID>(node.exp)){ // Check if RHS is an array.
+                if(this->isArr(exp_id->value)){
+                    errorMismatch(node.line);
+                } 
+            }
+            
             return;
+        }
 
             // any other case is a type mismatch
         errorMismatch(node.line);
@@ -689,6 +721,7 @@ namespace output
         node.id->accept(*this);
         node.return_type->accept(*this);
         node.formals->accept(*this);
+        node.body->returnType = find_type(node.return_type);
         node.body->accept(*this);
 
         offsets.pop();

@@ -1,66 +1,66 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f74exo4 (BOOL,BOOL) -> BYTE
-f7fj4lx (BOOL) -> INT
-f3iwjtc (BOOL) -> VOID
-fhmh2wm (BOOL,BOOL) -> VOID
-fgiqcye () -> BYTE
-f8avpbq (BYTE,BYTE) -> INT
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f74exo4 (bool,bool) -> byte
+f7fj4lx (bool) -> int
+f3iwjtc (bool) -> void
+fhmh2wm (bool,bool) -> void
+fgiqcye () -> byte
+f8avpbq (byte,byte) -> int
+main () -> void
   ---begin scope---
-  p4xrsw BOOL -1
-  ph9cxv BOOL -2
-  vij9g4 BYTE 0
-  v0pouu BOOL 1
+  p4xrsw bool -1
+  ph9cxv bool -2
+  vij9g4 byte 0
+  v0pouu bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pbqu0x BOOL -1
-  vphhx6 BYTE 0
-  v980zh INT 1
-  vg2kje BYTE 2
+  pbqu0x bool -1
+  vphhx6 byte 0
+  v980zh int 1
+  vg2kje byte 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  phww8l BOOL -1
-  v20tlu BOOL 0
-  vsnqcq BOOL 1
+  phww8l bool -1
+  v20tlu bool 0
+  vsnqcq bool 1
   ---end scope---
   ---begin scope---
-  pexdib BOOL -1
-  p4cm5u BOOL -2
-  v8girp BYTE 0
-  voaziw BYTE 1
-  v8alpy INT 2
+  pexdib bool -1
+  p4cm5u bool -2
+  v8girp byte 0
+  voaziw byte 1
+  v8alpy int 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  v1jwi8 BYTE 0
-  votw3f BYTE 1
-  v9e77v INT 2
+  v1jwi8 byte 0
+  votw3f byte 1
+  v9e77v int 2
   ---end scope---
   ---begin scope---
-  peid23 BYTE -1
-  pbb0y1 BYTE -2
-  v3v5g3 INT 0
-  vceym2 INT 1
+  peid23 byte -1
+  pbb0y1 byte -2
+  v3v5g3 int 0
+  vceym2 int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  m9qesx INT 0
+  m9qesx int 0
     ---begin scope---
       ---begin scope---
       ---end scope---

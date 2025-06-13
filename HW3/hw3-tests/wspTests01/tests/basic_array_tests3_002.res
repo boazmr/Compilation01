@@ -1,58 +1,58 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fpx1qux () -> BOOL
-fpml0uj () -> BYTE
-fhimhey () -> BOOL
-fql5vl4 (INT,BOOL) -> BOOL
-fvbykd7 (BOOL) -> BOOL
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fpx1qux () -> bool
+fpml0uj () -> byte
+fhimhey () -> bool
+fql5vl4 (int,bool) -> bool
+fvbykd7 (bool) -> bool
+main () -> void
   ---begin scope---
-  v5w9ca INT 0
-  vmzggt INT 1
+  v5w9ca int 0
+  vmzggt int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  v5kc0j INT 0
+  v5kc0j int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  v32jl5 BYTE 0
-  vbjaf9 BYTE 1
-  vxcanz BOOL 2
+  v32jl5 byte 0
+  vbjaf9 byte 1
+  vxcanz bool 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pbw9j0 INT -1
-  pmq5qi BOOL -2
-  vq7djs BYTE 0
-  vf7eqc BOOL 1
+  pbw9j0 int -1
+  pmq5qi bool -2
+  vq7djs byte 0
+  vf7eqc bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  prlhz4 BOOL -1
-  vves0x BOOL 0
-  vedy1e BYTE 1
-  vtmxya BYTE 2
+  prlhz4 bool -1
+  vves0x bool 0
+  vedy1e byte 1
+  vtmxya byte 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  mignos BYTE 0
+  mignos byte 0
     ---begin scope---
       ---begin scope---
       ---end scope---

@@ -1,21 +1,21 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f9ez1z (INT) -> VOID
-ftcffg () -> INT
-fnfuup (BOOL) -> VOID
-fui4c9 (BOOL,BOOL) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f9ez1z (int) -> void
+ftcffg () -> int
+fnfuup (bool) -> void
+fui4c9 (bool,bool) -> void
+main () -> void
   ---begin scope---
-  p9b9qm INT -1
-  va5xv5 BOOL 0
+  p9b9qm int -1
+  va5xv5 bool 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vm5cox BOOL 0
+  vm5cox bool 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -26,8 +26,8 @@ main () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  pr4vlt BOOL -1
-  vf3qh0 INT 0
+  pr4vlt bool -1
+  vf3qh0 int 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -42,9 +42,9 @@ main () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  phfixy BOOL -1
-  pgm03f BOOL -2
-  vcizkp INT 0
+  phfixy bool -1
+  pgm03f bool -2
+  vcizkp int 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -55,7 +55,7 @@ main () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  vf4sys BOOL 0
-  vb8won INT 1
+  vf4sys bool 0
+  vb8won int 1
   ---end scope---
 ---end global scope---

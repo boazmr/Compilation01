@@ -1,65 +1,65 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fe86o0x () -> BOOL
-fxn0mga (BYTE,BOOL) -> VOID
-f1zhyol (BYTE) -> VOID
-fcq993q (BYTE) -> VOID
-fhlipt3 (INT,INT) -> INT
-fharc7w (BYTE) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fe86o0x () -> bool
+fxn0mga (byte,bool) -> void
+f1zhyol (byte) -> void
+fcq993q (byte) -> void
+fhlipt3 (int,int) -> int
+fharc7w (byte) -> void
+main () -> void
   ---begin scope---
-  vgqoyv INT 0
+  vgqoyv int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pac7yt BYTE -1
-  pu4pra BOOL -2
-  vevuug BYTE 0
-  vunhx8 INT 1
+  pac7yt byte -1
+  pu4pra bool -2
+  vevuug byte 0
+  vunhx8 int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  psryvt BYTE -1
-  vix2vo BYTE 0
-  v6x0dm BYTE 1
+  psryvt byte -1
+  vix2vo byte 0
+  v6x0dm byte 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  p3vgfh BYTE -1
-  v9bte1 INT 0
-  v4bchm INT 1
+  p3vgfh byte -1
+  v9bte1 int 0
+  v4bchm int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  phvvau INT -1
-  pn5wmh INT -2
-  vqbdzo INT 0
+  phvvau int -1
+  pn5wmh int -2
+  vqbdzo int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pjn6e0 BYTE -1
-  v0zkvf INT 0
+  pjn6e0 byte -1
+  v0zkvf int 0
   ---end scope---
   ---begin scope---
-  mefz9o BOOL 0
-  m9dtok BOOL 1
-  m74vzp INT 2
+  mefz9o bool 0
+  m9dtok bool 1
+  m74vzp int 2
     ---begin scope---
       ---begin scope---
       ---end scope---

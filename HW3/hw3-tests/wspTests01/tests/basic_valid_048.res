@@ -1,45 +1,23 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-main () -> VOID
-fea218 (INT) -> VOID
-f2o0wq (INT,INT,BOOL) -> INT
-f3muv9 (BOOL,BOOL,INT) -> INT
-fiqzud () -> VOID
+print (string) -> void
+printi (int) -> void
+main () -> void
+fea218 (int) -> void
+f2o0wq (int,int,bool) -> int
+f3muv9 (bool,bool,int) -> int
+fiqzud () -> void
   ---begin scope---
-  virb7c INT 0
-  vmzio4 INT 1
-  vev9ak INT 2
+  virb7c int 0
+  vmzio4 int 1
+  vev9ak int 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  ppcjpf INT -1
-  vi7eii BOOL 0
-    ---begin scope---
-      ---begin scope---
-        ---begin scope---
-          ---begin scope---
-          ---end scope---
-        ---end scope---
-      ---end scope---
-    ---end scope---
-  ---end scope---
-  ---begin scope---
-  pv9eec INT -1
-  pyw1wn INT -2
-  pkfik1 BOOL -3
-  v26g7x INT 0
-  ---end scope---
-  ---begin scope---
-  pgrnix BOOL -1
-  p3xwx8 BOOL -2
-  p49jhx INT -3
-  vzm53f BOOL 0
-  vium7k BOOL 1
-  v0vww8 INT 2
+  ppcjpf int -1
+  vi7eii bool 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -50,6 +28,28 @@ fiqzud () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  vgmd1i INT 0
+  pv9eec int -1
+  pyw1wn int -2
+  pkfik1 bool -3
+  v26g7x int 0
+  ---end scope---
+  ---begin scope---
+  pgrnix bool -1
+  p3xwx8 bool -2
+  p49jhx int -3
+  vzm53f bool 0
+  vium7k bool 1
+  v0vww8 int 2
+    ---begin scope---
+      ---begin scope---
+        ---begin scope---
+          ---begin scope---
+          ---end scope---
+        ---end scope---
+      ---end scope---
+    ---end scope---
+  ---end scope---
+  ---begin scope---
+  vgmd1i int 0
   ---end scope---
 ---end global scope---

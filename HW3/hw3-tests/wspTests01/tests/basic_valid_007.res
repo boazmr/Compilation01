@@ -1,18 +1,18 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-main () -> VOID
-fypteo () -> INT
-fbd77y () -> INT
+print (string) -> void
+printi (int) -> void
+main () -> void
+fypteo () -> int
+fbd77y () -> int
   ---begin scope---
-  vmeu9w INT 0
+  vmeu9w int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vr43co BOOL 0
+  vr43co bool 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -23,8 +23,8 @@ fbd77y () -> INT
     ---end scope---
   ---end scope---
   ---begin scope---
-  vg6t4n BOOL 0
-  vmqxcj BOOL 1
+  vg6t4n bool 0
+  vmqxcj bool 1
     ---begin scope---
       ---begin scope---
         ---begin scope---

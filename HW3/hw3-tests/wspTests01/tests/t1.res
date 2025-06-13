@@ -1,23 +1,23 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-main () -> VOID
-printOk (BOOL) -> VOID
+print (string) -> void
+printi (int) -> void
+main () -> void
+printOk (bool) -> void
   ---begin scope---
-  x INT 0
-  y BYTE 1
-  z INT 2
+  x int 0
+  y byte 1
+  z int 2
   ---end scope---
   ---begin scope---
-  isOk BOOL -1
-  i INT 0
+  isOk bool -1
+  i int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
     ---begin scope---
       ---begin scope---
-      x INT 1
+      x int 1
       ---end scope---
     ---end scope---
     ---begin scope---

@@ -1,51 +1,51 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-ferp0ro (BOOL,BOOL) -> BYTE
-f7rkt3o (INT) -> BYTE
-f8rhv97 () -> BYTE
-fmr9csv (BOOL,BOOL) -> VOID
-fuh5ju5 (INT,BOOL) -> INT
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+ferp0ro (bool,bool) -> byte
+f7rkt3o (int) -> byte
+f8rhv97 () -> byte
+fmr9csv (bool,bool) -> void
+fuh5ju5 (int,bool) -> int
+main () -> void
   ---begin scope---
-  pmuumf BOOL -1
-  p61rpo BOOL -2
-  vnctw6 BOOL 0
-  vaa0n9 INT 1
-  vajlfc INT 2
+  pmuumf bool -1
+  p61rpo bool -2
+  vnctw6 bool 0
+  vaa0n9 int 1
+  vajlfc int 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pq2ue7 INT -1
-  v4ooej INT 0
+  pq2ue7 int -1
+  v4ooej int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vy9ubh BOOL 0
-  v4rj66 BOOL 1
+  vy9ubh bool 0
+  v4rj66 bool 1
   ---end scope---
   ---begin scope---
-  pnkmi5 BOOL -1
-  pdsj90 BOOL -2
-  vhcu8t INT 0
+  pnkmi5 bool -1
+  pdsj90 bool -2
+  vhcu8t int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pvj4tt INT -1
-  pidnof BOOL -2
-  v6q4ah BOOL 0
+  pvj4tt int -1
+  pidnof bool -2
+  v6q4ah bool 0
   ---end scope---
   ---begin scope---
-  m6rcg4 INT 0
-  musawd INT 1
+  m6rcg4 int 0
+  musawd int 1
   ---end scope---
 ---end global scope---

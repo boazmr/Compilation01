@@ -1,39 +1,39 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f806tax (BYTE) -> BYTE
-fs42gwd () -> BOOL
-faud187 (BYTE) -> VOID
-f43w9tm () -> BYTE
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f806tax (byte) -> byte
+fs42gwd () -> bool
+faud187 (byte) -> void
+f43w9tm () -> byte
+main () -> void
   ---begin scope---
-  p4hccg BYTE -1
-  vlw006 BYTE 0
-  vwxqwt INT 1
-  vve01l BOOL 2
+  p4hccg byte -1
+  vlw006 byte 0
+  vwxqwt int 1
+  vve01l bool 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vriynj BYTE 0
+  vriynj byte 0
   ---end scope---
   ---begin scope---
-  pz3uz4 BYTE -1
-  vtdl8s BOOL 0
-  viuyiz BOOL 1
+  pz3uz4 byte -1
+  vtdl8s bool 0
+  viuyiz bool 1
   ---end scope---
   ---begin scope---
-  v55yj4 BYTE 0
+  v55yj4 byte 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  msd9m6 INT 0
-  mytw45 BOOL 1
+  msd9m6 int 0
+  mytw45 bool 1
     ---begin scope---
       ---begin scope---
       ---end scope---

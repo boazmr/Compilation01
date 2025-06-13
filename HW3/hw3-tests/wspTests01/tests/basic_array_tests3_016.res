@@ -1,40 +1,40 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fp1pghw () -> BYTE
-f4pgeze (INT,INT) -> BOOL
-fmk09nb (BYTE) -> BOOL
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fp1pghw () -> byte
+f4pgeze (int,int) -> bool
+fmk09nb (byte) -> bool
+main () -> void
   ---begin scope---
-  v73558 INT 0
+  v73558 int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  p38rns INT -1
-  pzn3la INT -2
-  vnomvn BYTE 0
-  v3w3py BYTE 1
+  p38rns int -1
+  pzn3la int -2
+  vnomvn byte 0
+  v3w3py byte 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  p678cm BYTE -1
-  vqd7ch INT 0
-  v3x87a BOOL 1
-  vbgjy2 INT 2
+  p678cm byte -1
+  vqd7ch int 0
+  v3x87a bool 1
+  vbgjy2 int 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  md6a9z INT 0
-  m3l8ko INT 1
-  mddnac INT 2
+  md6a9z int 0
+  m3l8ko int 1
+  mddnac int 2
   ---end scope---
 ---end global scope---

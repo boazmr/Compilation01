@@ -1,56 +1,56 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fmubeeo () -> VOID
-frdp7ak (BOOL) -> BYTE
-f5bmwb9 (INT) -> BOOL
-fshjmhv (BOOL) -> BOOL
-fmuk672 () -> VOID
-fcq9a91 () -> BOOL
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fmubeeo () -> void
+frdp7ak (bool) -> byte
+f5bmwb9 (int) -> bool
+fshjmhv (bool) -> bool
+fmuk672 () -> void
+fcq9a91 () -> bool
+main () -> void
   ---begin scope---
-  vgk33y BYTE 0
-  vci2su BOOL 1
+  vgk33y byte 0
+  vci2su bool 1
   ---end scope---
   ---begin scope---
-  po71vz BOOL -1
-  vjv3ms BOOL 0
-  vrl3ee INT 1
+  po71vz bool -1
+  vjv3ms bool 0
+  vrl3ee int 1
   ---end scope---
   ---begin scope---
-  pl9oy0 INT -1
-  vif7tg BYTE 0
-  vt0tf2 INT 1
+  pl9oy0 int -1
+  vif7tg byte 0
+  vt0tf2 int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  p8xst1 BOOL -1
-  ve5cbw INT 0
+  p8xst1 bool -1
+  ve5cbw int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vz3n37 INT 0
+  vz3n37 int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  v5nqkt BYTE 0
+  v5nqkt byte 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  mpv381 BOOL 0
-  mm6rng BYTE 1
+  mpv381 bool 0
+  mm6rng byte 1
     ---begin scope---
       ---begin scope---
       ---end scope---

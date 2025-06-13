@@ -1,20 +1,20 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f3dx4c (INT) -> INT
-main () -> VOID
-fii7ir (INT) -> VOID
-fzhb4j (INT) -> INT
-fmlsza () -> VOID
+print (string) -> void
+printi (int) -> void
+f3dx4c (int) -> int
+main () -> void
+fii7ir (int) -> void
+fzhb4j (int) -> int
+fmlsza () -> void
   ---begin scope---
-  puqdkx INT -1
-  vnv5f0 INT 0
-  vl8xux INT 1
+  puqdkx int -1
+  vnv5f0 int 0
+  vl8xux int 1
   ---end scope---
   ---begin scope---
-  vs86yl INT 0
-  v0r096 INT 1
-  vhgss1 INT 2
+  vs86yl int 0
+  v0r096 int 1
+  vhgss1 int 2
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -33,19 +33,19 @@ fmlsza () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  psk7ly INT -1
-  vq5zxa INT 0
-  vzho2d INT 1
-  viw7p8 BOOL 2
+  psk7ly int -1
+  vq5zxa int 0
+  vzho2d int 1
+  viw7p8 bool 2
   ---end scope---
   ---begin scope---
-  par14r INT -1
-  vaka75 INT 0
+  par14r int -1
+  vaka75 int 0
   ---end scope---
   ---begin scope---
-  vy57wd BOOL 0
-  v849vb INT 1
-  vczxxb INT 2
+  vy57wd bool 0
+  v849vb int 1
+  vczxxb int 2
     ---begin scope---
       ---begin scope---
         ---begin scope---

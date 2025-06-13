@@ -326,6 +326,9 @@ namespace ast {
     public:
         // List of statements
         std::vector<std::shared_ptr<Statement>> statements;
+        // Statements come inside of a function body. 
+        //Hence, if there is a return statement, we need to check that it has the correct return type.
+        ast::BuiltInType returnType;
 
         // Constructor that receives no statements
         Statements() = default;

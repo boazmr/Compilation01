@@ -1,46 +1,46 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fpojpsz (INT,INT) -> BYTE
-fhfv6zm (BYTE) -> VOID
-f4oiuhh () -> INT
-fl4fsee (BOOL,BYTE) -> VOID
-fvuunjl () -> VOID
-fi0xaut () -> BYTE
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fpojpsz (int,int) -> byte
+fhfv6zm (byte) -> void
+f4oiuhh () -> int
+fl4fsee (bool,byte) -> void
+fvuunjl () -> void
+fi0xaut () -> byte
+main () -> void
   ---begin scope---
-  pv3712 INT -1
-  prwns8 INT -2
-  v66byy BOOL 0
+  pv3712 int -1
+  prwns8 int -2
+  v66byy bool 0
   ---end scope---
   ---begin scope---
-  pei3au BYTE -1
-  vvie0l INT 0
-  vh6z5e BYTE 1
-  vdz97y BOOL 2
+  pei3au byte -1
+  vvie0l int 0
+  vh6z5e byte 1
+  vdz97y bool 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  vrxyn5 BYTE 0
-  vg4ysj BYTE 1
-  vgqnj1 INT 2
+  vrxyn5 byte 0
+  vg4ysj byte 1
+  vgqnj1 int 2
   ---end scope---
   ---begin scope---
-  pyuinl BOOL -1
-  pfdzfv BYTE -2
-  vcqbor INT 0
-  vyl1by BOOL 1
+  pyuinl bool -1
+  pfdzfv byte -2
+  vcqbor int 0
+  vyl1by bool 1
   ---end scope---
   ---begin scope---
-  vejb5u INT 0
+  vejb5u int 0
   ---end scope---
   ---begin scope---
-  vpbih8 INT 0
+  vpbih8 int 0
   ---end scope---
   ---begin scope---
-  mm1kq2 BOOL 0
+  mm1kq2 bool 0
   ---end scope---
 ---end global scope---

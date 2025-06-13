@@ -1,12 +1,12 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fwj7vm (BOOL,INT) -> BOOL
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fwj7vm (bool,int) -> bool
+main () -> void
   ---begin scope---
-  pmas5f BOOL -1
-  ppx65m INT -2
-  v12b2v INT 0
+  pmas5f bool -1
+  ppx65m int -2
+  v12b2v int 0
     ---begin scope---
       ---begin scope---
         ---begin scope---
@@ -17,7 +17,7 @@ main () -> VOID
     ---end scope---
   ---end scope---
   ---begin scope---
-  vqq59k BOOL 0
-  vqchgq BOOL 1
+  vqq59k bool 0
+  vqchgq bool 1
   ---end scope---
 ---end global scope---

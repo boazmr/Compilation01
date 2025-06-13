@@ -1,51 +1,51 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f2l7k0e (INT,BYTE) -> BOOL
-fjjahtb (INT) -> INT
-fynp5dq (BYTE) -> BYTE
-fxh7sia (INT,BYTE) -> VOID
-fv5iq1c (BYTE) -> VOID
-fdva7q1 (BOOL) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f2l7k0e (int,byte) -> bool
+fjjahtb (int) -> int
+fynp5dq (byte) -> byte
+fxh7sia (int,byte) -> void
+fv5iq1c (byte) -> void
+fdva7q1 (bool) -> void
+main () -> void
   ---begin scope---
-  pe3zkf INT -1
-  p4yang BYTE -2
-  vyf3vb INT 0
-  v5bb08 BYTE 1
-  vaipze BOOL 2
+  pe3zkf int -1
+  p4yang byte -2
+  vyf3vb int 0
+  v5bb08 byte 1
+  vaipze bool 2
   ---end scope---
   ---begin scope---
-  ppt4rl INT -1
-  vejhuh INT 0
+  ppt4rl int -1
+  vejhuh int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  p57r29 BYTE -1
-  vvtrd0 BOOL 0
-  vyvn6b BYTE 1
+  p57r29 byte -1
+  vvtrd0 bool 0
+  vyvn6b byte 1
   ---end scope---
   ---begin scope---
-  pnfjqz INT -1
-  polldg BYTE -2
-  v4g0ho BOOL 0
+  pnfjqz int -1
+  polldg byte -2
+  v4g0ho bool 0
   ---end scope---
   ---begin scope---
-  papk9a BYTE -1
-  vaiiti BYTE 0
-  vj3kf0 BYTE 1
-  vaarit BOOL 2
+  papk9a byte -1
+  vaiiti byte 0
+  vj3kf0 byte 1
+  vaarit bool 2
   ---end scope---
   ---begin scope---
-  pcf0ne BOOL -1
-  vmonlq BOOL 0
+  pcf0ne bool -1
+  vmonlq bool 0
   ---end scope---
   ---begin scope---
-  mny7g7 BYTE 0
-  mpueot INT 1
-  m3pzfn BOOL 2
+  mny7g7 byte 0
+  mpueot int 1
+  m3pzfn bool 2
   ---end scope---
 ---end global scope---

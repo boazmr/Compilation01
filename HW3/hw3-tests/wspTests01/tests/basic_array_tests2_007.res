@@ -1,41 +1,41 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fl3hrkc (BYTE) -> BOOL
-f83ii96 (BOOL,INT) -> BYTE
-ft8ovjq (INT) -> INT
-faevoxl (INT) -> BOOL
-f9wo7cv (INT) -> INT
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fl3hrkc (byte) -> bool
+f83ii96 (bool,int) -> byte
+ft8ovjq (int) -> int
+faevoxl (int) -> bool
+f9wo7cv (int) -> int
+main () -> void
   ---begin scope---
-  pnc7je BYTE -1
-  vzxvcv BOOL 0
-  vf88f3 BYTE 1
+  pnc7je byte -1
+  vzxvcv bool 0
+  vf88f3 byte 1
   ---end scope---
   ---begin scope---
-  pdgs4t BOOL -1
-  pj3fmu INT -2
-  v82vfw INT 0
+  pdgs4t bool -1
+  pj3fmu int -2
+  v82vfw int 0
   ---end scope---
   ---begin scope---
-  plpho4 INT -1
-  vwbz97 BOOL 0
+  plpho4 int -1
+  vwbz97 bool 0
   ---end scope---
   ---begin scope---
-  p1k5qx INT -1
-  vsmejc INT 0
-  vu56a8 INT 1
-  vu0cn3 INT 2
+  p1k5qx int -1
+  vsmejc int 0
+  vu56a8 int 1
+  vu0cn3 int 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pdm9he INT -1
-  vsz415 BOOL 0
+  pdm9he int -1
+  vsz415 bool 0
   ---end scope---
   ---begin scope---
-  m1ag0s BOOL 0
+  m1ag0s bool 0
   ---end scope---
 ---end global scope---

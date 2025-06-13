@@ -1,30 +1,30 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-fdwmtdk (BOOL) -> BOOL
-fkiwqgj (INT) -> INT
-fc8x3uh () -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+fdwmtdk (bool) -> bool
+fkiwqgj (int) -> int
+fc8x3uh () -> void
+main () -> void
   ---begin scope---
-  pgq3an BOOL -1
-  vy27nb INT 0
-  vznj2g BYTE 1
+  pgq3an bool -1
+  vy27nb int 0
+  vznj2g byte 1
   ---end scope---
   ---begin scope---
-  p46pww INT -1
-  v3mozx INT 0
-  vbuahu BYTE 1
-  vwmevt BYTE 2
+  p46pww int -1
+  v3mozx int 0
+  vbuahu byte 1
+  vwmevt byte 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  v6f5se BOOL 0
-  vnhm5l INT 1
+  v6f5se bool 0
+  vnhm5l int 1
   ---end scope---
   ---begin scope---
-  moxugg BOOL 0
+  moxugg bool 0
   ---end scope---
 ---end global scope---

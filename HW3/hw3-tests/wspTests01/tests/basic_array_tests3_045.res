@@ -1,58 +1,58 @@
 ---begin global scope---
-print (STRING) -> VOID
-printi (INT) -> VOID
-f892mm1 (BOOL) -> BYTE
-f3ijdow () -> BYTE
-f16uisa (BYTE,INT) -> BYTE
-fbvi37r (BOOL) -> INT
-f1vi71d () -> BYTE
-fl8wg57 (BOOL) -> VOID
-main () -> VOID
+print (string) -> void
+printi (int) -> void
+f892mm1 (bool) -> byte
+f3ijdow () -> byte
+f16uisa (byte,int) -> byte
+fbvi37r (bool) -> int
+f1vi71d () -> byte
+fl8wg57 (bool) -> void
+main () -> void
   ---begin scope---
-  prnie7 BOOL -1
-  vc823u BYTE 0
+  prnie7 bool -1
+  vc823u byte 0
   ---end scope---
   ---begin scope---
-  v1iiny BYTE 0
-  vhdehb BYTE 1
-  vl8j13 INT 2
+  v1iiny byte 0
+  vhdehb byte 1
+  vl8j13 int 2
   ---end scope---
   ---begin scope---
-  prgs01 BYTE -1
-  pbsgq9 INT -2
-  v735zj BYTE 0
-  ve68y6 INT 1
+  prgs01 byte -1
+  pbsgq9 int -2
+  v735zj byte 0
+  ve68y6 int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pkmgt7 BOOL -1
-  v34kk3 INT 0
+  pkmgt7 bool -1
+  v34kk3 int 0
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  v9szo7 BYTE 0
-  vsdv4z INT 1
-  vc6ao3 BOOL 2
+  v9szo7 byte 0
+  vsdv4z int 1
+  vc6ao3 bool 2
     ---begin scope---
       ---begin scope---
       ---end scope---
     ---end scope---
   ---end scope---
   ---begin scope---
-  pip39w BOOL -1
-  v29ib3 BYTE 0
-  v6npi5 BYTE 1
-  v9176n BOOL 2
+  pip39w bool -1
+  v29ib3 byte 0
+  v6npi5 byte 1
+  v9176n bool 2
   ---end scope---
   ---begin scope---
-  mv65vt INT 0
-  mpgpsw INT 1
+  mv65vt int 0
+  mpgpsw int 1
     ---begin scope---
       ---begin scope---
       ---end scope---
