@@ -15,17 +15,17 @@ namespace output
         switch (type)
         {
         case ast::BuiltInType::INT:
-            return "int";
+            return "INT";
         case ast::BuiltInType::BOOL:
-            return "bool";
+            return "BOOL";
         case ast::BuiltInType::BYTE:
-            return "byte";
+            return "BYTE";
         case ast::BuiltInType::VOID:
-            return "void";
+            return "VOID";
         case ast::BuiltInType::STRING:
-            return "string";
+            return "STRING";
         default:
-            return "unknown";
+            return "UNKNOWN";
         }
     }
 
@@ -195,7 +195,7 @@ namespace output
     }
 
     void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type, bool isArray, int arrSize) {
-        Var_Entry entry = {type, offsets.top()};
+        Var_Entry entry = {type, offsets.top(), isArray, arrSize};
         symbol_stack.top()->table[id] = entry;
         scopePrinter.emitVar(id, type, offsets.top(), isArray, arrSize);
         if(isArray){
@@ -263,6 +263,27 @@ namespace output
             temp_stack.pop();
         }
         return ast::NONE; // shouldnt get here
+    }
+
+    
+    // Return reather or not the variable is an array.
+    // If the variable is not found, return false.
+    bool SemanticVisitor::isArr(std::string& name){
+        // Implementation is very similar to 'vars_type' function.
+
+        std::stack<std::shared_ptr<SymbolTable>> temp_stack = symbol_stack;
+        while (!temp_stack.empty())
+        {
+            // Searching the element in the current symbolTable.
+            const std::shared_ptr<SymbolTable>& symbolTable = temp_stack.top();
+            if (symbolTable->table.find(name) != symbolTable->table.end())
+            {
+                return symbolTable->table[name].isArray;
+            }
+            // Didn't found, countinue to search the element in the stack's symbolTables.
+            temp_stack.pop();
+        }
+        return false; // shouldnt get here
     }
 
     void SemanticVisitor::push_func(const std::string& id, const ast::BuiltInType& returnType,
@@ -370,6 +391,9 @@ namespace output
 
     void SemanticVisitor::visit(ast::ArrayDereference& node) {
         // Dont do nothing.
+        node.id->accept(*this);
+        node.index->accept(*this);
+        node.type = node.id->type;
         return;
     }
 
@@ -560,7 +584,12 @@ namespace output
         if (node.init_exp)
         {
             node.init_exp->accept(*this);
+            // Check for typemismatch!
+            if(find_type(node.type) != node.init_exp->type){
+                errorMismatch(node.line);
+            }
         }
+
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {
@@ -575,7 +604,16 @@ namespace output
         node.id->accept(*this);
         node.id->type = vars_type(node.id->value);
 
+        if(this->isArr(node.id->value)){
+            // If the ID is an array, then we would not accept the assignment.
+            ErrorInvalidAssignArray(node.line, node.id->value);
+        }
+        
         node.exp->accept(*this);
+        // Check if the RHS of the assignment is an array id.
+        if(std::dynamic_pointer_cast<ast::ID>(node.exp)){ 
+            errorMismatch(node.line);
+        }
         if (node.id->type == node.exp->type)
             return;
         if (node.id->type == ast::INT && node.exp->type == ast::BYTE)

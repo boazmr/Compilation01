@@ -111,6 +111,7 @@ namespace output {
         std::shared_ptr<SymbolTable> makeTable();
         ast::BuiltInType vars_type(std::string& name);
         bool search_var(std::string& name);
+        bool isArr(std::string& name);
         // bool is_number(std::string& name);
         void push_var(const std::string &id, const ast::BuiltInType &type, bool isArray = false, int arrSize = 0);
         void push_param(const std::string &id, const ast::BuiltInType &type, int neg_offset);
