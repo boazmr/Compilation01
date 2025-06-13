@@ -151,8 +151,13 @@ namespace output
         indentLevel--;
     }
 
-    void ScopePrinter::emitVar(const std::string& id, const ast::BuiltInType& type, int offset) {
-        buffer << indent() << id << " " << toString(type) << " " << offset << std::endl;
+    void ScopePrinter::emitVar(const std::string& id, const ast::BuiltInType& type, int offset, bool isArray, int arrSize) {
+        if(isArray){
+            buffer << indent() << id << "[" << std::to_string(arrSize) << "] " << toString(type) << " " << offset << std::endl;
+        }
+        else{
+            buffer << indent() << id << " " << toString(type) << " " << offset << std::endl;
+        }
     }
 
     void ScopePrinter::emitFunc(const std::string& id, const ast::BuiltInType& returnType,
@@ -189,11 +194,16 @@ namespace output
         return std::make_shared<SymbolTable>();
     }
 
-    void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type, int offset) {
+    void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type, bool isArray, int arrSize) {
         Var_Entry entry = {type, offsets.top()};
         symbol_stack.top()->table[id] = entry;
-        scopePrinter.emitVar(id, type, offsets.top());
-        offsets.top() =+ offset + 1;
+        scopePrinter.emitVar(id, type, offsets.top(), isArray, arrSize);
+        if(isArray){
+            offsets.top() += arrSize;
+        }
+        else{
+            offsets.top()++;
+        }
     }
 
     void SemanticVisitor::push_param(const std::string& id, const ast::BuiltInType& type, int neg_offset) {
@@ -540,10 +550,7 @@ namespace output
             else if(auto numB = std::dynamic_pointer_cast<ast::NumB>(arr->length)){
                 arr_length = numB->value;
             }
-            // Change array ID from 'name' to 'name[arr_length]'.
-            std::string arr_name = node.id->value + "[" + std::to_string(arr_length) + "]";
-            node.id->value = arr_name; // Update the variable name
-            push_var(arr_name, node_type, arr_length);
+            push_var(node.id->value, node_type, true, arr_length);
         }
         else{
             push_var(node.id->value, node_type);
