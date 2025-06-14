@@ -16,6 +16,8 @@ main () -> void
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -24,6 +26,8 @@ main () -> void
   ---begin scope---
   peivg7 int -1
   vamtkm int 0
+    ---begin scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   pg0xdv bool -1
@@ -31,5 +35,7 @@ main () -> void
   ---end scope---
   ---begin scope---
   v3g2q8 bool 0
+    ---begin scope---
+    ---end scope---
   ---end scope---
 ---end global scope---

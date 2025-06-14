@@ -11,6 +11,8 @@ f9wgrh (bool,int,int) -> bool
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -23,6 +25,8 @@ f9wgrh (bool,int,int) -> bool
   vatojs int 1
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -36,6 +40,10 @@ f9wgrh (bool,int,int) -> bool
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+              ---begin scope---
+              ---end scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---

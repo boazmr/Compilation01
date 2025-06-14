@@ -9,6 +9,8 @@ fekkll (int) -> int
   ---begin scope---
   v9zgr5 int 0
   vp82rh int 1
+    ---begin scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   v4xe0h int 0
@@ -18,6 +20,8 @@ fekkll (int) -> int
           ---begin scope---
             ---begin scope---
               ---begin scope---
+                ---begin scope---
+                ---end scope---
               ---end scope---
             ---end scope---
           ---end scope---
@@ -33,6 +37,8 @@ fekkll (int) -> int
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -49,6 +55,8 @@ fekkll (int) -> int
   vp7qmw bool 1
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---

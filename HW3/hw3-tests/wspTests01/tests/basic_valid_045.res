@@ -18,6 +18,8 @@ main () -> void
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -29,6 +31,8 @@ main () -> void
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---

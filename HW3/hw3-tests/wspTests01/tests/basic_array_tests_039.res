@@ -10,6 +10,8 @@ main () -> void
   pg6yg8 bool -1
   p3m6ce int -2
   vrxaea int 0
+    ---begin scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   p2xpm6 int -1
@@ -42,6 +44,8 @@ main () -> void
   pnu1uk bool -2
   p3pw00 bool -3
   v81u6b bool 0
+    ---begin scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   pu78vm int -1
@@ -54,6 +58,8 @@ main () -> void
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---

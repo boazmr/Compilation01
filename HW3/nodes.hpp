@@ -330,6 +330,9 @@ namespace ast {
         //Hence, if there is a return statement, we need to check that it has the correct return type.
         ast::BuiltInType returnType;
 
+        // Boolean indicator of rather or not the statements are inside of a function call.
+        bool insideFunction = false;
+
         // Constructor that receives no statements
         Statements() = default;
 

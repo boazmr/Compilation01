@@ -17,6 +17,10 @@ fbd77y () -> int
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+              ---begin scope---
+              ---end scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -29,6 +33,10 @@ fbd77y () -> int
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+              ---begin scope---
+              ---end scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---

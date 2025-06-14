@@ -11,6 +11,8 @@ main () -> void
   va5xv5 bool 0
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -20,6 +22,8 @@ main () -> void
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -57,5 +61,9 @@ main () -> void
   ---begin scope---
   vf4sys bool 0
   vb8won int 1
+    ---begin scope---
+      ---begin scope---
+      ---end scope---
+    ---end scope---
   ---end scope---
 ---end global scope---

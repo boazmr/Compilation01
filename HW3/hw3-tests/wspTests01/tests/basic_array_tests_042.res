@@ -10,6 +10,10 @@ main () -> void
   pa2hid int -2
   vv6f5m bool 0
   vrowr6 bool 1
+    ---begin scope---
+      ---begin scope---
+      ---end scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   pj0kh2 bool -1

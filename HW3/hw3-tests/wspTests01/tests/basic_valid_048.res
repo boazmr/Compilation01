@@ -12,6 +12,12 @@ fiqzud () -> void
   vev9ak int 2
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+          ---begin scope---
+            ---begin scope---
+            ---end scope---
+          ---end scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -22,6 +28,10 @@ fiqzud () -> void
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+              ---begin scope---
+              ---end scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -32,6 +42,8 @@ fiqzud () -> void
   pyw1wn int -2
   pkfik1 bool -3
   v26g7x int 0
+    ---begin scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   pgrnix bool -1

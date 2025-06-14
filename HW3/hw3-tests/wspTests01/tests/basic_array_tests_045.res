@@ -29,6 +29,8 @@ main () -> void
   vomerd bool 0
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---

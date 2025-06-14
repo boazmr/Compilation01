@@ -14,6 +14,8 @@ fm8sbz (bool) -> int
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -35,6 +37,8 @@ fm8sbz (bool) -> int
   vjbvlm int 2
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -45,6 +49,8 @@ fm8sbz (bool) -> int
   v79bao bool 0
   viytgz int 1
   v5tjh3 bool 2
+    ---begin scope---
+    ---end scope---
   ---end scope---
   ---begin scope---
   pp2qmj bool -1

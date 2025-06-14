@@ -21,6 +21,10 @@ f8qoxv (int,int) -> int
   vbvkrj bool 0
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+          ---begin scope---
+          ---end scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -34,6 +38,10 @@ f8qoxv (int,int) -> int
       ---begin scope---
         ---begin scope---
           ---begin scope---
+            ---begin scope---
+              ---begin scope---
+              ---end scope---
+            ---end scope---
           ---end scope---
         ---end scope---
       ---end scope---
@@ -46,6 +54,8 @@ f8qoxv (int,int) -> int
   v5e33p bool 1
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---

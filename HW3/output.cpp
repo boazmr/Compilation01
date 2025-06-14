@@ -318,11 +318,15 @@ namespace output
 
     void SemanticVisitor::visit(ast::Num& node) {
         // Dont do nothing.
+        
         return;
     }
 
     void SemanticVisitor::visit(ast::NumB& node) {
-        // Dont do nothing.
+        // Check that byte value is smaller or equal to 255.
+        if(node.value > 255){
+            errorByteTooLarge(node.line, node.value);
+        }
         return;
     }
 
@@ -485,15 +489,23 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::Statements& node) {
+        // Every statements starts and end with '{' and '}'.
+        // We need to open a new scope only if we are outside of a function.
+        if(!node.insideFunction){
+            scopePrinter.beginScope();
+        }
         for (auto it = node.statements.begin(); it != node.statements.end(); ++it)
         {
             (*it)->accept(*this);
             if(auto ret_statement = std::dynamic_pointer_cast<ast::Return>(*it)){
                 if(node.returnType != ret_statement->exp->type && // The return types must be equal, or int and byte.
                     !(node.returnType == ast::INT && ret_statement->exp->type == ast::BYTE)){
-                    errorMismatch(ret_statement->line);
+                        errorMismatch(ret_statement->line);
                 }
             }
+        }
+        if(!node.insideFunction){
+            scopePrinter.endScope();
         }
     }
 
@@ -519,60 +531,26 @@ namespace output
     void SemanticVisitor::visit(ast::If& node) {
         node.condition->accept(*this);
         // create a new scope for the ‘if’.
-        // Check if the 'If' create a new block. That is, check if it hold "statements" or statement.
-        if(dynamic_cast<ast::Statements*>(node.then.get())){
-            // 'If' holds statements and therefore it had to create a new block!
-            scopePrinter.beginScope();
-            scopePrinter.beginScope();
-            node.then->accept(*this);
-            scopePrinter.endScope();
-            scopePrinter.endScope();
-        }
-        else{ // 'If' do not create a new block.
-            scopePrinter.beginScope();
-            node.then->accept(*this);
-            scopePrinter.endScope();
-        }
+        scopePrinter.beginScope();
+        node.then->accept(*this);
+        scopePrinter.endScope();
 
         // Also check if 'else' creates a new block.
-        if (node.otherwise) { 
-            if(dynamic_cast<ast::Statements*>(node.otherwise.get())){
-                // 'else' holds statements and therefore it had to create a new block!
-                scopePrinter.beginScope();
-                scopePrinter.beginScope();
-                node.otherwise->accept(*this);
-                scopePrinter.endScope();
-                scopePrinter.endScope();
-            }
-            else{ // 'else' do not create a new block.
-                scopePrinter.beginScope();
-                node.otherwise->accept(*this);
-                scopePrinter.endScope();
-            }
+        if (node.otherwise) {
+            scopePrinter.beginScope();
+            node.otherwise->accept(*this);
+            scopePrinter.endScope();
         }
     }
 
     void SemanticVisitor::visit(ast::While& node) {
         node.condition->accept(*this);
         // open the loop scope.
-        // Check if the 'While' create a new block. That is, check if it hold "statements" or statement.
-        if(dynamic_cast<ast::Statements*>(node.body.get())){
-            // 'While' holds statements and therefore it had to create a new block!
-            scopePrinter.beginScope();
-            loopDepth++;
-            scopePrinter.beginScope();
-            node.body->accept(*this);
-            scopePrinter.endScope();
-            loopDepth--;
-            scopePrinter.endScope();
-        }
-        else{ // 'While' do not create a new block.
-            scopePrinter.beginScope();
-            loopDepth++;
-            node.body->accept(*this);
-            loopDepth--;
-            scopePrinter.endScope();
-        }
+        scopePrinter.beginScope();
+        loopDepth++;
+        node.body->accept(*this);
+        loopDepth--;
+        scopePrinter.endScope();
     }
 
     void SemanticVisitor::visit(ast::VarDecl& node) {
@@ -617,8 +595,6 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {
-        // No need to search the expression since it might not be in the table at all. for example: x = 9;
-        //
         if (!search_var(node.id->value))
             errorUndef(node.line, node.id->value);
 
@@ -661,8 +637,13 @@ namespace output
 
         // 2) look up the array’s element type
         ast::BuiltInType elemType = vars_type(node.id->value);
+        
+        // 3) check the LHS
+        if(!isArr(node.id->value)){
+            errorMismatch(node.line);
+        }
 
-        // 3) check the RHS
+        // 4) check the RHS
         node.exp->accept(*this);
         if (node.exp->type == elemType || (elemType == ast::INT && node.exp->type == ast::BYTE)){
             if(auto exp_id = std::dynamic_pointer_cast<ast::ID>(node.exp)){ // Check if RHS is an array.
@@ -722,6 +703,7 @@ namespace output
         node.return_type->accept(*this);
         node.formals->accept(*this);
         node.body->returnType = find_type(node.return_type);
+        node.body->insideFunction = true;
         node.body->accept(*this);
 
         offsets.pop();

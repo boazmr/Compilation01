@@ -28,6 +28,10 @@ fhj0l4 (bool,int,bool) -> bool
   v4ufef bool 1
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+          ---begin scope---
+          ---end scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -37,6 +41,8 @@ fhj0l4 (bool,int,bool) -> bool
   vi941i int 0
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
@@ -47,6 +53,8 @@ fhj0l4 (bool,int,bool) -> bool
   vajn9n int 0
     ---begin scope---
       ---begin scope---
+        ---begin scope---
+        ---end scope---
       ---end scope---
     ---end scope---
   ---end scope---
