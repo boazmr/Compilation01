@@ -406,7 +406,10 @@ namespace output
     }
 
     void SemanticVisitor::visit(ast::ArrayDereference& node) {
-        // Dont do nothing.
+        // Check if ID is an array. If not, return type mismatch.
+        if(!isArr(node.id->value)){
+            errorMismatch(node.line);
+        }
         node.id->accept(*this);
         node.index->accept(*this);
         node.type = node.id->type;
@@ -482,8 +485,18 @@ namespace output
         int i = 0;
         for (std::shared_ptr<ast::Exp> arg : node.args->exps)
         {
-            if (arg->type != func_table[node.func_id->value].paramTypes[i])
+            // Check first if the given parametere is an array.
+            if(auto arg_id = std::dynamic_pointer_cast<ast::ID>(arg)){
+                if(isArr(arg_id->value)){
+                    errorPrototypeMismatch(node.line, arg_id->value, expected_param);
+                }
+            }
+            else if(arg->type == ast::BuiltInType::BYTE && func_table[node.func_id->value].paramTypes[i] == ast::BuiltInType::INT){ // Then check if the parameters is make a cast from byte to int, which is acceptable.
+                // Don't do anything.
+            }
+            else if (arg->type != func_table[node.func_id->value].paramTypes[i]){ // Then check if the types are differenet.
                 errorPrototypeMismatch(node.line, node.func_id->value, expected_param);
+            }
             i++;
         }
     }
