@@ -107,6 +107,7 @@ namespace output {
 
     public:
         ScopePrinter scopePrinter;
+        //CodeBuffer buffer;
         bool first_run;
         int loopDepth;
         SemanticVisitor();

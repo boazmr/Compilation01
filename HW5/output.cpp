@@ -421,6 +421,24 @@ namespace output {
         node.right->accept(*this);
         if (!is_number(node.right))
             errorMismatch(node.line);
+
+        std::string relop;
+        switch (node.op) {
+        case ast::EQ:
+            relop = " = icmp eq i32 0, 0"; break;
+        case ast::NE:
+            relop = " = icmp ne i32 0, 0"; break;
+        case ast::LT:
+            relop = " = icmp slt i32 0, 0"; break;
+        case ast::GT:
+            relop = " = icmp sgt i32 0, 0"; break;
+        case ast::LE:
+            relop = " = icmp sle i32 0, 0"; break;
+        case ast::GE:
+            relop = " = icmp sge i32 0, 0"; break;
+        }
+        //buffer << buffer.freshVar() << relop << std::endl;
+
     }
 
     void SemanticVisitor::visit(ast::PrimitiveType& node) {
