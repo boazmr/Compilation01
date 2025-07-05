@@ -1,8 +1,6 @@
 #include "output.hpp"
 #include <iostream>
 
-std.cout << "GIT IS WWORKING!!!!" << std.endl;
-
 namespace output {
     /* Helper functions */
 
