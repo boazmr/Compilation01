@@ -76,10 +76,17 @@ namespace output {
     };
 
     struct Var_Entry{
+        // The type of the variable.
         ast::BuiltInType type;
+        // The offset of the variable in the offsets stack, in respect to current scope.
         int offset;
+        // An indicator of reather or not the current variable is an array.
         bool isArray = false;
+        // If the variable is an array -> the size of the array. Otherwise, error value -1.
         int arrSize = -1;
+        // Save the latest register for this variable.
+        // The reg field in the Exp node class is not enough for ID, because it might no be a direct
+        // derivation of the value.  
         std::string reg;
     };
 

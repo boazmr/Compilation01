@@ -240,6 +240,7 @@ namespace output {
         return std::make_shared<SymbolTable>();
     }
 
+    // Push variable into the symbol_stack (the Symbol Table).
     void SemanticVisitor::push_var(const std::string& id, const ast::BuiltInType& type, bool isArray, int arrSize) {
         Var_Entry entry = {type, offsets.top(), isArray, arrSize};
         symbol_stack.top()->table[id] = entry;
@@ -671,6 +672,11 @@ namespace output {
         scopePrinter.endScope();
     }
 
+    // Updated from the HW3 function in the following way:
+    //      1) Create a register to the variable and store it's name in the variable symbol table entry.
+    //      2) Add LLVM code that will initialize the variable value to the new register.
+    //          2.1) If there is no intializitaion expression, assign variable value to default value.
+    //      3) Put variable value in the call stack.
     void SemanticVisitor::visit(ast::VarDecl& node) {
         if (search_var(node.id->value))
             errorDef(node.line, node.id->value);
@@ -680,6 +686,7 @@ namespace output {
 
         ast::BuiltInType node_type = find_type(node.type);
 
+        
         if (auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
             int arr_length = -1;
             if(auto num = std::dynamic_pointer_cast<ast::Num>(arr->length)){ // if length is num
@@ -691,10 +698,11 @@ namespace output {
             push_var(node.id->value, node_type, true, arr_length);
         }
         else{
-            push_var(node.id->value, node_type);
+            push_var(node.id->value, node_type, false, -1);
         }
         node.id->accept(*this);
         node.type->accept(*this);
+
         if (node.init_exp)
         {
             node.init_exp->accept(*this);
@@ -707,9 +715,38 @@ namespace output {
                     errorMismatch(node.line);
                 }
             }
+            
+            // We have an intialization expression, therefore we do not need to create a new register!
+            // What we will do is pass the register to the id of the new node. 
+            // Also, we will pass this value to the call stack.
+            node.id->reg = node.init_exp->reg;
 
         }
+        else{ // There is no init expression, therefore we should create a register and intizlize it with default values.
+            node.reg = buffer.freshVar();
+            std::string init_value;
+            // Find default values for the new variable.
 
+            // More then that -> I think we should allocate memory for the variable!
+            // Do this tommorow
+            switch(find_type(node.type)){
+                case ast::BuiltInType::INT:
+                    init_value = 
+                case ast::BuiltInType::BOOL:
+                    return "BOOL";
+                case ast::BuiltInType::BYTE:
+                    return "BYTE";
+                case ast::BuiltInType::VOID:
+                    return "VOID";
+                case ast::BuiltInType::STRING:
+                    return "STRING";
+                default:
+                    return "UNKNOWN";
+            }
+            buffer << node.reg << " = " << init_value << std::endl;
+        }
+        // Now, we should have all needed data for code generation. Let's do that!        
+        
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {
