@@ -246,8 +246,30 @@ namespace output {
         buffer.emit("declare i32 @scanf(i8*, ...)");
         buffer.emit("declare i32 @printf(i8*, ...)");
         buffer.emit("declare void @exit(i32)");
-
-
+        buffer.emit("@.int_specifier_scan = constant [3 x i8] c\"%d\\00\"");
+        buffer.emit("@.int_specifier = constant [4 x i8] c\"%d\\0A\\00\"");
+        buffer.emit("@.str_specifier = constant [4 x i8] c\"%s\\0A\\00\"");
+        buffer.emit("");
+        buffer.emit("define i32 @readi(i32) {");
+        buffer.emit("    %ret_val = alloca i32");
+        buffer.emit("    %spec_ptr = getelementptr [3 x i8], [3 x i8]* @.int_specifier_scan, i32 0, i32 0");
+        buffer.emit("    call i32 (i8*, ...) @scanf(i8* %spec_ptr, i32* %ret_val)");
+        buffer.emit("    %val = load i32, i32* %ret_val");
+        buffer.emit("    ret i32 %val");
+        buffer.emit("}");
+        buffer.emit("");
+        buffer.emit("define void @printi(i32) {");
+        buffer.emit("    %spec_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0");
+        buffer.emit("    call i32 (i8*, ...) @printf(i8* %spec_ptr, i32 %0)");
+        buffer.emit("    ret void");
+        buffer.emit("}");
+        buffer.emit("");
+        buffer.emit("define void @print(i8*) {");
+        buffer.emit("    %spec_ptr = getelementptr [4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0");
+        buffer.emit("    call i32 (i8*, ...) @printf(i8* %spec_ptr, i8* %0)");
+        buffer.emit("    ret void");
+        buffer.emit("}");
+        buffer.emit("");
     }
 
     std::shared_ptr<SymbolTable> SemanticVisitor::makeTable() {
@@ -566,6 +588,25 @@ namespace output {
         node.exp->accept(*this);
         if (node.exp->type != ast::BuiltInType::BOOL)
             errorMismatch(node.line);
+
+        // Generate not function code.
+        // Note: we might not have the direct value of the expression.
+        // What we have is a register that stores the value. We will use that to generate relevant code.
+        // The code will do the following:
+        // Check if the expression is equal to 0 if so give it value 1, otherwise - give it value 0.
+        node.reg = buffer.freshVar();        
+        std::string condition_reg = buffer.freshVar(); 
+        std::string label_01 = buffer.freshLabel();
+        std::string label_02 = buffer.freshLabel();
+        std::string label_03 = buffer.freshLabel();
+        buffer << condition_reg << " = icmp eq " << node.exp->reg << ", 0" << std::endl;
+        buffer << "br i1 " << condition_reg << ", label " << label_01 << ", label " << label_02 << std::endl;
+        buffer << label_01 << ":" << std::endl;
+        buffer << node.reg << " = add i32 0, 1" << std::endl;
+        buffer << "br label " << label_03 << std::endl;
+        buffer << label_02 << ":" << std::endl;
+        buffer << node.reg << " = add i32 0, 0" << std::endl;
+        buffer << label_03 << ":" << std::endl;
     }
 
     void SemanticVisitor::visit(ast::And& node) {
@@ -764,7 +805,7 @@ namespace output {
         //      2) Store node.reg value in the stack, use the stack ptr from part (1).
         std::string tmp_stack_pointer = buffer.freshVar();
         int node_stack_offset =vars_info(node.id->value).offset;
-        buffer << tmp_stack_pointer << " = getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 " << node_stack_offset << std::endl;
+        buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
         buffer << "store i32 " << node.reg << ", i32* " << tmp_stack_pointer << std::endl;
     }
 
