@@ -567,14 +567,12 @@ namespace output {
             errorMismatch(node.line);
         }
 
-        int current_offset = vars_info(node.id->value).offset;
-        int total_stack_offset = current_offset + array_index;
-
+        std::string array_ptr_reg = node.id->reg;
         std::string element_ptr_reg = buffer.freshVar();
-        buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 0, i32 " << total_stack_offset << std::endl;
+        buffer << element_ptr_reg << " = getelementptr i32, i32* "<< array_ptr_reg <<", i32 0, i32 " << array_index << std::endl;
 
-        std::string arr_deref_value_reg = buffer.freshVar();
-        buffer << arr_deref_value_reg << " = load i32, i32* " << element_ptr_reg << std::endl;
+        node.reg = buffer.freshVar();
+        buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Cast& node) {
@@ -730,13 +728,20 @@ namespace output {
         node.condition->accept(*this);
 
         std::string condition_reg = buffer.freshVar();
+        std::string label_01 = buffer.freshLabel();
+        std::string label_02 = buffer.freshLabel();
+        std::string label_03 = buffer.freshLabel();
         buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
-        buffer << "br i1 "
+        buffer << "br i1 " << condition_reg << ", label " << label_01 << ", label " << label_02 << std::endl;
+        buffer << label_01.erase(0,1) << ":" << std::endl;
 
         // create a new scope for the ‘if’.
         scopePrinter.beginScope();
         node.then->accept(*this);
         scopePrinter.endScope();
+
+        buffer << "br label " << label_03 << std::endl;
+        buffer << label_02.erase(0,1) << ":" << std::endl;
 
         // Also check if 'else' creates a new block.
         if (node.otherwise) {
@@ -745,7 +750,7 @@ namespace output {
             scopePrinter.endScope();
         }
 
-
+        buffer << label_03.erase(0,1) << ":" << std::endl;
     }
 
     void SemanticVisitor::visit(ast::While& node) {
@@ -820,7 +825,7 @@ namespace output {
         //      1) Create temporary register for stack ptr.
         //      2) Store node.reg value in the stack, use the stack ptr from part (1).
         std::string tmp_stack_pointer = buffer.freshVar();
-        int node_stack_offset =vars_info(node.id->value).offset;
+        int node_stack_offset = vars_info(node.id->value).offset;
         buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
         buffer << "store i32 " << node.reg << ", i32* " << tmp_stack_pointer << std::endl;
     }
@@ -937,10 +942,40 @@ namespace output {
         node.body->insideFunction = true;
         if(buffer.stack_sized)
         {
+            std::string func_name = node.id->value;
+            std::string return_type_name = "i32";
+            if(find_type(node.return_type) == ast::BuiltInType::VOID){
+                return_type_name = "void";
+            }
+
+            // Put parameters in function signature.
+            int param_count = node.formals->formals.size(); // Counter to help us check if we are in the last element.
+            int param_index = 0;
+            buffer << "define " << return_type_name << " @" << func_name << "(";
+            for(std::shared_ptr<ast::Formal>& param : node.formals->formals){
+                if(isArr(param->id->value)){
+                    buffer << "i32* %" << param->id->value;
+                }
+                else{
+                    buffer << "i32 %" << param->id->value;
+                }
+                if(param_index != param_count - 1){
+                    buffer << ", ";
+                }
+                param_index++;
+            }
+            buffer << "){" << std::endl;
             buffer << "%stacksize = add i32 0, " << std::to_string(func_table[node.id->value].max_offset) << std::endl;
             buffer << "%stack = alloca i32, i32 %stacksize" << std::endl;
+            
+            node.body->accept(*this);
+
+            buffer << "}" << std::endl;
+            buffer << std::endl;
         }
-        node.body->accept(*this);
+        else{
+            node.body->accept(*this);
+        }
 
         if(!buffer.stack_sized){
             func_table[node.id->value].max_offset = max_offset;
