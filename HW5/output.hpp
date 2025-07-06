@@ -84,10 +84,6 @@ namespace output {
         bool isArray = false;
         // If the variable is an array -> the size of the array. Otherwise, error value -1.
         int arrSize = -1;
-        // Save the latest register for this variable.
-        // The reg field in the Exp node class is not enough for ID, because it might no be a direct
-        // derivation of the value.  
-        std::string reg;
     };
 
     struct Func_Entry {

@@ -416,7 +416,8 @@ namespace output {
         else{ // If the ID is not in the symbol table, then return an error of undefined variable.
             errorUndef(node.line, node.value);
         }
-        node.reg = vars_info(node.value).reg;
+        node.reg = buffer.freshVar();
+
         return;
     }
 
@@ -729,34 +730,21 @@ namespace output {
             // We have an intialization expression, therefore we do not need to create a new register!
             // What we will do is pass the register to the id of the new node. 
             // Also, we will pass this value to the call stack.
-            node.id->reg = node.init_exp->reg;
-
+            node.reg = node.init_exp->reg;
         }
         else{ // There is no init expression, therefore we should create a register and intizlize it with default values.
             node.reg = buffer.freshVar();
-            std::string init_value;
-            // Find default values for the new variable.
-            switch(find_type(node.type)){
-                case ast::BuiltInType::INT:
-                    init_value = "add i32 0, 0";
-                case ast::BuiltInType::BOOL:
-                    return "add i32 0, 0"; 
-                case ast::BuiltInType::BYTE:
-                    return "BYTE";
-                case ast::BuiltInType::VOID:
-                    return "VOID";
-                case ast::BuiltInType::STRING:
-                    return "STRING";
-                default:
-                    return "UNKNOWN";
-            }
-            buffer << node.reg << " = " << init_value << std::endl;
+            // Set default values for the new variable.
+            buffer << node.reg << " = " << "add i32 0, 0" << std::endl;
         }
-        // We have node.id->reg as the register that holds the latest value.
-        // Therefore, we need to push that value to the call stack.
-        // Note: if needed to create new code to initialize this register, we already did that!
-
-        buffer << node.id->reg << std::endl;
+        
+        // Generated code is as followes:
+        //      1) Create temporary register for stack ptr.
+        //      2) Store node.reg value in the stack, use the stack ptr from part (1).
+        std::string tmp_stack_pointer = buffer.freshVar();
+        int node_stack_offset =vars_info(node.id->value).offset;
+        buffer << tmp_stack_pointer << "getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 " << node_stack_offset << std::endl;
+        buffer << "store i32 %" << node.reg << ", i32* %" << tmp_stack_pointer << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {
