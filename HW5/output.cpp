@@ -593,12 +593,6 @@ namespace output {
         if (node.exp->type != ast::BuiltInType::BOOL)
             errorMismatch(node.line);
 
-        // Generate not function code.
-        // Note: we might not have the direct value of the expression.
-        // What we have is a register that stores the value. We will use that to generate relevant code.
-        // The code will do the following:
-        // Check if the expression is equal to 0 if so give it value 1, otherwise - give it value 0.
-
         node.reg = buffer.freshVar();
         buffer << node.reg << " = xor i32 0, " << node.exp->reg << std::endl; 
     }
@@ -715,6 +709,7 @@ namespace output {
     void SemanticVisitor::visit(ast::Break& node) {
         if (loopDepth == 0)
             errorUnexpectedBreak(node.line);
+        
         return;
     }
 
@@ -733,6 +728,11 @@ namespace output {
 
     void SemanticVisitor::visit(ast::If& node) {
         node.condition->accept(*this);
+
+        std::string condition_reg = buffer.freshVar();
+        buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
+        buffer << "br i1 "
+
         // create a new scope for the ‘if’.
         scopePrinter.beginScope();
         node.then->accept(*this);
@@ -744,6 +744,8 @@ namespace output {
             node.otherwise->accept(*this);
             scopePrinter.endScope();
         }
+
+
     }
 
     void SemanticVisitor::visit(ast::While& node) {
