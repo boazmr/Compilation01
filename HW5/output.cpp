@@ -451,8 +451,13 @@ namespace output {
         else{ // If the ID is not in the symbol table, then return an error of undefined variable.
             errorUndef(node.line, node.value);
         }
-        node.reg = buffer.freshVar();
 
+        int stack_offset = vars_info(node.value).offset;;
+        std::string element_ptr_reg = buffer.freshVar();
+        buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 0, i32 " << stack_offset << std::endl;
+
+        node.reg = buffer.freshVar();
+        buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
         return;
     }
 
@@ -562,7 +567,6 @@ namespace output {
             errorMismatch(node.line);
         }
 
-        int arr_size = vars_info(node.id->value).arrSize;
         int current_offset = vars_info(node.id->value).offset;
         int total_stack_offset = current_offset + array_index;
 
@@ -695,6 +699,15 @@ namespace output {
             }
             i++;
         }
+
+        node.reg = buffer.freshVar();
+        std::string return_type = "";
+        std::string
+        buffer << node.reg << " = call ";
+        buffer << "@" << ;
+
+        // %res = call i32 @sum(i32 %a, i32 %b)
+
     }
 
     void SemanticVisitor::visit(ast::Statements& node) {
@@ -974,161 +987,4 @@ namespace output {
         if(!first_run)
             buffer.stack_sized = true;
     }
-//
-//    /* CodeGenVisitor class */
-//    void CodeGenVisitor::visit(ast::Num &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::NumB &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::String &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Bool &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::ID &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::BinOp &node) {
-//        node.left->accept(*this);
-//        std::string l_reg = node.left->reg;
-//
-//        node.right->accept(*this);
-//        std::string r_reg = node.right->reg;
-//
-//        std::string op;
-//        switch (node.op) {
-//            case ast::ADD:
-//                op = "add"; break;
-//            case ast::SUB:
-//                op = "sub"; break;
-//            case ast::MUL:
-//                op = "mul"; break;
-//            case ast::DIV:
-//                op = "sdiv"; break;
-//        }
-//
-//        node.reg = buffer.freshVar();
-//        buffer << node.reg << " = "  << op << " i32 " << l_reg << ", "<< r_reg << std::endl;
-//    }
-//
-//    void CodeGenVisitor::visit(ast::RelOp &node) {
-//        node.left->accept(*this);
-//        std::string l_reg = node.left->reg;
-//
-//        node.right->accept(*this);
-//        std::string r_reg = node.right->reg;
-//
-//        std::string relop;
-//        switch (node.op) {
-//            case ast::EQ:
-//                relop = "eq"; break;
-//            case ast::NE:
-//                relop = "ne"; break;
-//            case ast::LT:
-//                relop = "slt"; break;
-//            case ast::GT:
-//                relop = "sgt"; break;
-//            case ast::LE:
-//                relop = "sle"; break;
-//            case ast::GE:
-//                relop = "sge"; break;
-//        }
-//
-//        node.reg = buffer.freshVar();
-//        buffer << node.reg << " = icmp " << relop << " i32 " << l_reg << ", " << r_reg << std::endl;
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Not &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::And &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Or &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::ArrayType &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::PrimitiveType &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::ArrayDereference &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::ArrayAssign &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Cast &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::ExpList &node) {
-//        for (auto &exp : node.exps) {
-//            exp->accept(*this);
-//        }
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Call &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Statements &node) {
-//        for (auto &stmt : node.statements) {
-//            stmt->accept(*this);
-//        }
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Break &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Continue &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Return &node) {
-//        if (node.exp)
-//            node.exp->accept(*this);
-//    }
-//
-//    void CodeGenVisitor::visit(ast::If &node) {
-//        node.condition->accept(*this);
-//        node.then->accept(*this);
-//        if (node.otherwise)
-//            node.otherwise->accept(*this);
-//    }
-//
-//    void CodeGenVisitor::visit(ast::While &node) {
-//        node.condition->accept(*this);
-//        node.body->accept(*this);
-//    }
-//
-//    void CodeGenVisitor::visit(ast::VarDecl &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Assign &node) {
-//        node.exp->accept(*this);
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Formal &node) {
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Formals &node) {
-//        for (auto &f : node.formals) {
-//            f->accept(*this);
-//        }
-//    }
-//
-//    void CodeGenVisitor::visit(ast::FuncDecl &node) {
-//        node.id->accept(*this);
-//        node.return_type->accept(*this);
-//        node.formals->accept(*this);
-//        node.body->accept(*this);
-//    }
-//
-//    void CodeGenVisitor::visit(ast::Funcs &node) {
-//        for (auto &f : node.funcs) {
-//            f->accept(*this);
-//        }
-//    }
 }
