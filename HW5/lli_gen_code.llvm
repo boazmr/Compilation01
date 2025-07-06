@@ -1,0 +1,7 @@
+
+%t2 = add i32 5, 5
+%t3 = getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 0
+store i32 %%t2, i32* %%t3
+%t6 = add i32 5, 5
+%t7 = getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 0
+store i32 %%t6, i32* %%t7

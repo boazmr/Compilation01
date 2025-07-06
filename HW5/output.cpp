@@ -517,7 +517,7 @@ namespace output {
         node.type = node.id->type;
 
         Var_Entry info = vars_info(node.id->value);
-        std::string arr_reg = info.reg;
+        std::string arr_reg = "HELLO" ;//info.reg;
         std::string element_ptr = buffer.freshVar();
         std::string arr_len = std::to_string(info.arrSize);
 
@@ -743,8 +743,8 @@ namespace output {
         //      2) Store node.reg value in the stack, use the stack ptr from part (1).
         std::string tmp_stack_pointer = buffer.freshVar();
         int node_stack_offset =vars_info(node.id->value).offset;
-        buffer << tmp_stack_pointer << "getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 " << node_stack_offset << std::endl;
-        buffer << "store i32 %" << node.reg << ", i32* %" << tmp_stack_pointer << std::endl;
+        buffer << tmp_stack_pointer << " = getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 " << node_stack_offset << std::endl;
+        buffer << "store i32 " << node.reg << ", i32* " << tmp_stack_pointer << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {

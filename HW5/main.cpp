@@ -22,8 +22,8 @@ int main() {
       program->accept(semanticVisitor);
       semanticVisitor.first_run = false;
       program->accept(semanticVisitor);
-      std::cout << semanticVisitor.scopePrinter;
       program->accept(semanticVisitor);
+      std::cout << semanticVisitor.buffer;
 
 
     }
