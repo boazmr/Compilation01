@@ -24,6 +24,10 @@ int main() {
       program->accept(semanticVisitor);
       // std::cout << semanticVisitor.scopePrinter;
       program->accept(semanticVisitor);
+
+      semanticVisitor.buffer.emitString("printi");
+      semanticVisitor.buffer.emitString("print");
+      semanticVisitor.buffer.emitString("readi");
       std::cout << semanticVisitor.buffer;
 
 

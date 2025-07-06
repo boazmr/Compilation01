@@ -163,8 +163,6 @@ namespace output {
         std::stack<std::shared_ptr<SymbolTable>> symbol_stack;
         // Stack of scopes offsets.
         std::stack<int> offsets;
-        // max offset achives in the func
-        int max_offset;
         // data struct that saves func
         std::map<std::string, Func_Entry> func_table;
 
@@ -174,6 +172,8 @@ namespace output {
         CodeBuffer buffer;
         bool first_run;
         int loopDepth;
+        // max offset achives in the func - count how much to alloc in stack
+        int max_offset;
         SemanticVisitor();
         std::shared_ptr<SymbolTable> makeTable();
         ast::BuiltInType vars_type(std::string& name);

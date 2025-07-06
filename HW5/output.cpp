@@ -234,11 +234,10 @@ namespace output {
 
 
     /* SemanticVisitor implementation */
-    SemanticVisitor::SemanticVisitor() : first_run(true) {
+    SemanticVisitor::SemanticVisitor() : first_run(true), loopDepth(0), max_offset(0) {
         offsets.push(0);
         push_func("print", ast::BuiltInType::VOID, {ast::BuiltInType::STRING});
         push_func("printi", ast::BuiltInType::VOID, {ast::BuiltInType::INT});
-        loopDepth = 0;
     }
 
     std::shared_ptr<SymbolTable> SemanticVisitor::makeTable() {
@@ -869,10 +868,17 @@ namespace output {
         node.formals->accept(*this);
         node.body->returnType = find_type(node.return_type);
         node.body->insideFunction = true;
+        if(buffer.stack_sized)
+        {
+            buffer << "%stacksize = add i32 0, " << std::to_string(func_table[node.id->value].max_offset) << std::endl;
+            buffer << "%stack = alloca i32, i32 %stacksize" << std::endl;
+        }
         node.body->accept(*this);
 
-        func_table[node.id->value].max_offset = max_offset;
-        reset_max();
+        if(!buffer.stack_sized){
+            func_table[node.id->value].max_offset = max_offset;
+            reset_max();
+        }
 
         offsets.pop();
         symbol_stack.pop();
