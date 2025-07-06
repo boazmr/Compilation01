@@ -23,6 +23,7 @@ int main() {
       semanticVisitor.first_run = false;
       program->accept(semanticVisitor);
       std::cout << semanticVisitor.scopePrinter;
+      program->accept(semanticVisitor);
 
 
     }

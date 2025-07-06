@@ -93,6 +93,7 @@ namespace output {
     struct Func_Entry {
         std::vector<ast::BuiltInType> paramTypes;
         ast::BuiltInType returnType;
+        int max_offset;
     };
 
 
@@ -115,6 +116,7 @@ namespace output {
         friend std::ostream &operator<<(std::ostream &os, const CodeBuffer &buffer);
 
     public:
+        bool stack_sized;
         CodeBuffer();
 
         // Returns a string that represents a label not used before
@@ -145,7 +147,8 @@ namespace output {
         // Template overload for general types
         template<typename T>
         CodeBuffer &operator<<(const T &value) {
-            buffer << value;
+            if(stack_sized)
+                buffer << value;
             return *this;
         }
 
@@ -164,6 +167,8 @@ namespace output {
         std::stack<std::shared_ptr<SymbolTable>> symbol_stack;
         // Stack of scopes offsets.
         std::stack<int> offsets;
+        // max offset achives in the func
+        int max_offset;
         // data struct that saves func
         std::map<std::string, Func_Entry> func_table;
 
@@ -181,6 +186,7 @@ namespace output {
         bool isArr(std::string& name);
         // bool is_number(std::string& name);
         void push_var(const std::string &id, const ast::BuiltInType &type, bool isArray = false, int arrSize = 0);
+        void reset_max();
         void push_param(const std::string &id, const ast::BuiltInType &type, int neg_offset);
 
         ast::BuiltInType func_return_type(std::string& name);

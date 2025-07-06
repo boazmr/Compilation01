@@ -1,5 +1,6 @@
 #include "output.hpp"
 #include <iostream>
+#include <algorithm>
 
 namespace output {
     /* Helper functions */
@@ -193,7 +194,7 @@ namespace output {
 
     /* CodeBuffer class */
 
-    CodeBuffer::CodeBuffer() : labelCount(0), varCount(0), stringCount(0) {}
+    CodeBuffer::CodeBuffer() : labelCount(0), varCount(0), stringCount(0), stack_sized(false) {}
 
     std::string CodeBuffer::freshLabel() {
         return "%label_" + std::to_string(labelCount++);
@@ -252,6 +253,12 @@ namespace output {
             scopePrinter.emitVar(id, type, offsets.top());
             offsets.top()++;
         }
+        max_offset = std::max(max_offset, offsets.top());
+    }
+
+    // Push variable into the symbol_stack (the Symbol Table).
+    void SemanticVisitor::reset_max() {
+        max_offset = 0;
     }
 
     void SemanticVisitor::push_param(const std::string& id, const ast::BuiltInType& type, int neg_offset) {
@@ -354,7 +361,7 @@ namespace output {
 
     void SemanticVisitor::push_func(const std::string& id, const ast::BuiltInType& returnType,
                                     const std::vector<ast::BuiltInType>& paramTypes) {
-        func_table[id] = {paramTypes, returnType};
+        func_table[id] = {paramTypes, returnType, 0};
         scopePrinter.emitFunc(id, returnType, paramTypes);
     }
 
@@ -864,6 +871,9 @@ namespace output {
         node.body->insideFunction = true;
         node.body->accept(*this);
 
+        func_table[node.id->value].max_offset = max_offset;
+        reset_max();
+
         offsets.pop();
         symbol_stack.pop();
         scopePrinter.endScope();
@@ -884,6 +894,7 @@ namespace output {
             // In first_run mode your Func-visitor should only push the signature
             f->accept(*this);
         }
+        buffer.stack_sized = true;
     }
 //
 //    /* CodeGenVisitor class */
