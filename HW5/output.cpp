@@ -598,19 +598,9 @@ namespace output {
         // What we have is a register that stores the value. We will use that to generate relevant code.
         // The code will do the following:
         // Check if the expression is equal to 0 if so give it value 1, otherwise - give it value 0.
-        node.reg = buffer.freshVar();        
-        std::string condition_reg = buffer.freshVar(); 
-        std::string label_01 = buffer.freshLabel();
-        std::string label_02 = buffer.freshLabel();
-        std::string label_03 = buffer.freshLabel();
-        buffer << condition_reg << " = icmp eq i32 " << node.exp->reg << ", 0" << std::endl;
-        buffer << "br i1 " << condition_reg << ", label " << label_01 << ", label " << label_02 << std::endl;
-        buffer << label_01 << ":" << std::endl;
-        buffer << node.reg << " = add i32 0, 1" << std::endl;
-        buffer << "br label " << label_03 << std::endl;
-        buffer << label_02 << ":" << std::endl;
-        buffer << node.reg << " = add i32 0, 0" << std::endl;
-        buffer << label_03 << ":" << std::endl;
+
+        node.reg = buffer.freshVar();
+        buffer << node.reg << " = xor i32 0, " << node.exp->reg << std::endl; 
     }
 
     void SemanticVisitor::visit(ast::And& node) {
@@ -623,24 +613,7 @@ namespace output {
             errorMismatch(node.line);
 
         node.reg = buffer.freshVar();
-        std::string condition_01 = buffer.freshVar();
-        std::string condition_02 = buffer.freshVar();
-        std::string label_01 = buffer.freshLabel();
-        std::string label_02 = buffer.freshLabel();
-        std::string label_03 = buffer.freshLabel();
-        std::string label_04 = buffer.freshLabel();
-
-        buffer << condition_01 << " = icmp eq i32 0, " << node.left->reg << std::endl;
-        buffer << "br i1 " << condition_01 << ", label " << label_03 << ", label " << label_01 << std::endl;
-        buffer << label_01 << ":" << std::endl;
-        buffer << condition_02 << " = icmp eq i32 0, " << node.right->reg << std::endl;
-        buffer << "br i1 " << condition_02 << ", label " << label_03 << ", label " << label_02 << std::endl;
-        buffer << label_02 << ":" << std::endl;
-        buffer << node.reg << " = add i32 1, 0" << std::endl;
-        buffer << "br label " << label_04 << std::endl;
-        buffer << label_03 << ":" << std::endl;
-        buffer << node.reg << " = add i32 0, 0" << std::endl;
-        buffer << label_04 << ":" << std::endl;
+        buffer << node.reg << " = and i32 " << node.left->reg << ", " << node.right->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Or& node) {
@@ -651,6 +624,9 @@ namespace output {
         node.right->accept(*this);
         if (node.right->type != ast::BuiltInType::BOOL)
             errorMismatch(node.line);
+
+        node.reg = buffer.freshVar();
+        buffer << node.reg << " = or i32 " << node.left->reg << ", " << node.right->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::ExpList& node) {
