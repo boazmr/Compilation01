@@ -567,7 +567,7 @@ namespace output {
         int total_stack_offset = current_offset + array_index;
 
         std::string element_ptr_reg = buffer.freshVar();
-        buffer << element_ptr_reg << " = getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 " << total_stack_offset << std::endl;
+        buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 0, i32 " << total_stack_offset << std::endl;
 
         std::string arr_deref_value_reg = buffer.freshVar();
         buffer << arr_deref_value_reg << " = load i32, i32* " << element_ptr_reg << std::endl;
