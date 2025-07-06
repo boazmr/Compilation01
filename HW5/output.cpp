@@ -701,13 +701,18 @@ namespace output {
         }
 
         node.reg = buffer.freshVar();
-        std::string return_type = "";
-        std::string
-        buffer << node.reg << " = call ";
-        buffer << "@" << ;
-
-        // %res = call i32 @sum(i32 %a, i32 %b)
-
+        std::string return_type = node.type == ast::VOID ? "void" : "i32";
+        std::string func_name = node.func_id->value;
+        std::string params = "";
+        // Arguments
+        for (std::shared_ptr<ast::Exp> arg : node.args->exps) {
+            std::string arg_reg = arg->reg;
+            params += "i32 " + arg_reg;
+            // Just fix this line:
+            if (arg != node.args->exps.back())
+                params += ", ";
+        }
+        buffer << node.reg << " = call " << return_type << "@" << func_name << "(" << params << ")" << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Statements& node) {
