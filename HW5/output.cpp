@@ -324,7 +324,7 @@ namespace output {
         return ast::NONE; // shouldnt get here
     }
 
-    // Returns the type of the variable from the symbol table.
+    // Returns the Var_Entry of the variable from the symbol table.
     Var_Entry SemanticVisitor::vars_info(std::string& name) {
         // Iterating through the stack.
         std::stack<std::shared_ptr<SymbolTable>> temp_stack = symbol_stack;
@@ -513,25 +513,33 @@ namespace output {
 
     void SemanticVisitor::visit(ast::ArrayDereference& node) {
         // Check if ID is an array. If not, return type mismatch.
-        if(!isArr(node.id->value)){
+        if(!isArr(node.id->value) || !is_number(node.index)){
             errorMismatch(node.line);
         }
         node.id->accept(*this);
         node.index->accept(*this);
         node.type = node.id->type;
 
-        Var_Entry info = vars_info(node.id->value);
-        std::string arr_reg = "HELLO" ;//info.reg;
-        std::string element_ptr = buffer.freshVar();
-        std::string arr_len = std::to_string(info.arrSize);
+        int array_index = 0;
+        if(auto index = std::dynamic_pointer_cast<ast::Num>(node.index)){
+            array_index = index->value;
+        }
+        else if(auto index = std::dynamic_pointer_cast<ast::NumB>(node.index)){
+            array_index = index->value;
+        }
+        else{
+            errorMismatch(node.line);
+        }
 
-        buffer << element_ptr << " = getelementptr [" << arr_len << " x i32]," << "[" << arr_len << " x i32]* "
-        << arr_reg << ", i32 0, i32 " << node.index->reg << std::endl;
+        int arr_size = vars_info(node.id->value).arrSize;
+        int current_offset = vars_info(node.id->value).offset;
+        int total_stack_offset = current_offset + array_index;
 
-        node.reg = buffer.freshVar();
-        buffer << node.reg << " = laod i32,i32* " << element_ptr << std::endl;
+        std::string element_ptr_reg = buffer.freshVar();
+        buffer << element_ptr_reg << " = getelementptr [%stacksize x i32], [%stacksize x i32]* %stack, i32 0, i32 " << total_stack_offset << std::endl;
 
-        return;
+        std::string arr_deref_value_reg = buffer.freshVar();
+        buffer << arr_deref_value_reg << " = load i32, i32* " << element_ptr_reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Cast& node) {
