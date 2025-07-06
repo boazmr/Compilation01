@@ -1,1 +1,1 @@
-void main() {int x = 5 + 5; }
+void main() {bool x = true; bool y = not x;}

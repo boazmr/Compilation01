@@ -617,6 +617,8 @@ namespace output {
         node.right->accept(*this);
         if (node.right->type != ast::BuiltInType::BOOL)
             errorMismatch(node.line);
+
+        
     }
 
     void SemanticVisitor::visit(ast::Or& node) {
