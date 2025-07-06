@@ -223,7 +223,9 @@ namespace output {
     }
 
     CodeBuffer &CodeBuffer::operator<<(std::ostream &(*manip)(std::ostream &)) {
-        buffer << manip;
+        if(stack_sized){
+            buffer << manip;
+        }
         return *this;
     }
 
