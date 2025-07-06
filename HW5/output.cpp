@@ -197,11 +197,15 @@ namespace output {
     CodeBuffer::CodeBuffer() : labelCount(0), varCount(0), stringCount(0), stack_sized(false) {}
 
     std::string CodeBuffer::freshLabel() {
-        return "%label_" + std::to_string(labelCount++);
+        if(stack_sized)
+            return "%label_" + std::to_string(labelCount++);
+        return "";
     }
 
     std::string CodeBuffer::freshVar() {
-        return "%t" + std::to_string(varCount++);
+        if(stack_sized)
+            return "%t" + std::to_string(varCount++);
+        return "";
     }
 
     std::string CodeBuffer::emitString(const std::string &str) {
