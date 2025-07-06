@@ -42,6 +42,7 @@ namespace ast {
         // Line number in the source code
         int line;
 
+        // The register where the node value is stored.
         std::string reg;
 
         // Use this constructor only while parsing in bison or flex
