@@ -175,6 +175,7 @@ namespace output {
         // max offset achives in the func - count how much to alloc in stack
         int max_offset;
         SemanticVisitor();
+        void code_global_funcs();
         std::shared_ptr<SymbolTable> makeTable();
         ast::BuiltInType vars_type(std::string& name);
         Var_Entry vars_info(std::string& name);

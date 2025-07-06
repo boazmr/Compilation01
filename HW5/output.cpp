@@ -242,6 +242,14 @@ namespace output {
         push_func("printi", ast::BuiltInType::VOID, {ast::BuiltInType::INT});
     }
 
+    void SemanticVisitor::code_global_funcs() {
+        buffer.emit("declare i32 @scanf(i8*, ...)");
+        buffer.emit("declare i32 @printf(i8*, ...)");
+        buffer.emit("declare void @exit(i32)");
+
+
+    }
+
     std::shared_ptr<SymbolTable> SemanticVisitor::makeTable() {
         return std::make_shared<SymbolTable>();
     }
