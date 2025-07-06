@@ -882,7 +882,8 @@ namespace output {
             // In first_run mode your Func-visitor should only push the signature
             f->accept(*this);
         }
-        buffer.stack_sized = true;
+        if(!first_run)
+            buffer.stack_sized = true;
     }
 //
 //    /* CodeGenVisitor class */
