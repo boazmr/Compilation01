@@ -56,8 +56,6 @@ namespace ast {
     public:
         BuiltInType type;
 
-        // Variable that save the latest register used for this value.
-        std::string reg;
         explicit Exp(BuiltInType exp_type);
 
     };

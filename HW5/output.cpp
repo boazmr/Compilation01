@@ -673,10 +673,14 @@ namespace output {
     }
 
     // Updated from the HW3 function in the following way:
-    //      1) Create a register to the variable and store it's name in the variable symbol table entry.
-    //      2) Add LLVM code that will initialize the variable value to the new register.
-    //          2.1) If there is no intializitaion expression, assign variable value to default value.
-    //      3) Put variable value in the call stack.
+    //      1) If there is an expression:
+    //              then:
+    //                   The expression is already stored in a register.
+    //                   No code generation needed.
+    //              Otherwise:
+    //                   There is no allocated register for this new variable. Create a new register with default value.
+    //                   Create code that will initialize this register.
+    //      2) Create code that will put that variable in the call stack. The offset in the stack will be the offset from the symbol table var entry.
     void SemanticVisitor::visit(ast::VarDecl& node) {
         if (search_var(node.id->value))
             errorDef(node.line, node.id->value);
@@ -686,7 +690,6 @@ namespace output {
 
         ast::BuiltInType node_type = find_type(node.type);
 
-        
         if (auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
             int arr_length = -1;
             if(auto num = std::dynamic_pointer_cast<ast::Num>(arr->length)){ // if length is num
@@ -726,14 +729,11 @@ namespace output {
             node.reg = buffer.freshVar();
             std::string init_value;
             // Find default values for the new variable.
-
-            // More then that -> I think we should allocate memory for the variable!
-            // Do this tommorow
             switch(find_type(node.type)){
                 case ast::BuiltInType::INT:
-                    init_value = 
+                    init_value = "add i32 0, 0";
                 case ast::BuiltInType::BOOL:
-                    return "BOOL";
+                    return "add i32 0, 0"; 
                 case ast::BuiltInType::BYTE:
                     return "BYTE";
                 case ast::BuiltInType::VOID:
@@ -745,8 +745,11 @@ namespace output {
             }
             buffer << node.reg << " = " << init_value << std::endl;
         }
-        // Now, we should have all needed data for code generation. Let's do that!        
-        
+        // We have node.id->reg as the register that holds the latest value.
+        // Therefore, we need to push that value to the call stack.
+        // Note: if needed to create new code to initialize this register, we already did that!
+
+        buffer << node.id->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {
