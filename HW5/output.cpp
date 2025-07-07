@@ -845,7 +845,7 @@ namespace output {
                 buffer << node.reg << " = add i32* 0, 0" << std::endl;
             }
             else{
-            buffer << node.reg << " = " << "add i32 0, 0" << std::endl;
+                buffer << node.reg << " = " << "add i32 0, 0" << std::endl;
             }
         }
         
