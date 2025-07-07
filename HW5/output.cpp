@@ -454,7 +454,7 @@ namespace output {
 
         int stack_offset = vars_info(node.value).offset;;
         std::string element_ptr_reg = buffer.freshVar();
-        buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 0, i32 " << stack_offset << std::endl;
+        buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 " << stack_offset << std::endl;
 
         node.reg = buffer.freshVar();
         buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
@@ -935,11 +935,18 @@ namespace output {
             i--;
         }
 
+        // We do not want the next few lines to print anything.
+        bool real_stack_sized_val = buffer.stack_sized;
+        buffer.stack_sized = false;
+
         node.id->accept(*this);
         node.return_type->accept(*this);
         node.formals->accept(*this);
         node.body->returnType = find_type(node.return_type);
         node.body->insideFunction = true;
+
+        // Return to printing
+        buffer.stack_sized = real_stack_sized_val;
         if(buffer.stack_sized)
         {
             std::string func_name = node.id->value;
@@ -965,9 +972,25 @@ namespace output {
                 param_index++;
             }
             buffer << "){" << std::endl;
-            buffer << "%stacksize = add i32 0, " << std::to_string(func_table[node.id->value].max_offset) << std::endl;
-            buffer << "%stack = alloca i32, i32 %stacksize" << std::endl;
+            int num_of_parameters = (node.formals->formals).size();
+            int stack_size = func_table[node.id->value].max_offset + num_of_parameters;
+            buffer << "%stacksize = add i32 0, " << std::to_string(stack_size) << std::endl;
+            buffer << "%stack_alloc = alloca i32, i32 %stacksize" << std::endl;
+            // This is a pointer to index 0 of the stack. We allocated memory for the negative indeces.
+            buffer << "%stack = getelementptr i32, i32* %stack_alloc, i32 " << num_of_parameters << std::endl;
             
+            // Push parameters to the stack.
+            for (std::shared_ptr<ast::Formal>& param : node.formals->formals)
+            {
+                // The parameter register name we used is: %param->id->value.
+                // Insert this register value to the stackat it's offset.
+                param->reg = "%" + param->id->value;
+                std::string tmp_stack_pointer = buffer.freshVar();
+                int node_stack_offset = vars_info(param->id->value).offset;
+                buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
+                buffer << "store i32 " << param->reg << ", i32* " << tmp_stack_pointer << std::endl;
+            }
+
             node.body->accept(*this);
 
             buffer << "}" << std::endl;
