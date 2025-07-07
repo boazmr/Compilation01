@@ -931,6 +931,15 @@ namespace output {
                 errorMismatch(node.line);
             }
         }
+
+        // Generate code:
+        // node.exp value is stored in node.exp->reg. We would like to put that value in the stack, with id offset.
+        node.reg = node.exp->reg; 
+        std::string stack_ptr = buffer.freshVar();
+        int var_offset = vars_info(node.id->value).offset;
+        buffer << stack_ptr << " = getelementptr i32, i32* %stack, i32 " << var_offset << std::endl;
+        buffer << "store i32 " << node.reg << ", i32* " << stack_ptr << std::endl; 
+        
         if (node.id->type == node.exp->type)
             return;
         if (node.id->type == ast::INT && node.exp->type == ast::BYTE)
@@ -966,6 +975,16 @@ namespace output {
                     errorMismatch(node.line);
                 }
             }
+
+            // Generate code:
+            // node.exp value is stored in node.exp->reg. We would like to put that value in the stack, with id offset.
+            node.reg = node.exp->reg; 
+            std::string array_ptr = buffer.freshVar(); // A pointer to the beginning of the array.
+            std::string array_index_ptr = buffer.freshVar(); // A pointer to the actual variable in the array.
+            int var_offset = vars_info(node.id->value).offset;
+            buffer << array_ptr << " = getelementptr i32, i32* %stack, i32 " << var_offset << std::endl;
+            buffer << array_index_ptr << " = getelementptr i32, i32* " << array_ptr << ", i32 " << node.index->reg << std::endl;
+            buffer << "store i32 " << node.reg << ", i32* " << array_index_ptr << std::endl; 
 
             return;
         }
