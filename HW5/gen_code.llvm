@@ -26,11 +26,25 @@ define void @print(i8*) {
     ret void
 }
 
-define i32 @main() {
-    %stacksize = add i32 0, 1
-    %stack = alloca i32, i32 %stacksize
-    %t2 = add i32 5, 5
-    %t3 = getelementptr i32, i32* %stack, i32 0
-    store i32 %t2, i32* %t3
-    ret i32 4
+define void @main(){
+%stacksize = add i32 0, 1
+%stack_alloc = alloca i32, i32 %stacksize
+%stack = getelementptr i32, i32* %stack_alloc, i32 0
+%t0 = getelementptr i32, i32* %stack, i32 0
+%t1 = load i32, i32* %t0
+%t2 = getelementptr i32, i32* %stack, i32 0
+store i32 9, i32* %t2
 }
+
+define i32 @xnmxm(i32 %a, i32 %helllo){
+%stacksize = add i32 0, 2
+%stack_alloc = alloca i32, i32 %stacksize
+%stack = getelementptr i32, i32* %stack_alloc, i32 2
+%t3 = getelementptr i32, i32* %stack, i32 -1
+store i32 %a, i32* %t3
+%t4 = getelementptr i32, i32* %stack, i32 -2
+store i32 %helllo, i32* %t4
+%t5 = getelementptr i32, i32* %stack, i32 -1
+%t6 = load i32, i32* %t5
+}
+
