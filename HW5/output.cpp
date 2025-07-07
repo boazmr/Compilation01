@@ -632,6 +632,20 @@ namespace output {
             errorMismatch(node.line);
         }
 
+        // First, check that the index is valid.
+        std::string out_of_bound_condition = buffer.freshVar(); 
+        std::string error_ptr = buffer.freshVar(); 
+        std::string label_01 = buffer.freshLabel(); 
+        std::string label_02 = buffer.freshLabel(); 
+        buffer << out_of_bound_condition << " = icmp sge i32 " << node.index->reg << ", " << std::to_string(vars_info(node.id->value).arrSize) << std::endl;
+        buffer << "br i1 " << out_of_bound_condition << ", label " << label_01 << ", label " << label_02 << std::endl;
+        buffer.emitLabel(label_01);
+        buffer << error_ptr << " = getelementptr [22 x i8], [22 x i8]* @.bound_err, i32 0, i32 0" << std::endl;
+        buffer << "call @.out_of_bound(i8* " << error_ptr << ")" << std::endl;
+        buffer << "call void @exit(i32 0)" << std::endl;
+        buffer << "br label " << label_02 << std::endl;
+        buffer.emitLabel(label_02);
+
         std::string array_ptr_reg = node.id->reg;
         std::string element_ptr_reg = buffer.freshVar();
         buffer << element_ptr_reg << " = getelementptr i32, i32* "<< array_ptr_reg <<", i32 " << array_index << std::endl;
@@ -657,7 +671,7 @@ namespace output {
             errorMismatch(node.line);
 
         node.reg = buffer.freshVar();
-        buffer << node.reg << " = xor i1 0, " << node.exp->reg << std::endl;
+        buffer << node.reg << " = xor i1 1, " << node.exp->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::And& node) {
