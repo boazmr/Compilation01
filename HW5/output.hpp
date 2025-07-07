@@ -170,6 +170,7 @@ namespace output {
     public:
         ScopePrinter scopePrinter;
         CodeBuffer buffer;
+        std::stack<std::string> loop_end_labels;
         bool first_run;
         int loopDepth;
         // max offset achives in the func - count how much to alloc in stack

@@ -707,7 +707,8 @@ namespace output {
     void SemanticVisitor::visit(ast::Break& node) {
         if (loopDepth == 0)
             errorUnexpectedBreak(node.line);
-        
+        std::string end_loop = loop_end_labels.top();
+        buffer << "br label " << end_loop << std::endl;
         return;
     }
 
@@ -718,10 +719,15 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::Return& node) {
-        if (node.exp)
+        if (!node.exp)
         {
-            node.exp->accept(*this);
+            buffer << "ret void" << std::endl;
+            return;
         }
+
+        node.exp->accept(*this);
+        buffer << "ret i32 " << node.reg << std::endl;
+
     }
 
     void SemanticVisitor::visit(ast::If& node) {
@@ -774,6 +780,7 @@ namespace output {
 
         buffer << "br label " << label_01 << std::endl;
         buffer << label_03.erase(0,1) << std::endl;
+        loop_end_labels.push(label_03);
     }
 
     // Updated from the HW3 function in the following way:
