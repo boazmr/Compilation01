@@ -301,14 +301,6 @@ namespace output {
         buffer.emit("");
 
         buffer.emitString("");
-        std::string str1 = "Error division by zero";
-        std::string var1 = "@.div_zero";
-        buffer << var1 << " = constant [" << str1.length() + 1 << " x i8] c\"" << str1 << "\\00\"";
-
-        buffer.emitString("");
-        std::string str2 = "Error out of bounds";
-        std::string var2 = "@.bound_err";
-        buffer << var2 << " = constant [" << str2.length() + 1 << " x i8] c\"" << str2 << "\\00\"";
 
         buffer.emit("define i32 @readi(i32) {");
         buffer.emit("    %ret_val = alloca i32");
@@ -573,21 +565,21 @@ namespace output {
 
         if (node.op == ast::DIV) {
             std::string is_zero = buffer.freshVar();
-            std::string ok_label = buffer.freshLabel();
-            std::string err_label = buffer.freshLabel();
-            std::string err_ptr = buffer.freshVar();
+            std::string label_01 = buffer.freshLabel();
+            std::string label_02 = buffer.freshLabel();
 
-            buffer << is_zero << " = icmp eq i32 " << r_reg << ", 0\n";
-            buffer << "br i1 " << is_zero << ", label " << err_label << ", label " << ok_label << "\n";
+            buffer << is_zero << " = icmp eq i32 " << l_reg << ", " << r_reg << std::endl;
+            buffer << "br i1 " << is_zero << ", label " << label_01 << ", label " << label_02 << std::endl;
 
-            // Error block
-            buffer << err_label.substr(1) << ":\n";
-            buffer << err_ptr << " = getelementptr [23 x i8], [23 x i8]* @.div_zero, i32 0, i32 0\n";
-            buffer << "call void @print(i8* " << err_ptr << ")\n";
-            buffer << "call void @exit(i32 0)\n";
+            buffer.emitLabel(label_01);
+            std::string global_str = buffer.emitString("Error division by zero");
+            std::string error_ptr = buffer.convert_to_arg(global_str, "Error division by zero");
 
-            // OK block
-            buffer << ok_label.substr(1) << ":\n";
+            buffer << "call void @print(i8* " << error_ptr << ")" << std::endl;
+            buffer << "call void @exit(i32 0)" << std::endl;
+
+            buffer << "br label " << label_02 << std::endl;
+            buffer.emitLabel(label_02);
         }
         node.reg = buffer.freshVar();
         buffer << node.reg << " = "  << op << " i32 " << l_reg << ", "<< r_reg << std::endl;
@@ -662,16 +654,20 @@ namespace output {
         }
 
         // First, check that the index is valid.
-        std::string out_of_bound_condition = buffer.freshVar(); 
-        std::string error_ptr = buffer.freshVar(); 
-        std::string label_01 = buffer.freshLabel(); 
-        std::string label_02 = buffer.freshLabel(); 
+        std::string out_of_bound_condition = buffer.freshVar();
+        std::string label_01 = buffer.freshLabel();
+        std::string label_02 = buffer.freshLabel();
+
         buffer << out_of_bound_condition << " = icmp sge i32 " << node.index->reg << ", " << std::to_string(vars_info(node.id->value).arrSize) << std::endl;
         buffer << "br i1 " << out_of_bound_condition << ", label " << label_01 << ", label " << label_02 << std::endl;
+
         buffer.emitLabel(label_01);
-        buffer << error_ptr << " = getelementptr [22 x i8], [22 x i8]* @.bound_err, i32 0, i32 0" << std::endl;
-        buffer << "call @.out_of_bound(i8* " << error_ptr << ")" << std::endl;
+        std::string global_str = buffer.emitString("Error out of bounds");
+        std::string error_ptr = buffer.convert_to_arg(global_str, "Error out of bounds");
+
+        buffer << "call void @print(i8* " << error_ptr << ")" << std::endl;
         buffer << "call void @exit(i32 0)" << std::endl;
+
         buffer << "br label " << label_02 << std::endl;
         buffer.emitLabel(label_02);
 
