@@ -838,7 +838,15 @@ namespace output {
         else{ // There is no init expression, therefore we should create a register and intizlize it with default values.
             node.reg = buffer.freshVar();
             // Set default values for the new variable.
+
+            // Set default values for array -> create an empty array. Save a pointer to array start.
+            if(auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
+                // Initialize a null ptr
+                buffer << node.reg << " = add i32* 0, 0" << std::endl;
+            }
+            else{
             buffer << node.reg << " = " << "add i32 0, 0" << std::endl;
+            }
         }
         
         // Generated code is as followes:

@@ -1,1 +1,3 @@
-void main(){int x = 9; int y = 2; xnmxm(x,y);} int xnmxm(int a, int helllo){return a;}
+void main(){
+    break;
+} 
