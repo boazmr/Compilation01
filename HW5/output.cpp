@@ -581,7 +581,6 @@ namespace output {
             buffer << "call void @exit(i32 0)" << std::endl;
 
             buffer << "br label " << label_02 << std::endl;
-            std::cout << "hereee" << std::endl;
             buffer.emitLabel(label_02);
         }
         node.reg = buffer.freshVar();
