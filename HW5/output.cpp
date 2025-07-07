@@ -299,6 +299,17 @@ namespace output {
         buffer.emit("@.int_specifier = constant [4 x i8] c\"%d\\0A\\00\"");
         buffer.emit("@.str_specifier = constant [4 x i8] c\"%s\\0A\\00\"");
         buffer.emit("");
+
+        buffer.emitString("");
+        std::string str1 = "Error division by zero";
+        std::string var1 = "@.div_zero";
+        buffer << var1 << " = constant [" << str1.length() + 1 << " x i8] c\"" << str1 << "\\00\"";
+
+        buffer.emitString("");
+        std::string str2 = "Error out of bounds";
+        std::string var2 = "@.bound_err";
+        buffer << var2 << " = constant [" << str2.length() + 1 << " x i8] c\"" << str2 << "\\00\"";
+
         buffer.emit("define i32 @readi(i32) {");
         buffer.emit("    %ret_val = alloca i32");
         buffer.emit("    %spec_ptr = getelementptr [3 x i8], [3 x i8]* @.int_specifier_scan, i32 0, i32 0");
@@ -560,6 +571,24 @@ namespace output {
                 op = node.type == ast::BuiltInType::INT ? "sdiv" : "udiv"; break;
         }
 
+        if (node.op == ast::DIV) {
+            std::string is_zero = buffer.freshVar();
+            std::string ok_label = buffer.freshLabel();
+            std::string err_label = buffer.freshLabel();
+            std::string err_ptr = buffer.freshVar();
+
+            buffer << is_zero << " = icmp eq i32 " << r_reg << ", 0\n";
+            buffer << "br i1 " << is_zero << ", label " << err_label << ", label " << ok_label << "\n";
+
+            // Error block
+            buffer << err_label.substr(1) << ":\n";
+            buffer << err_ptr << " = getelementptr [23 x i8], [23 x i8]* @.div_zero, i32 0, i32 0\n";
+            buffer << "call void @print(i8* " << err_ptr << ")\n";
+            buffer << "call void @exit(i32 0)\n";
+
+            // OK block
+            buffer << ok_label.substr(1) << ":\n";
+        }
         node.reg = buffer.freshVar();
         buffer << node.reg << " = "  << op << " i32 " << l_reg << ", "<< r_reg << std::endl;
     }
