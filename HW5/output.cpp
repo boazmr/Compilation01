@@ -829,7 +829,8 @@ namespace output {
         {
             (*it)->accept(*this);
             if(auto ret_statement = std::dynamic_pointer_cast<ast::Return>(*it)){
-                if(node.returnType != ret_statement->exp->type && // The return types must be equal, or int and byte.
+                if(node.returnType == ast::BuiltInType::VOID || ret_statement->exp == nullptr){} // No error mismatch in this case.
+                else if(node.returnType != ret_statement->exp->type && // The return types must be equal, or int and byte.
                     !(node.returnType == ast::INT && ret_statement->exp->type == ast::BYTE)){
                         errorMismatch(ret_statement->line);
                 }
@@ -862,13 +863,17 @@ namespace output {
             buffer << "ret void" << std::endl;
             return;
         }
-
         node.exp->accept(*this);
         buffer << "ret i32 " << node.exp->reg << std::endl;
 
     }
 
     void SemanticVisitor::visit(ast::If& node) {
+        std::shared_ptr<SymbolTable> sym_t = makeTable();
+        scopePrinter.beginScope();
+        symbol_stack.push(sym_t);
+        offsets.push(offsets.top());
+
         node.condition->accept(*this);
 
         std::string condition_reg = node.condition->reg;
@@ -901,6 +906,10 @@ namespace output {
 
         buffer << "br label " << label_03 << std::endl;
         buffer << label_03_name << ":" << std::endl;
+
+        offsets.pop();
+        symbol_stack.pop();
+        scopePrinter.endScope();
     }
 
     void SemanticVisitor::visit(ast::While& node) {
