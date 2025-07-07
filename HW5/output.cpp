@@ -214,6 +214,24 @@ namespace output {
         return var;
     }
 
+    std::string CodeBuffer::convert_to_arg(const std::string &const_str, const std::string &str) {
+        // Create a fresh variable for the result of getelementptr
+        std::string ptr = freshVar();
+
+        // Length of the string, including null terminator
+        int length = str.length() + 1;
+
+        // Emit the getelementptr instruction
+        *this << ptr << " = getelementptr [" << length << " x i8], [" << length << " x i8]* "
+              << const_str << ", i32 0, i32 0" << std::endl;
+
+        return ptr;
+    }
+
+
+
+
+
     void CodeBuffer::emit(const std::string &str) {
         buffer << str << std::endl;
     }
@@ -427,7 +445,13 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::String& node) {
-        node.reg = node.value;
+        if(!buffer.stack_sized)
+        {
+            node.reg = buffer.emitString(node.value);
+        } else {
+            node.reg = buffer.convert_to_arg(node.reg, node.value);
+        }
+
         return;
     }
 
@@ -675,12 +699,27 @@ namespace output {
         // Arguments
         for (std::shared_ptr<ast::Exp> arg : node.args->exps) {
             std::string arg_reg = arg->reg;
-            params += "i32 " + arg_reg;
+            if (func_name == "print") {
+                params += "i8* " + arg_reg;
+            }
+//            else if(isArr(arg->type))
+//            {
+//                params += "i32* " + arg_reg;
+//            }
+               else
+            {
+                params += "i32 " + arg_reg;
+            }
             // Just fix this line:
             if (arg != node.args->exps.back())
                 params += ", ";
         }
-        buffer << node.reg << " = call " << return_type << "@" << func_name << "(" << params << ")" << std::endl;
+        if(node.type == ast::VOID)
+        {
+            buffer << "call " << return_type << "@" << func_name << "(" << params << ")" << std::endl;
+        } else{
+            buffer << node.reg << " = call " << return_type << "@" << func_name << "(" << params << ")" << std::endl;
+        }
     }
 
     void SemanticVisitor::visit(ast::Statements& node) {

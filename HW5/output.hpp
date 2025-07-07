@@ -137,6 +137,8 @@ namespace output {
         //      buffer << "call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([14 x i8], [14 x i8]* " << str << ", i32 0, i32 0))" << std::endl;
         std::string emitString(const std::string &str);
 
+        std::string convert_to_arg(const std::string &const_str, const std::string &str);
+
         // Emits a string into the buffer
         void emit(const std::string &str);
 
