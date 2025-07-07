@@ -570,7 +570,7 @@ namespace output {
             std::string label_01 = buffer.freshLabel();
             std::string label_02 = buffer.freshLabel();
 
-            buffer << is_zero << " = icmp eq i32 " << l_reg << ", " << r_reg << std::endl;
+            buffer << is_zero << " = icmp eq i32 " << r_reg << ", 0" << std::endl;
             buffer << "br i1 " << is_zero << ", label " << label_01 << ", label " << label_02 << std::endl;
 
             buffer.emitLabel(label_01);
@@ -583,8 +583,18 @@ namespace output {
             buffer << "br label " << label_02 << std::endl;
             buffer.emitLabel(label_02);
         }
-        node.reg = buffer.freshVar();
-        buffer << node.reg << " = "  << op << " i32 " << l_reg << ", "<< r_reg << std::endl;
+
+        // We need to truncate for byte operations.
+        if(node.type == ast::BuiltInType::BYTE){
+            std::string binop_raw_value = buffer.freshVar();
+            node.reg = buffer.freshVar();
+            buffer << binop_raw_value << " = "  << op << " i32 " << l_reg << ", "<< r_reg << std::endl;
+            buffer << node.reg << " = and i32 " << binop_raw_value << ", 255" << std::endl;
+        }
+        else{
+            node.reg = buffer.freshVar();
+            buffer << node.reg << " = "  << op << " i32 " << l_reg << ", "<< r_reg << std::endl;
+        }
     }
 
     void SemanticVisitor::visit(ast::RelOp& node) {
@@ -636,51 +646,55 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::ArrayDereference& node) {
+        
         // Check if ID is an array. If not, return type mismatch.
-        if(!isArr(node.id->value) || !is_number(node.index)){
-            errorMismatch(node.line);
-        }
         node.id->accept(*this);
         node.index->accept(*this);
         node.type = node.id->type;
 
-        int array_index = 0;
+        if(!isArr(node.id->value)){
+            errorMismatch(node.line);
+        }
+        std::string array_index = "";
         if(auto index = std::dynamic_pointer_cast<ast::Num>(node.index)){
-            array_index = index->value;
+            array_index = std::to_string(index->value);
         }
         else if(auto index = std::dynamic_pointer_cast<ast::NumB>(node.index)){
-            array_index = index->value;
+            array_index = std::to_string(index->value);
+        }
+        else if(auto index = std::dynamic_pointer_cast<ast::ID>(node.index)){
+            array_index = node.index->reg;
         }
         else{
             errorMismatch(node.line);
         }
-
+        
         // First, check that the index is valid.
         std::string out_of_bound_condition = buffer.freshVar();
         std::string label_01 = buffer.freshLabel();
         std::string label_02 = buffer.freshLabel();
-
+        
         buffer << out_of_bound_condition << " = icmp sge i32 " << node.index->reg << ", " << std::to_string(vars_info(node.id->value).arrSize) << std::endl;
         buffer << "br i1 " << out_of_bound_condition << ", label " << label_01 << ", label " << label_02 << std::endl;
-
+        
         buffer.emitLabel(label_01);
         std::string global_str = buffer.emitString("Error out of bounds");
         std::string error_ptr = buffer.convert_to_arg(global_str, "Error out of bounds");
-
+        
         buffer << "call void @print(i8* " << error_ptr << ")" << std::endl;
         buffer << "call void @exit(i32 0)" << std::endl;
-
+        
         buffer << "br label " << label_02 << std::endl;
         buffer.emitLabel(label_02);
-
+        
         std::string array_ptr_reg = node.id->reg;
         std::string element_ptr_reg = buffer.freshVar();
         buffer << element_ptr_reg << " = getelementptr i32, i32* "<< array_ptr_reg <<", i32 " << array_index << std::endl;
-
+        
         node.reg = buffer.freshVar();
         buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
     }
-
+    
     void SemanticVisitor::visit(ast::Cast& node) {
         node.exp->accept(*this);
 
@@ -759,8 +773,13 @@ namespace output {
         int i = 0;
         for (std::shared_ptr<ast::Exp> arg : node.args->exps)
         {
-            // Check first if the given parametere is an array.
-            if(auto arg_id = std::dynamic_pointer_cast<ast::ID>(arg)){
+            // First, check if the given parameters is an array dereference. This is fine!
+            if(auto arr_deref = std::dynamic_pointer_cast<ast::ArrayDereference>(arg)){
+                // Don't do anything.
+            }
+            else if(auto arg_id = std::dynamic_pointer_cast<ast::ID>(arg)){
+                // Check first if the given parametere is an array.
+                // We checked before if it is array dereference, so if ID is in the symbol table, it, must be the array itself.
                 if(isArr(arg_id->value)){
                     errorPrototypeMismatch(node.line, arg_id->value, expected_param);
                 }
@@ -1045,6 +1064,25 @@ namespace output {
             }
 
             // Generate code:
+            // First, check that the index is valid.
+            std::string out_of_bound_condition = buffer.freshVar();
+            std::string label_01 = buffer.freshLabel();
+            std::string label_02 = buffer.freshLabel();
+            
+            buffer << out_of_bound_condition << " = icmp sge i32 " << node.index->reg << ", " << std::to_string(vars_info(node.id->value).arrSize) << std::endl;
+            buffer << "br i1 " << out_of_bound_condition << ", label " << label_01 << ", label " << label_02 << std::endl;
+            
+            buffer.emitLabel(label_01);
+            std::string global_str = buffer.emitString("Error out of bounds");
+            std::string error_ptr = buffer.convert_to_arg(global_str, "Error out of bounds");
+            
+            buffer << "call void @print(i8* " << error_ptr << ")" << std::endl;
+            buffer << "call void @exit(i32 0)" << std::endl;
+            
+            buffer << "br label " << label_02 << std::endl;
+            buffer.emitLabel(label_02);
+
+
             // node.exp value is stored in node.exp->reg. We would like to put that value in the stack, with id offset.
             node.reg = node.exp->reg; 
             std::string array_ptr = buffer.freshVar(); // A pointer to the beginning of the array.
@@ -1057,7 +1095,7 @@ namespace output {
             return;
         }
 
-            // any other case is a type mismatch
+        // any other case is a type mismatch
         errorMismatch(node.line);
     }
 
