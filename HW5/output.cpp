@@ -837,7 +837,6 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::While& node) {
-        std::string condition_reg = node.condition->reg;
         std::string label_01 = buffer.freshLabel();
         std::string label_01_name = label_01;
         label_01_name.erase(0,1);
@@ -847,11 +846,12 @@ namespace output {
         std::string label_03 = buffer.freshLabel();
         std::string label_03_name = label_03;
         label_03_name.erase(0,1);
-
+        
         buffer << "br label " << label_01 << std::endl;
         buffer << label_01_name << ":" << std::endl;
         node.condition->accept(*this);
         
+        std::string condition_reg = node.condition->reg;
         buffer << "br i1 " << condition_reg << ", label " << label_02 << ", label " << label_03 << std::endl;
         buffer << label_02_name << ":" << std::endl;
         
