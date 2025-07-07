@@ -268,7 +268,9 @@ namespace output {
     }
 
     void CodeBuffer::emitLabel(const std::string &label) {
-        buffer << label.substr(1) << ":" << std::endl;
+        if(stack_sized) {
+            buffer << label.substr(1) << ":" << std::endl;
+        }
     }
 
     CodeBuffer &CodeBuffer::operator<<(std::ostream &(*manip)(std::ostream &)) {
@@ -579,6 +581,7 @@ namespace output {
             buffer << "call void @exit(i32 0)" << std::endl;
 
             buffer << "br label " << label_02 << std::endl;
+            std::cout << "hereee" << std::endl;
             buffer.emitLabel(label_02);
         }
         node.reg = buffer.freshVar();
