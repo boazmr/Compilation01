@@ -754,13 +754,26 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::While& node) {
+        std::string label_01 = buffer.freshLabel();
+        buffer << label_01.erase(0,1) << std::endl;
         node.condition->accept(*this);
+        
+        std::string condition_reg = buffer.freshVar();
+        std::string label_02 = buffer.freshLabel();
+        std::string label_03 = buffer.freshLabel();
+        buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
+        buffer << "br i1 " << condition_reg << ", label " << label_02 << ", label " << label_03 << std::endl;
+        buffer << label_02.erase(0,1) << ":" << std::endl;
+        
         // open the loop scope.
         scopePrinter.beginScope();
         loopDepth++;
         node.body->accept(*this);
         loopDepth--;
         scopePrinter.endScope();
+
+        buffer << "br label " << label_01 << std::endl;
+        buffer << label_03.erase(0,1) << std::endl;
     }
 
     // Updated from the HW3 function in the following way:
@@ -992,6 +1005,8 @@ namespace output {
             }
 
             node.body->accept(*this);
+
+            // CHeck if the last command is ret -> if not, add a return statement.
 
             buffer << "}" << std::endl;
             buffer << std::endl;
