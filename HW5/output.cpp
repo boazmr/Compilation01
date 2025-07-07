@@ -971,20 +971,22 @@ namespace output {
             // Put parameters in function signature.
             int param_count = node.formals->formals.size(); // Counter to help us check if we are in the last element.
             int param_index = 0;
+            std::string fresh_name;
             buffer << "define " << return_type_name << " @" << func_name << "(";
             for(std::shared_ptr<ast::Formal>& param : node.formals->formals){
+                param->reg = buffer.freshVar();
                 if(isArr(param->id->value)){
-                    buffer << "i32* %" << param->id->value;
+                    buffer << "i32* " << param->reg;
                 }
                 else{
-                    buffer << "i32 %" << param->id->value;
+                    buffer << "i32 " << param->reg;
                 }
                 if(param_index != param_count - 1){
                     buffer << ", ";
                 }
                 param_index++;
             }
-            buffer << "){" << std::endl;
+            buffer << ") {" << std::endl;
             int num_of_parameters = (node.formals->formals).size();
             int stack_size = func_table[node.id->value].max_offset + num_of_parameters;
             buffer << "%stacksize = add i32 0, " << std::to_string(stack_size) << std::endl;
@@ -995,9 +997,7 @@ namespace output {
             // Push parameters to the stack.
             for (std::shared_ptr<ast::Formal>& param : node.formals->formals)
             {
-                // The parameter register name we used is: %param->id->value.
                 // Insert this register value to the stackat it's offset.
-                param->reg = "%" + param->id->value;
                 std::string tmp_stack_pointer = buffer.freshVar();
                 int node_stack_offset = vars_info(param->id->value).offset;
                 buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
