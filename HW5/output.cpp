@@ -792,7 +792,15 @@ namespace output {
             }
             i++;
         }
-
+        
+        // If there is a parameters that is bool (i1) -> convert it to i32.
+        for (std::shared_ptr<ast::Exp> arg : node.args->exps) {
+            if(arg->type == ast::BuiltInType::BOOL){
+                std::string old_i1_reg = arg->reg;
+                arg->reg = buffer.freshVar();
+                buffer << arg->reg << " = zext i1 " <<old_i1_reg << " to i32" << std::endl;
+            }
+        }
         node.reg = buffer.freshVar();
         std::string return_type = node.type == ast::VOID ? "void" : "i32";
         std::string func_name = node.func_id->value;
@@ -1001,6 +1009,11 @@ namespace output {
             std::string tmp_stack_pointer = buffer.freshVar();
             int node_stack_offset = vars_info(node.id->value).offset;
             buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
+            // If type is bool, then it return register of type i1. We need to convert it to i32 in order to put it on the stack.
+            if(vars_info(node.id->value).type == ast::BuiltInType::BOOL){
+                node.reg = buffer.freshVar();
+                buffer << node.reg << " = zext i1 " << node.init_exp->reg << " to i32" << std::endl;
+            } 
             buffer << "store i32 " << node.reg << ", i32* " << tmp_stack_pointer << std::endl;
         }
     }
@@ -1034,6 +1047,12 @@ namespace output {
         std::string stack_ptr = buffer.freshVar();
         int var_offset = vars_info(node.id->value).offset;
         buffer << stack_ptr << " = getelementptr i32, i32* %stack, i32 " << var_offset << std::endl;
+        
+        // If type is bool, then it return register of type i1. We need to convert it to i32 in order to put it on the stack.
+        if(vars_info(node.id->value).type == ast::BuiltInType::BOOL){
+            node.reg = buffer.freshVar();
+            buffer << node.reg << " = zext i1 " << node.exp->reg << " to i32" << std::endl;
+        } 
         buffer << "store i32 " << node.reg << ", i32* " << stack_ptr << std::endl; 
         
         if (node.id->type == node.exp->type)
@@ -1099,6 +1118,10 @@ namespace output {
             int var_offset = vars_info(node.id->value).offset;
             buffer << array_ptr << " = getelementptr i32, i32* %stack, i32 " << var_offset << std::endl;
             buffer << array_index_ptr << " = getelementptr i32, i32* " << array_ptr << ", i32 " << node.index->reg << std::endl;
+            if(vars_info(node.id->value).type == ast::BuiltInType::BOOL){
+                node.reg = buffer.freshVar();
+                buffer << node.reg << " = zext i1 " << node.exp->reg << " to i32" << std::endl;
+            } 
             buffer << "store i32 " << node.reg << ", i32* " << array_index_ptr << std::endl; 
 
             return;
