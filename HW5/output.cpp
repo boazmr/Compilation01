@@ -511,8 +511,13 @@ namespace output {
         std::string element_ptr_reg = buffer.freshVar();
         buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 " << stack_offset << std::endl;
 
-        node.reg = buffer.freshVar();
-        buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
+        if(isArr(node.value))
+        {
+            node.reg = element_ptr_reg;
+        } else {
+            node.reg = buffer.freshVar();
+            buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
+        }
         return;
     }
 
@@ -624,7 +629,7 @@ namespace output {
 
         std::string array_ptr_reg = node.id->reg;
         std::string element_ptr_reg = buffer.freshVar();
-        buffer << element_ptr_reg << " = getelementptr i32, i32* "<< array_ptr_reg <<", i32 0, i32 " << array_index << std::endl;
+        buffer << element_ptr_reg << " = getelementptr i32, i32* "<< array_ptr_reg <<", i32 " << array_index << std::endl;
 
         node.reg = buffer.freshVar();
         buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
