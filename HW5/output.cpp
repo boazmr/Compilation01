@@ -702,10 +702,6 @@ namespace output {
             if (func_name == "print") {
                 params += "i8* " + arg_reg;
             }
-//            else if(isArr(arg->type))
-//            {
-//                params += "i32* " + arg_reg;
-//            }
                else
             {
                 params += "i32 " + arg_reg;
