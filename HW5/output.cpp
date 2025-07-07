@@ -514,6 +514,11 @@ namespace output {
         if(isArr(node.value))
         {
             node.reg = element_ptr_reg;
+        } else if(node.type == ast::BOOL) {
+            std::string temp_reg = buffer.freshVar();      // for i32 load
+            node.reg = buffer.freshVar();                  // for final i1 value
+            buffer << temp_reg << " = load i32, i32* " << element_ptr_reg << "\n";
+            buffer << node.reg << " = icmp ne i32 " << temp_reg << ", 0\n";
         } else {
             node.reg = buffer.freshVar();
             buffer << node.reg << " = load i32, i32* " << element_ptr_reg << std::endl;
@@ -652,7 +657,7 @@ namespace output {
             errorMismatch(node.line);
 
         node.reg = buffer.freshVar();
-        buffer << node.reg << " = xor i32 0, " << node.exp->reg << std::endl; 
+        buffer << node.reg << " = xor i1 0, " << node.exp->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::And& node) {
@@ -665,7 +670,7 @@ namespace output {
             errorMismatch(node.line);
 
         node.reg = buffer.freshVar();
-        buffer << node.reg << " = and i32 " << node.left->reg << ", " << node.right->reg << std::endl;
+        buffer << node.reg << " = and i1 " << node.left->reg << ", " << node.right->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Or& node) {
@@ -678,7 +683,7 @@ namespace output {
             errorMismatch(node.line);
 
         node.reg = buffer.freshVar();
-        buffer << node.reg << " = or i32 " << node.left->reg << ", " << node.right->reg << std::endl;
+        buffer << node.reg << " = or i1 " << node.left->reg << ", " << node.right->reg << std::endl;
     }
 
     void SemanticVisitor::visit(ast::ExpList& node) {
@@ -786,6 +791,8 @@ namespace output {
     void SemanticVisitor::visit(ast::Continue& node) {
         if (loopDepth == 0)
             errorUnexpectedContinue(node.line);
+        std::string cond_loop = loop_cond_labels.top();
+        buffer << "br label " << cond_loop << std::endl;
         return;
     }
 
@@ -840,9 +847,11 @@ namespace output {
         std::string label_01 = buffer.freshLabel();
         std::string label_01_name = label_01;
         label_01_name.erase(0,1);
+
         std::string label_02 = buffer.freshLabel();
         std::string label_02_name = label_02;
         label_02_name.erase(0,1);
+
         std::string label_03 = buffer.freshLabel();
         std::string label_03_name = label_03;
         label_03_name.erase(0,1);
@@ -850,7 +859,6 @@ namespace output {
         buffer << "br label " << label_01 << std::endl;
         buffer << label_01_name << ":" << std::endl;
         node.condition->accept(*this);
-        
         std::string condition_reg = node.condition->reg;
         buffer << "br i1 " << condition_reg << ", label " << label_02 << ", label " << label_03 << std::endl;
         buffer << label_02_name << ":" << std::endl;
@@ -858,13 +866,14 @@ namespace output {
         // open the loop scope.
         scopePrinter.beginScope();
         loopDepth++;
+        loop_cond_labels.push(label_02);
+        loop_end_labels.push(label_03);
         node.body->accept(*this);
         loopDepth--;
         scopePrinter.endScope();
 
         buffer << "br label " << label_01 << std::endl;
         buffer << label_03_name << ":" << std::endl;
-        loop_end_labels.push(label_03);
     }
 
     // Updated from the HW3 function in the following way:
