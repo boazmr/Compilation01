@@ -228,9 +228,40 @@ namespace output {
         return ptr;
     }
 
+    void CodeBuffer::emitZeroInitStack(const std::string& stack_alloc) {
+        std::string stack_ptr = freshVar();
+        std::string index_ptr = freshVar();
+        std::string loop_i = freshVar();
+        std::string cond = freshVar();
+        std::string elem_ptr = freshVar();
+        std::string i_next = freshVar();
+
+        std::string loop_cond_label = freshLabel().erase(0,1);
+
+        std::string loop_body_label = freshLabel().erase(0,1);
+
+        std::string loop_end_label = freshLabel().erase(0,1);
 
 
+        *this << stack_ptr << " = getelementptr i32, i32* " << stack_alloc << ", i32 0\n";
+        *this << index_ptr << " = alloca i32\n";
+        *this << "store i32 0, i32* " << index_ptr << "\n";
+        *this << "br label %" << loop_cond_label << "\n";
 
+        *this << loop_cond_label << ":\n";
+        *this << loop_i << " = load i32, i32* " << index_ptr << "\n";
+        *this << cond << " = icmp slt i32 " << loop_i << ", %stacksize\n";
+        *this << "br i1 " << cond << ", label %" << loop_body_label << ", label %" << loop_end_label << "\n";
+
+        *this << loop_body_label << ":\n";
+        *this << elem_ptr << " = getelementptr i32, i32* " << stack_ptr << ", i32 " << loop_i << "\n";
+        *this << "store i32 0, i32* " << elem_ptr << "\n";
+        *this << i_next << " = add i32 " << loop_i << ", 1\n";
+        *this << "store i32 " << i_next << ", i32* " << index_ptr << "\n";
+        *this << "br label %" << loop_cond_label << "\n";
+
+        *this << loop_end_label << ":\n";
+    }
 
     void CodeBuffer::emit(const std::string &str) {
         buffer << str << std::endl;
@@ -867,46 +898,30 @@ namespace output {
         node.id->accept(*this);
         node.type->accept(*this);
 
-        if (node.init_exp)
-        {
+        if (node.init_exp) {
             node.init_exp->accept(*this);
             // Check for type mismatch!
-            if(find_type(node.type) != node.init_exp->type){
+            if (find_type(node.type) != node.init_exp->type) {
                 errorMismatch(node.line);
-            }
-            else if(auto exp_id = std::dynamic_pointer_cast<ast::ID>(node.init_exp)){ // Check if RHS is an array.
-                if(this->isArr(exp_id->value)){
+            } else if (auto exp_id = std::dynamic_pointer_cast<ast::ID>(node.init_exp)) { // Check if RHS is an array.
+                if (this->isArr(exp_id->value)) {
                     errorMismatch(node.line);
                 }
             }
-            
+
             // We have an intialization expression, therefore we do not need to create a new register!
             // What we will do is pass the register to the id of the new node. 
             // Also, we will pass this value to the call stack.
             node.reg = node.init_exp->reg;
-        }
-        else{ // There is no init expression, therefore we should create a register and intizlize it with default values.
-            node.reg = buffer.freshVar();
-            // Set default values for the new variable.
 
-            
-            // Set default values for array -> create an empty array. Save a pointer to array start.
-            if(auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
-                // Initialize a new pointer to empty array.
-                buffer << node.reg << " = alloca i32, i32 " << std::to_string(arr_length)  << std::endl;
-            }
-            else{
-                buffer << node.reg << " = " << "add i32 0, 0" << std::endl;
-            }
+            // Generated code is as followes:
+            //      1) Create temporary register for stack ptr.
+            //      2) Store node.reg value in the stack, use the stack ptr from part (1).
+            std::string tmp_stack_pointer = buffer.freshVar();
+            int node_stack_offset = vars_info(node.id->value).offset;
+            buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
+            buffer << "store i32 " << node.reg << ", i32* " << tmp_stack_pointer << std::endl;
         }
-        
-        // Generated code is as followes:
-        //      1) Create temporary register for stack ptr.
-        //      2) Store node.reg value in the stack, use the stack ptr from part (1).
-        std::string tmp_stack_pointer = buffer.freshVar();
-        int node_stack_offset = vars_info(node.id->value).offset;
-        buffer << tmp_stack_pointer << " = getelementptr i32, i32* %stack, i32 " << node_stack_offset << std::endl;
-        buffer << "store i32 " << node.reg << ", i32* " << tmp_stack_pointer << std::endl;
     }
 
     void SemanticVisitor::visit(ast::Assign& node) {
@@ -1076,6 +1091,7 @@ namespace output {
             int stack_size = func_table[node.id->value].max_offset + num_of_parameters;
             buffer << "%stacksize = add i32 0, " << std::to_string(stack_size) << std::endl;
             buffer << "%stack_alloc = alloca i32, i32 %stacksize" << std::endl;
+            buffer.emitZeroInitStack();
             // This is a pointer to index 0 of the stack. We allocated memory for the negative indeces.
             buffer << "%stack = getelementptr i32, i32* %stack_alloc, i32 " << num_of_parameters << std::endl;
             

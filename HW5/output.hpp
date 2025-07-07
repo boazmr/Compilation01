@@ -139,6 +139,8 @@ namespace output {
 
         std::string convert_to_arg(const std::string &const_str, const std::string &str);
 
+        void emitZeroInitStack(const std::string& stack_alloc = "%stack_alloc");
+
         // Emits a string into the buffer
         void emit(const std::string &str);
 
