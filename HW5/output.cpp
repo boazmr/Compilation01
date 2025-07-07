@@ -804,7 +804,7 @@ namespace output {
     void SemanticVisitor::visit(ast::If& node) {
         node.condition->accept(*this);
 
-        std::string condition_reg = buffer.freshVar();
+        std::string condition_reg = node.condition->reg;
         std::string label_01 = buffer.freshLabel();
         std::string label_01_name = label_01;
         label_01_name.erase(0,1);
@@ -814,7 +814,6 @@ namespace output {
         std::string label_03 = buffer.freshLabel();
         std::string label_03_name = label_03;
         label_03_name.erase(0,1);
-        buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
         buffer << "br i1 " << condition_reg << ", label " << label_01 << ", label " << label_02 << std::endl;
         buffer << label_01_name << ":" << std::endl;
 
@@ -838,7 +837,7 @@ namespace output {
     }
 
     void SemanticVisitor::visit(ast::While& node) {
-        std::string condition_reg = buffer.freshVar();
+        std::string condition_reg = node.condition->reg;
         std::string label_01 = buffer.freshLabel();
         std::string label_01_name = label_01;
         label_01_name.erase(0,1);
@@ -853,7 +852,6 @@ namespace output {
         buffer << label_01_name << ":" << std::endl;
         node.condition->accept(*this);
         
-        buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
         buffer << "br i1 " << condition_reg << ", label " << label_02 << ", label " << label_03 << std::endl;
         buffer << label_02_name << ":" << std::endl;
         
