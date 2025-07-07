@@ -507,7 +507,7 @@ namespace output {
             errorUndef(node.line, node.value);
         }
 
-        int stack_offset = vars_info(node.value).offset;;
+        int stack_offset = vars_info(node.value).offset;
         std::string element_ptr_reg = buffer.freshVar();
         buffer << element_ptr_reg << " = getelementptr i32, i32* %stack, i32 " << stack_offset << std::endl;
 
