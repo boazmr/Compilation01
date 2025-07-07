@@ -726,7 +726,7 @@ namespace output {
         }
 
         node.exp->accept(*this);
-        buffer << "ret i32 " << node.reg << std::endl;
+        buffer << "ret i32 " << node.exp->reg << std::endl;
 
     }
 
@@ -735,11 +735,17 @@ namespace output {
 
         std::string condition_reg = buffer.freshVar();
         std::string label_01 = buffer.freshLabel();
+        std::string label_01_name = label_01;
+        label_01_name.erase(0,1);
         std::string label_02 = buffer.freshLabel();
+        std::string label_02_name = label_02;
+        label_02_name.erase(0,1);
         std::string label_03 = buffer.freshLabel();
+        std::string label_03_name = label_03;
+        label_03_name.erase(0,1);
         buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
         buffer << "br i1 " << condition_reg << ", label " << label_01 << ", label " << label_02 << std::endl;
-        buffer << label_01.erase(0,1) << ":" << std::endl;
+        buffer << label_01_name << ":" << std::endl;
 
         // create a new scope for the ‘if’.
         scopePrinter.beginScope();
@@ -747,7 +753,7 @@ namespace output {
         scopePrinter.endScope();
 
         buffer << "br label " << label_03 << std::endl;
-        buffer << label_02.erase(0,1) << ":" << std::endl;
+        buffer << label_02_name << ":" << std::endl;
 
         // Also check if 'else' creates a new block.
         if (node.otherwise) {
@@ -756,20 +762,29 @@ namespace output {
             scopePrinter.endScope();
         }
 
-        buffer << label_03.erase(0,1) << ":" << std::endl;
+        buffer << "br label " << label_03 << std::endl;
+        buffer << label_03_name << ":" << std::endl;
     }
 
     void SemanticVisitor::visit(ast::While& node) {
+        std::string condition_reg = buffer.freshVar();
         std::string label_01 = buffer.freshLabel();
-        buffer << label_01.erase(0,1) << std::endl;
+        std::string label_01_name = label_01;
+        label_01_name.erase(0,1);
+        std::string label_02 = buffer.freshLabel();
+        std::string label_02_name = label_02;
+        label_02_name.erase(0,1);
+        std::string label_03 = buffer.freshLabel();
+        std::string label_03_name = label_03;
+        label_03_name.erase(0,1);
+
+        buffer << "br label " << label_01 << std::endl;
+        buffer << label_01_name << ":" << std::endl;
         node.condition->accept(*this);
         
-        std::string condition_reg = buffer.freshVar();
-        std::string label_02 = buffer.freshLabel();
-        std::string label_03 = buffer.freshLabel();
         buffer << condition_reg << " = icmp eq i32 1, " << node.condition->reg << std::endl;
         buffer << "br i1 " << condition_reg << ", label " << label_02 << ", label " << label_03 << std::endl;
-        buffer << label_02.erase(0,1) << ":" << std::endl;
+        buffer << label_02_name << ":" << std::endl;
         
         // open the loop scope.
         scopePrinter.beginScope();
@@ -779,7 +794,7 @@ namespace output {
         scopePrinter.endScope();
 
         buffer << "br label " << label_01 << std::endl;
-        buffer << label_03.erase(0,1) << std::endl;
+        buffer << label_03_name << ":" << std::endl;
         loop_end_labels.push(label_03);
     }
 
@@ -801,8 +816,8 @@ namespace output {
 
         ast::BuiltInType node_type = find_type(node.type);
 
+        int arr_length = -1;
         if (auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
-            int arr_length = -1;
             if(auto num = std::dynamic_pointer_cast<ast::Num>(arr->length)){ // if length is num
                 arr_length = num->value;
             }
@@ -839,10 +854,11 @@ namespace output {
             node.reg = buffer.freshVar();
             // Set default values for the new variable.
 
+            
             // Set default values for array -> create an empty array. Save a pointer to array start.
             if(auto arr = std::dynamic_pointer_cast<ast::ArrayType>(node.type)){
-                // Initialize a null ptr
-                buffer << node.reg << " = add i32* 0, 0" << std::endl;
+                // Initialize a new pointer to empty array.
+                buffer << node.reg << " = alloca i32, i32 " << std::to_string(arr_length)  << std::endl;
             }
             else{
                 buffer << node.reg << " = " << "add i32 0, 0" << std::endl;
@@ -1021,7 +1037,15 @@ namespace output {
 
             node.body->accept(*this);
 
-            // CHeck if the last command is ret -> if not, add a return statement.
+            // Check if the last command is ret -> if not, add a return statement.
+            if(! std::dynamic_pointer_cast<ast::Return>((node.body->statements).back())){
+                if(return_type_name == "i32"){
+                    buffer << "ret i32 0" << std::endl;
+                }
+                else{
+                    buffer << "ret void" << std::endl;
+                }
+            }
 
             buffer << "}" << std::endl;
             buffer << std::endl;
